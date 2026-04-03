@@ -4,11 +4,13 @@ using System;
 public partial class Player : CharacterBody3D
 {	
 	[Export]
-	public int Acelleration { get; set; } = 5;
+	public float Acelleration { get; set; } = .5f;
 	[Export]
-	public int VerticalAcelleration { get; set; } = 3;
-	public int MaxSpeed { get; set; } = 10;
+	public float VerticalAcelleration { get; set; } = .4f;
+	public float MaxSpeed { get; set; } = 2;
 	public float CameraSensitivity { get; set; } = .006f;
+
+	public float currentSpeed = 0;
 	public Camera3D camera3D;
 
 	public override void _Ready()
@@ -27,8 +29,12 @@ public partial class Player : CharacterBody3D
 
 		Vector3 input3 = (camera3D.GlobalTransform.Basis * new Vector3(input.X, inputY, input.Y));
 
+		input3 = input3.Normalized() * Math.Min(input3.Length(), MaxSpeed);
+
 
 		Velocity = Velocity += input3 * (float)delta;
+
+		currentSpeed = Velocity.Length();
 		MoveAndSlide();
 	}
 

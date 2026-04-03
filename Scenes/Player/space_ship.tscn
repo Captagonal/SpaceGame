@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://dunugb2m1rtoc"]
+
+[ext_resource type="Script" uid="uid://dbrmdvvv716ec" path="res://Scenes/Player/SpaceShip.cs" id="1_3xiha"]
+[ext_resource type="PackedScene" uid="uid://dn6g484a5cau5" path="res://Assets/Blender Assets/SpaceShip.blend" id="1_4yuoo"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_3xiha"]
+
+[node name="SpaceShip" type="CharacterBody3D" unique_id=203800574]
+script = ExtResource("1_3xiha")
+
+[node name="SpaceShip" parent="." unique_id=245826590 instance=ExtResource("1_4yuoo")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1361676329]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.134632, 0, 0)
+shape = SubResource("SphereShape3D_3xiha")
+
+[editable path="SpaceShip"]
