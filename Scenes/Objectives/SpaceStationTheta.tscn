@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://c51tdpwu6tcj0"]
+
+[ext_resource type="PackedScene" uid="uid://bdjtnwjqa7rjl" path="res://Assets/Blender Assets/SpaceStationTheta.blend" id="1_txkfa"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_txkfa"]
+size = Vector3(84.39209, 88.885376, 120.91516)
+
+[node name="SpaceStationTheta" type="Node3D" unique_id=1795427457]
+
+[node name="SpaceStationTheta" parent="." unique_id=2108691884 instance=ExtResource("1_txkfa")]
+
+[node name="Area3D" type="Area3D" parent="." unique_id=41219214 groups=["docking"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -317.6867)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1822242123]
+shape = SubResource("BoxShape3D_txkfa")

@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class SpaceShip : CharacterBody3D
 {
@@ -18,6 +19,12 @@ public partial class SpaceShip : CharacterBody3D
 
 	private MeshInstance3D rope;
 	private ImmediateMesh ropeMesh;
+
+	private Node2D HUD;
+	Label transmissionLabel;
+	Timer transmissionTimer;
+	AudioStreamPlayer transmissionSound;
+	List<Passenger> passengers = new List<Passenger>();
 	public override void _Ready()
 	{
 		_head = GetNode<Node3D>("Head");
@@ -29,6 +36,14 @@ public partial class SpaceShip : CharacterBody3D
 		player.Visible = false;
 		player.SetPhysicsProcess(false);
 		Input.MouseMode = Input.MouseModeEnum.Captured;
+
+		HUD = GetNode<CanvasLayer>("CanvasLayer").GetNode<Node2D>("HUD");
+		transmissionLabel = HUD.GetNode<Control>("ReferenceRect").GetNode<Label>("Transmission");
+		transmissionTimer = transmissionLabel.GetNode<Timer>("TransmissionTimer");
+		transmissionSound = transmissionLabel.GetNode<AudioStreamPlayer>("TransmissionSound");
+		transmissionTimer.Timeout += MakeMessage;
+
+		
 	}
 	public override void _PhysicsProcess(double delta)
 	{
@@ -70,6 +85,7 @@ public partial class SpaceShip : CharacterBody3D
 		speed = Velocity.Dot(GlobalTransform.Basis.X.Normalized());
 		MoveAndSlide();
 		_camera.Fov = Mathf.Lerp(_camera.Fov, 70 + speed * 0.3f, 0.1f);
+		HUD.GetNode<Control>("ReferenceRect").GetNode<Label>("Speed").Text = "Current Speed: " + speed.ToString("F2") + " m/s";
 
 		if (Input.IsActionJustPressed("EnterShip"))
 		{
@@ -111,7 +127,7 @@ public partial class SpaceShip : CharacterBody3D
 
 		}
 	}
-	Boolean inShip = true;
+	bool inShip = true;
 	public void ExitShip()
 	{
 		var ropeLength = (new Vector3(0, 0, -1.252f) - new Vector3(player.Position.X, player.Position.Y - .5f, player.Position.Z)).Length();
@@ -120,14 +136,18 @@ public partial class SpaceShip : CharacterBody3D
 		{
 			inShip = false;
 			GD.Print("Exiting Ship");
-			player.Position = new Vector3(0, 0 , -2.265f);
+			player.Position = new Vector3(0, 0, -2.265f);
 			player.Visible = true;
 			player.GetNode<CanvasLayer>("CanvasLayer").Visible = true;
 			player.SetPhysicsProcess(true);
 			player.GetNode<Camera3D>("Camera3D").Current = true;
+			GetNode<CanvasLayer>("CanvasLayer").Visible = false;
+
 			SetPhysicsProcess(false);
 			rope.Visible = true;
-		} else {
+		}
+		else
+		{
 			if (ropeLength > 5)
 			{
 				return;
@@ -137,12 +157,78 @@ public partial class SpaceShip : CharacterBody3D
 			player.Visible = false;
 			player.SetPhysicsProcess(false);
 			player.GetNode<CanvasLayer>("CanvasLayer").Visible = false;
-
+			GetNode<CanvasLayer>("CanvasLayer").Visible = true;
 			_camera.Current = true;
 			SetPhysicsProcess(true);
-			 rope.Visible = false;
-			 ropeMesh.ClearSurfaces();
+			rope.Visible = false;
+			ropeMesh.ClearSurfaces();
 		}
 
+	}
+
+	int messageIndex = 0;
+	const int charsOnScreen = 35;
+	char[] messageChars;
+	public void DisplayTransmission(String message)
+	{
+		transmissionSound.Play();
+		transmissionLabel.Text = "Receiving Data...";
+		transmissionLabel.Show();
+
+		transmissionTimer.Start();
+		messageChars = message.ToCharArray();
+		messageIndex = 0;
+
+
+	}
+
+	public void MakeMessage()
+	{
+		// GD.Print("Transmission Timer Tick");
+		// GD.Print("Current Transmission Text: " + transmissionLabel.Text);
+		// GD.Print("Message Index: " + messageIndex);
+		if (messageIndex < messageChars.Length)
+		{
+			messageIndex++;
+			transmissionLabel.Text += messageChars[messageIndex - 1];
+			if (transmissionLabel.Text.Length > charsOnScreen)
+			{
+				transmissionLabel.Text = transmissionLabel.Text.Substring(transmissionLabel.Text.Length - charsOnScreen);
+			}
+		}
+		else
+		{
+			transmissionTimer.Stop();
+			transmissionLabel.Hide();
+		}
+	}
+
+
+	public void Docking(Area3D targetDockingPoint){
+		//Fly towards station, then when close enough, snap to station and disable movement until undocked
+		SetPhysicsProcess(false);
+
+    	// Create the tween
+   	 Tween tween = GetTree().CreateTween().SetParallel(true);
+    
+    // EaseOut means it starts fast and slows down as it reaches the port
+    tween.SetTrans(Tween.TransitionType.Cubic);
+    tween.SetEase(Tween.EaseType.Out);
+
+    // Slide to position and match rotation
+    tween.TweenProperty(this, "global_position", targetDockingPoint.GlobalPosition, 3.0f);
+    tween.TweenProperty(this, "global_rotation", targetDockingPoint.GlobalRotation, 3.0f);
+	RemoveAllPassengers();
+    tween.Finished += () => SetPhysicsProcess(true);
+	}
+
+	public void RemoveAllPassengers(){
+		if (passengers.Count > 0){
+			DisplayTransmission("Thank you for the ride Guardian");
+			foreach (Passenger passenger in passengers){
+				passenger.QueueFree();
+			}
+			passengers.Clear();
+		}
 	}
 }

@@ -3,8 +3,14 @@
 [ext_resource type="Script" uid="uid://dbrmdvvv716ec" path="res://Scenes/Player/SpaceShip.cs" id="1_3xiha"]
 [ext_resource type="PackedScene" uid="uid://dn6g484a5cau5" path="res://Assets/Blender Assets/SpaceShip.blend" id="1_4yuoo"]
 [ext_resource type="PackedScene" uid="uid://bixd4b6guwuqi" path="res://Scenes/Player/player.tscn" id="3_wrieg"]
+[ext_resource type="Shader" uid="uid://dlqgjlks6fxdm" path="res://Scenes/Player/player.gdshader" id="4_xaeba"]
+[ext_resource type="FontFile" uid="uid://cbiyddf4eyjv5" path="res://Assets/Bitcount_Grid_Double/static/BitcountGridDouble_Roman-Medium.ttf" id="5_p4c8t"]
+[ext_resource type="FontFile" uid="uid://ct2qfl48dxle4" path="res://Assets/Bitcount_Grid_Double/static/BitcountGridDouble_Cursive-Regular.ttf" id="6_bvfgm"]
+[ext_resource type="AudioStream" uid="uid://d3nexvpc061bg" path="res://Assets/Sounds/Incoming.wav" id="7_nv2yn"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_3xiha"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xaeba"]
+radius = 0.9276428
+height = 14.941889
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_3xiha"]
 auto_exposure_scale = 0.3
@@ -16,15 +22,39 @@ auto_exposure_min_sensitivity = 70.9
 [sub_resource type="BoxMesh" id="BoxMesh_wrieg"]
 size = Vector3(1.17, 0.65, 0.27)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vobda"]
+shader = ExtResource("4_xaeba")
+shader_parameter/effect_amount = -0.8389999211024999
+
+[sub_resource type="LabelSettings" id="LabelSettings_sm5ja"]
+font = ExtResource("5_p4c8t")
+font_size = 100
+font_color = Color(0.76862746, 1, 0.827451, 1)
+shadow_size = 27
+shadow_color = Color(0, 0.827451, 0, 0.62352943)
+shadow_offset = Vector2(0.665, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_cf1d8"]
+font = ExtResource("6_bvfgm")
+font_size = 61
+font_color = Color(0.76862746, 1, 0.827451, 1)
+shadow_size = 14
+shadow_color = Color(0, 0.49411765, 0, 0.6392157)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xaeba"]
+size = Vector3(4.27063, 5.5080566, 6.0117188)
+
 [node name="SpaceShip" type="CharacterBody3D" unique_id=203800574]
+collision_layer = 0
+collision_mask = 0
 motion_mode = 1
 script = ExtResource("1_3xiha")
 
 [node name="SpaceShip" parent="." unique_id=1065074208 instance=ExtResource("1_4yuoo")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1361676329]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.134632, 0, 0)
-shape = SubResource("SphereShape3D_3xiha")
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -3.795147, 0.21220694, -4.7683716e-07)
+shape = SubResource("CapsuleShape3D_xaeba")
 
 [node name="Head" type="Node3D" parent="." unique_id=626169599]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.33115315, 1.4914349, 0)
@@ -33,6 +63,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.33115315, 1.4914349, 0)
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.26812112, 0, 0)
 attributes = SubResource("CameraAttributesPractical_3xiha")
 current = true
+far = 8000.0
 
 [node name="ShipTimer" type="Timer" parent="." unique_id=856729568]
 wait_time = 3.0
@@ -48,4 +79,62 @@ mesh = SubResource("BoxMesh_wrieg")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.2653613)
 visible = false
 
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1305041848]
+follow_viewport_scale = 121.37
+
+[node name="HUD" type="CanvasGroup" parent="CanvasLayer" unique_id=912072874]
+material = SubResource("ShaderMaterial_vobda")
+position = Vector2(-656, -334)
+scale = Vector2(1.77, 1.77)
+fit_margin = 100.0
+
+[node name="ReferenceRect" type="ReferenceRect" parent="CanvasLayer/HUD" unique_id=1436759103]
+offset_left = 374.61194
+offset_top = 200.0
+offset_right = 1851.8025
+offset_bottom = 990.9241
+scale = Vector2(0.4333072, 0.4333072)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+border_color = Color(0.30908248, 0.5697499, 0.7081134, 1)
+border_width = 5.0
+editor_only = false
+
+[node name="Speed" type="Label" parent="CanvasLayer/HUD/ReferenceRect" unique_id=1090602103]
+layout_mode = 0
+offset_left = 32.270523
+offset_top = 16.950172
+offset_right = 1021.2705
+offset_bottom = 204.95016
+scale = Vector2(0.43330723, 0.43330723)
+text = "Current Speed:"
+label_settings = SubResource("LabelSettings_sm5ja")
+
+[node name="Transmission" type="Label" parent="CanvasLayer/HUD/ReferenceRect" unique_id=658839405]
+visible = false
+layout_mode = 0
+offset_left = 11.408783
+offset_top = 721.03436
+offset_right = 862.4088
+offset_bottom = 820.03436
+text = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+label_settings = SubResource("LabelSettings_cf1d8")
+
+[node name="TransmissionTimer" type="Timer" parent="CanvasLayer/HUD/ReferenceRect/Transmission" unique_id=1254112926]
+wait_time = 0.4
+
+[node name="TransmissionSound" type="AudioStreamPlayer" parent="CanvasLayer/HUD/ReferenceRect/Transmission" unique_id=832066116]
+stream = ExtResource("7_nv2yn")
+pitch_scale = 1.66
+mix_target = 1
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1385519226]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1351985792]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9727402, 0, 0)
+shape = SubResource("BoxShape3D_xaeba")
+
 [connection signal="timeout" from="ShipTimer" to="." method="ExitShip"]
+[connection signal="area_entered" from="Area3D" to="." method="Docking"]

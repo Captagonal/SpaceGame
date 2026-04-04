@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://c1upripwrk1wo"]
 
+[ext_resource type="Script" uid="uid://bc2j6y0xan6p5" path="res://Scenes/Objectives/Passenger.cs" id="1_jl55m"]
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_lu832"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_jl55m"]
@@ -8,6 +10,7 @@
 radius = 1.1274161
 
 [node name="StrandedPerson" type="Node3D" unique_id=1050291092]
+script = ExtResource("1_jl55m")
 
 [node name="Person" type="RigidBody3D" parent="." unique_id=1185096006]
 gravity_scale = 0.0
