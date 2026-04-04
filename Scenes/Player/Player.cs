@@ -17,6 +17,9 @@ public partial class Player : CharacterBody3D
 	private MeshInstance3D rope;
 	private ImmediateMesh ropeMesh;
 
+	private float MAXropeLength = 14;
+	private float ropeLength = 0;
+
 	public override void _Ready()
 	{
 		camera3D = GetNode<Camera3D>("Camera3D");
@@ -34,7 +37,7 @@ public partial class Player : CharacterBody3D
 
 		float inputY = (Input.GetActionStrength("MoveUp") - Input.GetActionStrength("MoveDown")) * VerticalAcelleration;
 
-		Vector3 input3 = (camera3D.GlobalTransform.Basis * new Vector3(input.X, inputY, input.Y));
+		Vector3 input3 = (this.GlobalTransform.Basis * new Vector3(input.X, inputY, input.Y));
 
 		input3 = input3.Normalized() * Math.Min(input3.Length(), MaxSpeed);
 
@@ -63,13 +66,21 @@ public partial class Player : CharacterBody3D
 		ropeMesh.SurfaceBegin(Mesh.PrimitiveType.Lines);
 		ropeMesh.SurfaceSetNormal(Vector3.Up);
 		ropeMesh.SurfaceSetUV(Vector2.Zero);
-		ropeMesh.SurfaceAddVertex(Vector3.Zero);
-		GD.Print("Player Position: " + GetParent<Node3D>().GlobalTransform.Origin);
+		ropeMesh.SurfaceAddVertex(new Vector3(0,0,-1.252f));
+		// GD.Print("Player Position: " + GetParent<Node3D>().GlobalTransform.Origin);
 		ropeMesh.SurfaceSetNormal(Vector3.Up);
 		ropeMesh.SurfaceSetUV(Vector2.Zero);
 		ropeMesh.SurfaceAddVertex(new Vector3(Position.X, Position.Y-.5f, Position.Z));
-		GD.Print("Rope End Position: " + Position);
+		// GD.Print("Rope End Position: " + Position);
 		ropeMesh.SurfaceEnd();
+		ropeLength = (new Vector3(0, 0, -1.252f) - new Vector3(Position.X, Position.Y - .5f, Position.Z)).Length();
+		if (ropeLength > MAXropeLength)
+		{
+			Vector3 ropeDirection = (new Vector3(0, 0, -1.252f) - new Vector3(Position.X, Position.Y - .5f, Position.Z)).Normalized();
+			Vector3 targetPosition = new Vector3(0, 0, -1.252f) - ropeDirection * MAXropeLength;
+			Position = targetPosition + new Vector3(0, .5f, 0);
+			Velocity = Velocity.Lerp(Vector3.Zero, 0.5f * (float)delta);
+		}
 
 	}
 
@@ -81,12 +92,13 @@ public partial class Player : CharacterBody3D
 
 
 			this.RotateY(-mouseMotion.Relative.X * CameraSensitivity);
-			camera3D.RotateX(-mouseMotion.Relative.Y * CameraSensitivity);
-			Vector3 camRotation = camera3D.Rotation;
+			// this.RotateX(-mouseMotion.Relative.Y * CameraSensitivity);
+			RotateObjectLocal(Vector3.Right, -mouseMotion.Relative.Y * CameraSensitivity);
+			Vector3 camRotation = this.Rotation;
 
 			// camRotation.X = Mathf.Clamp(camRotation.X, Mathf.DegToRad(-80f), Mathf.DegToRad(80f));
 
-			camera3D.Rotation = camRotation;
+			this.Rotation = camRotation;
 		}
 		else if (@event is InputEventKey keyEvent && keyEvent.IsPressed() && keyEvent.Keycode == Key.Escape)
 		{

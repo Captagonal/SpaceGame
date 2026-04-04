@@ -1,19 +1,21 @@
 [gd_scene format=3 uid="uid://bixd4b6guwuqi"]
 
 [ext_resource type="Script" uid="uid://cdtpk3dnkowv4" path="res://Scenes/Player/Player.cs" id="1_uvnfx"]
+[ext_resource type="PackedScene" uid="uid://cphd4sfroi041" path="res://Assets/Blender Assets/Player.blend" id="2_a3d8c"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_cvnsp"]
-
-[sub_resource type="SphereMesh" id="SphereMesh_6t5aa"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xpcdj"]
+height = 2.253662
 
 [node name="Player" type="CharacterBody3D" unique_id=540873997]
 motion_mode = 1
 script = ExtResource("1_uvnfx")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1307101928]
-shape = SubResource("SphereShape3D_cvnsp")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=259759133]
-mesh = SubResource("SphereMesh_6t5aa")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.58172345, 0)
+shape = SubResource("CapsuleShape3D_xpcdj")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1086164193]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.04332462, -0.44728875)
+
+[node name="Player" parent="." unique_id=1591568616 instance=ExtResource("2_a3d8c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.6480742, 0)
