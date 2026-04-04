@@ -12,10 +12,13 @@ public partial class Player : CharacterBody3D
 
 	public float currentSpeed = 0;
 	public Camera3D camera3D;
+	private Timer shipTimer;
+
 
 	public override void _Ready()
 	{
 		camera3D = GetNode<Camera3D>("Camera3D");
+		shipTimer = GetParent().GetNode<Timer>("ShipTimer");
 	}
 	public override void _PhysicsProcess(double delta)
 	{
@@ -36,6 +39,19 @@ public partial class Player : CharacterBody3D
 
 		currentSpeed = Velocity.Length();
 		MoveAndSlide();
+
+		if (Input.IsActionPressed("Stop"))
+		{
+			Velocity = Velocity.Lerp(Vector3.Zero, 0.5f * (float)delta);
+		}
+
+		if (Input.IsActionJustPressed("EnterShip"))
+		{
+			shipTimer.Start();
+		} else if (Input.IsActionJustReleased("EnterShip"))
+		{
+			shipTimer.Stop();
+		}
 	}
 
 	public override void _Input(InputEvent @event)
