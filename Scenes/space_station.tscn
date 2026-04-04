@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://pu1m4j42s5xa"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_q6fvt"]
+size = Vector3(80, 39.54, 38.985)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gajh3"]
+albedo_color = Color(0.09803922, 0.3019608, 1, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_vwx4h"]
+material = SubResource("StandardMaterial3D_gajh3")
+top_radius = 5.0
+bottom_radius = 5.0
+height = 5.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xo6ra"]
+size = Vector3(79.6814, 40.06128, 39.41626)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_k14jf"]
+radius = 6.0075765
+
+[node name="Space Station" type="StaticBody3D" unique_id=1643447937]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=367069081]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.574715, 0, 0)
+mesh = SubResource("BoxMesh_q6fvt")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=351198564]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 8.968233, 0, 0)
+mesh = SubResource("CylinderMesh_vwx4h")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1702263403]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.840698, -0.09655762, 0.791626)
+shape = SubResource("BoxShape3D_xo6ra")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1298385162]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.280332, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=384942410]
+shape = SubResource("SphereShape3D_k14jf")

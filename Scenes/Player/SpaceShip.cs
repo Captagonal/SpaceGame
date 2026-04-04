@@ -120,7 +120,7 @@ public partial class SpaceShip : CharacterBody3D
 		{
 			inShip = false;
 			GD.Print("Exiting Ship");
-			player.GlobalTransform = this.GlobalTransform.Translated(this.GlobalTransform.Basis.X * 2);
+			player.Position = new Vector3(0, 0 , -2.265f);
 			player.Visible = true;
 			player.GetNode<CanvasLayer>("CanvasLayer").Visible = true;
 			player.SetPhysicsProcess(true);

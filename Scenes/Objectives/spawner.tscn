@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dqwyonkjg2icr"]
+
+[ext_resource type="Script" uid="uid://kue8oeopcry0" path="res://Scenes/Objectives/Spawner.cs" id="1_l7cq3"]
+
+[node name="Spawner" type="Node3D" unique_id=308144453]
+script = ExtResource("1_l7cq3")
