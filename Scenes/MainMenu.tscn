@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://3tk15t1tkoco"]
+
+[ext_resource type="Script" uid="uid://c83am78jb85q0" path="res://Scenes/MainMenu.cs" id="1_tt5f1"]
+[ext_resource type="Texture2D" uid="uid://cgp56vhjfykt7" path="res://icon.svg" id="2_853f1"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_853f1"]
+font_size = 71
+
+[sub_resource type="LabelSettings" id="LabelSettings_8saeu"]
+font_size = 50
+
+[node name="MainMenu" type="Control" unique_id=1361869593]
+layout_mode = 3
+offset_bottom = -188.56801
+script = ExtResource("1_tt5f1")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=919779188]
+layout_mode = 0
+offset_right = 1149.0
+offset_bottom = 650.0
+texture = ExtResource("2_853f1")
+stretch_mode = 1
+
+[node name="Label" type="Label" parent="." unique_id=867038600]
+layout_mode = 0
+offset_left = 172.0
+offset_top = 76.0
+offset_right = 652.0
+offset_bottom = 173.0
+text = "Space Game :3"
+label_settings = SubResource("LabelSettings_853f1")
+
+[node name="Start" type="Button" parent="." unique_id=1737228467]
+layout_mode = 0
+offset_left = 186.0
+offset_top = 196.0
+offset_right = 631.0
+offset_bottom = 264.0
+
+[node name="Label" type="Label" parent="Start" unique_id=1307946897]
+layout_mode = 0
+offset_left = 12.0
+offset_right = 445.0
+offset_bottom = 69.0
+text = "Start"
+label_settings = SubResource("LabelSettings_8saeu")
+
+[node name="Settings" type="Button" parent="." unique_id=1061729881]
+layout_mode = 0
+offset_left = 186.0
+offset_top = 296.0
+offset_right = 631.0
+offset_bottom = 364.0
+
+[node name="Label" type="Label" parent="Settings" unique_id=985048620]
+layout_mode = 0
+offset_left = 12.0
+offset_right = 445.0
+offset_bottom = 69.0
+text = "Settings"
+label_settings = SubResource("LabelSettings_8saeu")
+
+[node name="Quit" type="Button" parent="." unique_id=2032727059]
+layout_mode = 0
+offset_left = 186.0
+offset_top = 412.0
+offset_right = 631.0
+offset_bottom = 480.0
+
+[node name="Label" type="Label" parent="Quit" unique_id=1074170604]
+layout_mode = 0
+offset_left = 12.0
+offset_right = 445.0
+offset_bottom = 69.0
+text = "Quit"
+label_settings = SubResource("LabelSettings_8saeu")
+
+[connection signal="pressed" from="Start" to="." method="start"]
+[connection signal="pressed" from="Settings" to="." method="settings"]
+[connection signal="pressed" from="Quit" to="." method="quit"]
