@@ -16,7 +16,9 @@ public partial class Player : CharacterBody3D
 
 	private MeshInstance3D rope;
 	private ImmediateMesh ropeMesh;
-
+	Label transmissionLabel;
+	Timer transmissionTimer;
+	AudioStreamPlayer transmissionSound;
 	private float MAXropeLength = 14;
 	private float ropeLength = 0;
 	private Node2D HUD;
@@ -27,6 +29,10 @@ public partial class Player : CharacterBody3D
 		rope = GetParent().GetNode<MeshInstance3D>("Rope");
 		ropeMesh = rope.Mesh as ImmediateMesh;
 		HUD = GetNode<CanvasLayer>("CanvasLayer").GetNode<Node2D>("HUD");
+		transmissionLabel = HUD.GetNode<Control>("ReferenceRect").GetNode<Label>("Transmission");
+		transmissionTimer = transmissionLabel.GetNode<Timer>("TransmissionTimer");
+		transmissionSound = transmissionLabel.GetNode<AudioStreamPlayer>("TransmissionSound");
+		transmissionTimer.Timeout += MakeMessage;
 	}
 	public override void _PhysicsProcess(double delta)
 	{
@@ -68,11 +74,11 @@ public partial class Player : CharacterBody3D
 		ropeMesh.SurfaceBegin(Mesh.PrimitiveType.Lines);
 		ropeMesh.SurfaceSetNormal(Vector3.Up);
 		ropeMesh.SurfaceSetUV(Vector2.Zero);
-		ropeMesh.SurfaceAddVertex(new Vector3(0,0,-1.252f));
+		ropeMesh.SurfaceAddVertex(new Vector3(0, 0, -1.252f));
 		// GD.Print("Player Position: " + GetParent<Node3D>().GlobalTransform.Origin);
 		ropeMesh.SurfaceSetNormal(Vector3.Up);
 		ropeMesh.SurfaceSetUV(Vector2.Zero);
-		ropeMesh.SurfaceAddVertex(new Vector3(Position.X, Position.Y-.5f, Position.Z));
+		ropeMesh.SurfaceAddVertex(new Vector3(Position.X, Position.Y - .5f, Position.Z));
 		// GD.Print("Rope End Position: " + Position);
 		ropeMesh.SurfaceEnd();
 		ropeLength = (new Vector3(0, 0, -1.252f) - new Vector3(Position.X, Position.Y - .5f, Position.Z)).Length();
@@ -84,9 +90,9 @@ public partial class Player : CharacterBody3D
 			Velocity = Velocity.Lerp(Vector3.Zero, 0.9f * (float)delta);
 		}
 		HUD.GetNode<Control>("ReferenceRect").GetNode<Label>("Speed").Text = "Current Speed: " + currentSpeed.ToString("F2") + " m/s";
-		
+
 		float rotatespeed = Input.GetActionStrength("rotatePlayerRight") - Input.GetActionStrength("rotatePlayerLeft");
-		RotateObjectLocal(Vector3.Forward, rotatespeed*.02f);
+		RotateObjectLocal(Vector3.Forward, rotatespeed * .02f);
 
 	}
 
@@ -115,36 +121,40 @@ public partial class Player : CharacterBody3D
 
 		}
 	}
-
-	public void DisplayTransmission(String message){
-		Label transmissionLabel = HUD.GetNode<Control>("ReferenceRect").GetNode<Label>("Transmission");
+	int messageIndex = 0;
+	const int charsOnScreen = 17;
+	char[] messageChars;
+	public void DisplayTransmission(String message)
+	{
+		transmissionSound.Play();
 		transmissionLabel.Text = "Receiving Data...";
 		transmissionLabel.Show();
-		Timer transmissionTimer = HUD.GetNode<Control>("ReferenceRect").GetNode<Timer>("TransmissionTimer");
+
 		transmissionTimer.Start();
-		char[] messageChars = message.ToCharArray();
-		int messageIndex = 0;
-		const int charsOnScreen = 17;
-		
-		transmissionTimer.Timeout += () =>
-		 {
-			GD.Print("Transmission Timer Tick");
-			GD.Print("Current Transmission Text: " + transmissionLabel.Text);
-			GD.Print("Message Index: " + messageIndex);
-			 if (messageIndex < messageChars.Length)
-			 {
-				 messageIndex++;
-				 transmissionLabel.Text += messageChars[messageIndex-1];
-				 if (transmissionLabel.Text.Length > charsOnScreen)
-				 {
-					 transmissionLabel.Text = transmissionLabel.Text.Substring(transmissionLabel.Text.Length - charsOnScreen);
-				 }
-			 }
-			 else
-			 {
-				 transmissionTimer.Stop();
-				 transmissionLabel.Hide();
-			 }
-		 };
+		messageChars = message.ToCharArray();
+		messageIndex = 0;
+
+
+	}
+
+	public void MakeMessage()
+	{
+		// GD.Print("Transmission Timer Tick");
+		// GD.Print("Current Transmission Text: " + transmissionLabel.Text);
+		// GD.Print("Message Index: " + messageIndex);
+		if (messageIndex < messageChars.Length)
+		{
+			messageIndex++;
+			transmissionLabel.Text += messageChars[messageIndex - 1];
+			if (transmissionLabel.Text.Length > charsOnScreen)
+			{
+				transmissionLabel.Text = transmissionLabel.Text.Substring(transmissionLabel.Text.Length - charsOnScreen);
+			}
+		}
+		else
+		{
+			transmissionTimer.Stop();
+			transmissionLabel.Hide();
+		}
 	}
 }

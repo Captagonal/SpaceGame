@@ -5,6 +5,7 @@
 [ext_resource type="Shader" uid="uid://dlqgjlks6fxdm" path="res://Scenes/Player/player.gdshader" id="3_xpcdj"]
 [ext_resource type="FontFile" uid="uid://cbiyddf4eyjv5" path="res://Assets/Bitcount_Grid_Double/static/BitcountGridDouble_Roman-Medium.ttf" id="4_htcer"]
 [ext_resource type="FontFile" uid="uid://ct2qfl48dxle4" path="res://Assets/Bitcount_Grid_Double/static/BitcountGridDouble_Cursive-Regular.ttf" id="5_dd0ac"]
+[ext_resource type="AudioStream" uid="uid://d3nexvpc061bg" path="res://Assets/Sounds/Incoming.wav" id="6_dd0ac"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xpcdj"]
 height = 2.253662
@@ -83,5 +84,10 @@ offset_bottom = 820.03436
 text = "xxxxxxxxxxxxxxxxxx"
 label_settings = SubResource("LabelSettings_0u5uq")
 
-[node name="TransmissionTimer" type="Timer" parent="CanvasLayer/HUD/ReferenceRect" unique_id=324643082]
+[node name="TransmissionTimer" type="Timer" parent="CanvasLayer/HUD/ReferenceRect/Transmission" unique_id=324643082]
 wait_time = 0.4
+
+[node name="TransmissionSound" type="AudioStreamPlayer" parent="CanvasLayer/HUD/ReferenceRect/Transmission" unique_id=2103609709]
+stream = ExtResource("6_dd0ac")
+pitch_scale = 1.66
+mix_target = 1
