@@ -2,7 +2,7 @@ using Godot;
 using System;
 
 public partial class Player : CharacterBody3D
-{	
+{
 	[Export]
 	public float Acelleration { get; set; } = .5f;
 	[Export]
@@ -14,21 +14,25 @@ public partial class Player : CharacterBody3D
 	public Camera3D camera3D;
 	private Timer shipTimer;
 
+	private MeshInstance3D rope;
+	private ImmediateMesh ropeMesh;
 
 	public override void _Ready()
 	{
 		camera3D = GetNode<Camera3D>("Camera3D");
 		shipTimer = GetParent().GetNode<Timer>("ShipTimer");
+		rope = GetParent().GetNode<MeshInstance3D>("Rope");
+		ropeMesh = rope.Mesh as ImmediateMesh;
 	}
 	public override void _PhysicsProcess(double delta)
 	{
 		Vector3 velocity = Velocity;
 
-	
 
-		Vector2 input = Input.GetVector("MoveLeft", "MoveRight", "MoveForward", "MoveBack")* Acelleration;
 
-		float inputY = (Input.GetActionStrength("MoveUp") - Input.GetActionStrength("MoveDown"))* VerticalAcelleration;
+		Vector2 input = Input.GetVector("MoveLeft", "MoveRight", "MoveForward", "MoveBack") * Acelleration;
+
+		float inputY = (Input.GetActionStrength("MoveUp") - Input.GetActionStrength("MoveDown")) * VerticalAcelleration;
 
 		Vector3 input3 = (camera3D.GlobalTransform.Basis * new Vector3(input.X, inputY, input.Y));
 
@@ -43,15 +47,30 @@ public partial class Player : CharacterBody3D
 		if (Input.IsActionPressed("Stop"))
 		{
 			Velocity = Velocity.Lerp(Vector3.Zero, 0.5f * (float)delta);
+			//testing
 		}
 
 		if (Input.IsActionJustPressed("EnterShip"))
 		{
 			shipTimer.Start();
-		} else if (Input.IsActionJustReleased("EnterShip"))
+		}
+		else if (Input.IsActionJustReleased("EnterShip"))
 		{
 			shipTimer.Stop();
 		}
+
+		ropeMesh.ClearSurfaces();
+		ropeMesh.SurfaceBegin(Mesh.PrimitiveType.Lines);
+		ropeMesh.SurfaceSetNormal(Vector3.Up);
+		ropeMesh.SurfaceSetUV(Vector2.Zero);
+		ropeMesh.SurfaceAddVertex(Vector3.Zero);
+		GD.Print("Player Position: " + GetParent<Node3D>().GlobalTransform.Origin);
+		ropeMesh.SurfaceSetNormal(Vector3.Up);
+		ropeMesh.SurfaceSetUV(Vector2.Zero);
+		ropeMesh.SurfaceAddVertex(new Vector3(Position.X, Position.Y-.5f, Position.Z));
+		GD.Print("Rope End Position: " + Position);
+		ropeMesh.SurfaceEnd();
+
 	}
 
 	public override void _Input(InputEvent @event)
@@ -71,12 +90,12 @@ public partial class Player : CharacterBody3D
 		}
 		else if (@event is InputEventKey keyEvent && keyEvent.IsPressed() && keyEvent.Keycode == Key.Escape)
 		{
-			
-			
+
+
 			Input.MouseMode = Input.MouseModeEnum.Visible;
 			// GetParent().GetNode<Control>("Settings").Visible = true;
 			GetTree().Paused = true;
-			
+
 		}
 	}
 }

@@ -37,8 +37,7 @@ current = true
 [node name="ShipTimer" type="Timer" parent="." unique_id=856729568]
 wait_time = 3.0
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=529138224]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.3375388)
+[node name="Rope" type="MeshInstance3D" parent="." unique_id=529138224]
 mesh = SubResource("ImmediateMesh_3xiha")
 
 [node name="TetherPoint" type="MeshInstance3D" parent="." unique_id=338196495]
@@ -46,7 +45,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.1165671)
 mesh = SubResource("BoxMesh_wrieg")
 
 [node name="Player" parent="." unique_id=540873997 instance=ExtResource("3_wrieg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.011519)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.2653613)
 visible = false
 
 [connection signal="timeout" from="ShipTimer" to="." method="ExitShip"]

@@ -16,12 +16,16 @@ public partial class SpaceShip : CharacterBody3D
 
 	private Player player;
 
+	private MeshInstance3D rope;
+	private ImmediateMesh ropeMesh;
 	public override void _Ready()
 	{
 		_head = GetNode<Node3D>("Head");
 		shipTimer = GetNode<Timer>("ShipTimer");
 		_camera = _head.GetNode<Camera3D>("Camera");
 		player = GetNode<Player>("Player");
+		rope = GetNode<MeshInstance3D>("Rope");
+		ropeMesh = rope.Mesh as ImmediateMesh;
 		player.Visible = false;
 		player.SetPhysicsProcess(false);
 		Input.MouseMode = Input.MouseModeEnum.Captured;
@@ -119,6 +123,7 @@ public partial class SpaceShip : CharacterBody3D
 			player.SetPhysicsProcess(true);
 			player.GetNode<Camera3D>("Camera3D").Current = true;
 			SetPhysicsProcess(false);
+			rope.Visible = true;
 		} else {
 			inShip = true;
 			GD.Print("Entering Ship");
@@ -126,6 +131,8 @@ public partial class SpaceShip : CharacterBody3D
 			player.SetPhysicsProcess(false);
 			_camera.Current = true;
 			SetPhysicsProcess(true);
+			 rope.Visible = false;
+			 ropeMesh.ClearSurfaces();
 		}
 
 	}
