@@ -10,6 +10,7 @@ radius = 1.1274161
 [node name="StrandedPerson" type="Node3D" unique_id=1050291092]
 
 [node name="Person" type="RigidBody3D" parent="." unique_id=1185096006]
+gravity_scale = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Person" unique_id=174625889]
 shape = SubResource("SphereShape3D_lu832")
@@ -17,7 +18,7 @@ shape = SubResource("SphereShape3D_lu832")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Person" unique_id=2098291273]
 mesh = SubResource("SphereMesh_jl55m")
 
-[node name="Area3D" type="Area3D" parent="Person" unique_id=919294390]
+[node name="Area3D" type="Area3D" parent="Person" unique_id=919294390 groups=["Person"]]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Person/Area3D" unique_id=1310835927]
 shape = SubResource("SphereShape3D_hf2dp")

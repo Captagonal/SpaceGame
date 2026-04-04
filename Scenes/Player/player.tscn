@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://cdtpk3dnkowv4" path="res://Scenes/Player/Player.cs" id="1_uvnfx"]
 [ext_resource type="PackedScene" uid="uid://cphd4sfroi041" path="res://Assets/Blender Assets/Player.blend" id="2_a3d8c"]
 [ext_resource type="Shader" uid="uid://dlqgjlks6fxdm" path="res://Scenes/Player/player.gdshader" id="3_xpcdj"]
+[ext_resource type="FontFile" uid="uid://cbiyddf4eyjv5" path="res://Assets/Bitcount_Grid_Double/static/BitcountGridDouble_Roman-Medium.ttf" id="4_htcer"]
+[ext_resource type="FontFile" uid="uid://ct2qfl48dxle4" path="res://Assets/Bitcount_Grid_Double/static/BitcountGridDouble_Cursive-Regular.ttf" id="5_dd0ac"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xpcdj"]
 height = 2.253662
@@ -12,10 +14,19 @@ shader = ExtResource("3_xpcdj")
 shader_parameter/effect_amount = -1.909999971975
 
 [sub_resource type="LabelSettings" id="LabelSettings_mtuoh"]
+font = ExtResource("4_htcer")
 font_size = 137
-shadow_size = 50
+font_color = Color(0.76862746, 1, 0.827451, 1)
+shadow_size = 27
 shadow_color = Color(0, 0.827451, 0, 0.62352943)
 shadow_offset = Vector2(0.665, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_0u5uq"]
+font = ExtResource("5_dd0ac")
+font_size = 61
+font_color = Color(0.76862746, 1, 0.827451, 1)
+shadow_size = 14
+shadow_color = Color(0, 0.49411765, 0, 0.6392157)
 
 [node name="Player" type="CharacterBody3D" unique_id=540873997]
 motion_mode = 1
@@ -55,9 +66,22 @@ editor_only = false
 [node name="Speed" type="Label" parent="CanvasLayer/HUD/ReferenceRect" unique_id=1505467960]
 layout_mode = 0
 offset_left = 11.539124
-offset_top = 713.11993
+offset_top = 0.00018310547
 offset_right = 1000.5391
-offset_bottom = 901.11993
+offset_bottom = 188.00018
 scale = Vector2(0.43330723, 0.43330723)
 text = "Current Speed:"
 label_settings = SubResource("LabelSettings_mtuoh")
+
+[node name="Transmission" type="Label" parent="CanvasLayer/HUD/ReferenceRect" unique_id=1234730340]
+visible = false
+layout_mode = 0
+offset_left = 11.408783
+offset_top = 721.03436
+offset_right = 862.4088
+offset_bottom = 820.03436
+text = "xxxxxxxxxxxxxxxxxx"
+label_settings = SubResource("LabelSettings_0u5uq")
+
+[node name="TransmissionTimer" type="Timer" parent="CanvasLayer/HUD/ReferenceRect" unique_id=324643082]
+wait_time = 0.4

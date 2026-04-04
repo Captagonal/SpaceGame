@@ -56,6 +56,7 @@ public partial class Player : CharacterBody3D
 
 		if (Input.IsActionJustPressed("EnterShip"))
 		{
+			DisplayTransmission("Entering Ship...");
 			shipTimer.Start();
 		}
 		else if (Input.IsActionJustReleased("EnterShip"))
@@ -83,7 +84,7 @@ public partial class Player : CharacterBody3D
 			Velocity = Velocity.Lerp(Vector3.Zero, 0.9f * (float)delta);
 		}
 		HUD.GetNode<Control>("ReferenceRect").GetNode<Label>("Speed").Text = "Current Speed: " + currentSpeed.ToString("F2") + " m/s";
-					
+		
 		float rotatespeed = Input.GetActionStrength("rotatePlayerRight") - Input.GetActionStrength("rotatePlayerLeft");
 		RotateObjectLocal(Vector3.Forward, rotatespeed*.02f);
 
@@ -113,5 +114,37 @@ public partial class Player : CharacterBody3D
 			GetTree().Paused = true;
 
 		}
+	}
+
+	public void DisplayTransmission(String message){
+		Label transmissionLabel = HUD.GetNode<Control>("ReferenceRect").GetNode<Label>("Transmission");
+		transmissionLabel.Text = "Receiving Data...";
+		transmissionLabel.Show();
+		Timer transmissionTimer = HUD.GetNode<Control>("ReferenceRect").GetNode<Timer>("TransmissionTimer");
+		transmissionTimer.Start();
+		char[] messageChars = message.ToCharArray();
+		int messageIndex = 0;
+		const int charsOnScreen = 17;
+		
+		transmissionTimer.Timeout += () =>
+		 {
+			GD.Print("Transmission Timer Tick");
+			GD.Print("Current Transmission Text: " + transmissionLabel.Text);
+			GD.Print("Message Index: " + messageIndex);
+			 if (messageIndex < messageChars.Length)
+			 {
+				 messageIndex++;
+				 transmissionLabel.Text += messageChars[messageIndex-1];
+				 if (transmissionLabel.Text.Length > charsOnScreen)
+				 {
+					 transmissionLabel.Text = transmissionLabel.Text.Substring(transmissionLabel.Text.Length - charsOnScreen);
+				 }
+			 }
+			 else
+			 {
+				 transmissionTimer.Stop();
+				 transmissionLabel.Hide();
+			 }
+		 };
 	}
 }
