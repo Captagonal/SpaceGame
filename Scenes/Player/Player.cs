@@ -83,6 +83,10 @@ public partial class Player : CharacterBody3D
 			Velocity = Velocity.Lerp(Vector3.Zero, 0.9f * (float)delta);
 		}
 		HUD.GetNode<Control>("ReferenceRect").GetNode<Label>("Speed").Text = "Current Speed: " + currentSpeed.ToString("F2") + " m/s";
+					
+		float rotatespeed = Input.GetActionStrength("rotatePlayerRight") - Input.GetActionStrength("rotatePlayerLeft");
+		RotateObjectLocal(Vector3.Forward, rotatespeed*.02f);
+
 	}
 
 	public override void _Input(InputEvent @event)
@@ -90,7 +94,6 @@ public partial class Player : CharacterBody3D
 		// Vector2 inputCam = Input.GetVector("camera_left", "camera_right", "camera_up", "camera_down");
 		if (@event is InputEventMouseMotion mouseMotion)
 		{
-
 
 			this.RotateY(-mouseMotion.Relative.X * CameraSensitivity);
 			// this.RotateX(-mouseMotion.Relative.Y * CameraSensitivity);
