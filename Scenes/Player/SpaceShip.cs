@@ -114,21 +114,30 @@ public partial class SpaceShip : CharacterBody3D
 	Boolean inShip = true;
 	public void ExitShip()
 	{
+		var ropeLength = (new Vector3(0, 0, -1.252f) - new Vector3(player.Position.X, player.Position.Y - .5f, player.Position.Z)).Length();
+
 		if (inShip)
 		{
 			inShip = false;
 			GD.Print("Exiting Ship");
 			player.GlobalTransform = this.GlobalTransform.Translated(this.GlobalTransform.Basis.X * 2);
 			player.Visible = true;
+			player.GetNode<CanvasLayer>("CanvasLayer").Visible = true;
 			player.SetPhysicsProcess(true);
 			player.GetNode<Camera3D>("Camera3D").Current = true;
 			SetPhysicsProcess(false);
 			rope.Visible = true;
 		} else {
+			if (ropeLength > 5)
+			{
+				return;
+			}
 			inShip = true;
 			GD.Print("Entering Ship");
 			player.Visible = false;
 			player.SetPhysicsProcess(false);
+			player.GetNode<CanvasLayer>("CanvasLayer").Visible = false;
+
 			_camera.Current = true;
 			SetPhysicsProcess(true);
 			 rope.Visible = false;

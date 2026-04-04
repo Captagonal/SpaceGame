@@ -2,9 +2,20 @@
 
 [ext_resource type="Script" uid="uid://cdtpk3dnkowv4" path="res://Scenes/Player/Player.cs" id="1_uvnfx"]
 [ext_resource type="PackedScene" uid="uid://cphd4sfroi041" path="res://Assets/Blender Assets/Player.blend" id="2_a3d8c"]
+[ext_resource type="Shader" uid="uid://dlqgjlks6fxdm" path="res://Scenes/Player/player.gdshader" id="3_xpcdj"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xpcdj"]
 height = 2.253662
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xpcdj"]
+shader = ExtResource("3_xpcdj")
+shader_parameter/effect_amount = -1.909999971975
+
+[sub_resource type="LabelSettings" id="LabelSettings_mtuoh"]
+font_size = 137
+shadow_size = 50
+shadow_color = Color(0, 0.827451, 0, 0.62352943)
+shadow_offset = Vector2(0.665, 1)
 
 [node name="Player" type="CharacterBody3D" unique_id=540873997]
 motion_mode = 1
@@ -19,3 +30,34 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.04332462, -0.44728875)
 
 [node name="Player" parent="." unique_id=1591568616 instance=ExtResource("2_a3d8c")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.6480742, 0)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=755582409]
+follow_viewport_scale = 121.37
+
+[node name="HUD" type="CanvasGroup" parent="CanvasLayer" unique_id=2147058611]
+material = SubResource("ShaderMaterial_xpcdj")
+position = Vector2(-656, -334)
+scale = Vector2(1.77, 1.77)
+fit_margin = 100.0
+
+[node name="ReferenceRect" type="ReferenceRect" parent="CanvasLayer/HUD" unique_id=1115724572]
+offset_left = 525.0
+offset_top = 200.0
+offset_right = 1325.0001
+offset_bottom = 999.9996
+scale = Vector2(0.4333072, 0.4333072)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+border_color = Color(0.30908248, 0.5697499, 0.7081134, 1)
+border_width = 5.0
+editor_only = false
+
+[node name="Speed" type="Label" parent="CanvasLayer/HUD/ReferenceRect" unique_id=1505467960]
+layout_mode = 0
+offset_left = 11.539124
+offset_top = 713.11993
+offset_right = 1000.5391
+offset_bottom = 901.11993
+scale = Vector2(0.43330723, 0.43330723)
+text = "Current Speed:"
+label_settings = SubResource("LabelSettings_mtuoh")

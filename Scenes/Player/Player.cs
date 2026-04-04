@@ -7,7 +7,7 @@ public partial class Player : CharacterBody3D
 	public float Acelleration { get; set; } = .5f;
 	[Export]
 	public float VerticalAcelleration { get; set; } = .4f;
-	public float MaxSpeed { get; set; } = 2;
+	public float MaxSpeed { get; set; } = 3.5f;
 	public float CameraSensitivity { get; set; } = .006f;
 
 	public float currentSpeed = 0;
@@ -19,13 +19,14 @@ public partial class Player : CharacterBody3D
 
 	private float MAXropeLength = 14;
 	private float ropeLength = 0;
-
+	private Node2D HUD;
 	public override void _Ready()
 	{
 		camera3D = GetNode<Camera3D>("Camera3D");
 		shipTimer = GetParent().GetNode<Timer>("ShipTimer");
 		rope = GetParent().GetNode<MeshInstance3D>("Rope");
 		ropeMesh = rope.Mesh as ImmediateMesh;
+		HUD = GetNode<CanvasLayer>("CanvasLayer").GetNode<Node2D>("HUD");
 	}
 	public override void _PhysicsProcess(double delta)
 	{
@@ -43,7 +44,7 @@ public partial class Player : CharacterBody3D
 
 
 		Velocity = Velocity += input3 * (float)delta;
-
+		Velocity = Velocity.Normalized() * Math.Min(Velocity.Length(), MaxSpeed);
 		currentSpeed = Velocity.Length();
 		MoveAndSlide();
 
@@ -79,9 +80,9 @@ public partial class Player : CharacterBody3D
 			Vector3 ropeDirection = (new Vector3(0, 0, -1.252f) - new Vector3(Position.X, Position.Y - .5f, Position.Z)).Normalized();
 			Vector3 targetPosition = new Vector3(0, 0, -1.252f) - ropeDirection * MAXropeLength;
 			Position = targetPosition + new Vector3(0, .5f, 0);
-			Velocity = Velocity.Lerp(Vector3.Zero, 0.5f * (float)delta);
+			Velocity = Velocity.Lerp(Vector3.Zero, 0.9f * (float)delta);
 		}
-
+		HUD.GetNode<Control>("ReferenceRect").GetNode<Label>("Speed").Text = "Current Speed: " + currentSpeed.ToString("F2") + " m/s";
 	}
 
 	public override void _Input(InputEvent @event)
