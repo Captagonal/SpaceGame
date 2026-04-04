@@ -3,41 +3,91 @@ using System;
 
 public partial class SpaceShip : CharacterBody3D
 {
-	public const float Speed = 5.0f;
-	public const float JumpVelocity = 4.5f;
+	[Export] public float MaxSpeed { get; set; } = 100.0f;
+	[Export] public float Acceleration { get; set; } = 1.0f;
+	[Export] public float Friction { get; set; } = 10.0f;
+	[Export] public float CameraSensitivity { get; set; } = 0.002f;
+	[Export] public float TurnSpeed { get; set; } = 1.5f;
 
+	private float speed = 0;
+	private Node3D _head;
+	private Camera3D _camera;
+
+	public override void _Ready()
+	{
+		_head = GetNode<Node3D>("Head");
+		_camera = _head.GetNode<Camera3D>("Camera");
+		Input.MouseMode = Input.MouseModeEnum.Captured;
+	}
 	public override void _PhysicsProcess(double delta)
 	{
-		Vector3 velocity = Velocity;
+		float d = (float)delta;
 
-		// Add the gravity.
-		if (!IsOnFloor())
+		float turnInput = Input.GetAxis("MoveRight", "MoveLeft");
+
+		if (turnInput != 0)
 		{
-			velocity += GetGravity() * (float)delta;
+			// This rotates the ship around its own Up axis
+			RotateY(turnInput * TurnSpeed * d);
 		}
 
-		// Handle Jump.
-		if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
-		{
-			velocity.Y = JumpVelocity;
-		}
+		Vector3 localInput = Vector3.Zero;
 
-		// Get the input direction and handle the movement/deceleration.
-		// As good practice, you should replace UI actions with custom gameplay actions.
-		Vector2 inputDir = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
-		Vector3 direction = (Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
-		if (direction != Vector3.Zero)
+		localInput.X = Input.GetAxis("MoveBack", "MoveForward");
+
+		localInput.Y = Input.GetActionStrength("MoveUp") - Input.GetActionStrength("MoveDown");
+
+		Vector3 worldDirection = GlobalTransform.Basis * localInput;
+
+		//normalize so diagonal movement isn't faster
+		if (worldDirection.Length() > 0)
 		{
-			velocity.X = direction.X * Speed;
-			velocity.Z = direction.Z * Speed;
+			worldDirection = worldDirection.Normalized();
+		}
+		// 3. APPLY VELOCITY
+		Vector3 targetVelocity = worldDirection * MaxSpeed;
+
+		if (worldDirection != Vector3.Zero)
+		{
+			Velocity = Velocity.Lerp(targetVelocity, Acceleration * d);
 		}
 		else
 		{
-			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
-			velocity.Z = Mathf.MoveToward(Velocity.Z, 0, Speed);
+			Velocity = Velocity.Lerp(Vector3.Zero, Friction * d);
 		}
-
-		Velocity = velocity;
+		speed = Velocity.Dot(GlobalTransform.Basis.X.Normalized());
 		MoveAndSlide();
+		_camera.Fov = Mathf.Lerp(_camera.Fov, 70 + speed * 0.3f, 0.1f);
+	}
+
+	public override void _Input(InputEvent @event)
+	{
+		// Vector2 inputCam = Input.GetVector("camera_left", "camera_right", "camera_up", "camera_down");
+		if (@event is InputEventMouseMotion mouseMotion)
+		{
+
+			_head.RotateY(-mouseMotion.Relative.X * CameraSensitivity);
+			_camera.RotateObjectLocal(Vector3.Right, -mouseMotion.Relative.Y * CameraSensitivity);
+
+			Vector3 headRotation = _head.Rotation;
+			headRotation.Y = Mathf.Clamp(headRotation.Y, Mathf.DegToRad(-70), Mathf.DegToRad(70));
+			_head.Rotation = headRotation;
+
+
+
+			Vector3 camera3Drot = _camera.Rotation;
+			camera3Drot.X = Mathf.Clamp(camera3Drot.X, Mathf.DegToRad(-40), Mathf.DegToRad(40));
+			_camera.Rotation = camera3Drot;
+
+		}
+		else if (@event is InputEventKey keyEvent && keyEvent.IsPressed() && keyEvent.Keycode == Key.Escape)
+		{
+
+
+			Input.MouseMode = Input.MouseModeEnum.Visible;
+			// GetParent().GetNode<Control>("Settings").Visible = true;
+			GetTree().Paused = true;
+
+		}
 	}
 }

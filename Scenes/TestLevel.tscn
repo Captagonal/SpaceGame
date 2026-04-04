@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://lsxnvlk6qo05"]
 
-[ext_resource type="PackedScene" uid="uid://bixd4b6guwuqi" path="res://Scenes/Player/player.tscn" id="1_bhm8u"]
+[ext_resource type="PackedScene" uid="uid://dunugb2m1rtoc" path="res://Scenes/Player/space_ship.tscn" id="1_bhm8u"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bhm8u"]
 sky_top_color = Color(0, 0, 0, 1)
@@ -32,5 +32,5 @@ environment = SubResource("Environment_okq71")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=623620039]
 mesh = SubResource("PlaneMesh_vkdvt")
 
-[node name="Player" parent="." unique_id=540873997 instance=ExtResource("1_bhm8u")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+[node name="SpaceShip" parent="." unique_id=203800574 instance=ExtResource("1_bhm8u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.43956, 3.3664927, 0.62248933)
