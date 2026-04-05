@@ -244,7 +244,8 @@ public partial class SpaceShip : CharacterBody3D
 		else
 		{
 			transmissionTimer.Stop();
-			transmissionLabel.Hide();
+			GetTree().CreateTimer(2.0f).Timeout += () => transmissionLabel.Hide();
+		
 		}
 	}
 
@@ -293,8 +294,16 @@ public partial class SpaceShip : CharacterBody3D
 	enum Objectives
 	{
 		RescueStrandedPerson,
-		DeliverToStation
+		DeliverToStation,
+
 	} 
 
 	private Objectives currentObjective = Objectives.DeliverToStation;
+
+	public void passenger(Area3D passengerArea){
+		if (passengerArea.GetParent().GetParent() is Passenger passenger){
+			pickUpPassenger(passenger);
+		}
+
+	}
 }

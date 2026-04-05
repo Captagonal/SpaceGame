@@ -86,7 +86,7 @@ text = "xxxxxxxxxxxxxxxxxx"
 label_settings = SubResource("LabelSettings_0u5uq")
 
 [node name="TransmissionTimer" type="Timer" parent="CanvasLayer/HUD/ReferenceRect/Transmission" unique_id=324643082]
-wait_time = 0.4
+wait_time = 0.2
 
 [node name="TransmissionSound" type="AudioStreamPlayer" parent="CanvasLayer/HUD/ReferenceRect/Transmission" unique_id=2103609709]
 stream = ExtResource("6_dd0ac")

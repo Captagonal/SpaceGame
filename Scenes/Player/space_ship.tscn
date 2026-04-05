@@ -49,6 +49,9 @@ shadow_color = Color(0, 0.49411765, 0, 0.6392157)
 [sub_resource type="BoxShape3D" id="BoxShape3D_xaeba"]
 size = Vector3(4.27063, 5.5080566, 6.0117188)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_bvfgm"]
+size = Vector3(17.185059, 7.958008, 11.854492)
+
 [node name="SpaceShip" type="CharacterBody3D" unique_id=203800574]
 collision_layer = 0
 collision_mask = 0
@@ -126,7 +129,7 @@ text = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 label_settings = SubResource("LabelSettings_cf1d8")
 
 [node name="TransmissionTimer" type="Timer" parent="CanvasLayer/HUD/ReferenceRect/Transmission" unique_id=1254112926]
-wait_time = 0.4
+wait_time = 0.1
 
 [node name="TransmissionSound" type="AudioStreamPlayer" parent="CanvasLayer/HUD/ReferenceRect/Transmission" unique_id=832066116]
 stream = ExtResource("7_nv2yn")
@@ -196,5 +199,14 @@ collision_mask = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9727402, 0, 0)
 shape = SubResource("BoxShape3D_xaeba")
 
+[node name="Passenger" type="Area3D" parent="." unique_id=857157451]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Passenger" unique_id=14410073]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.352295, 0, 0)
+shape = SubResource("BoxShape3D_bvfgm")
+
 [connection signal="timeout" from="ShipTimer" to="." method="ExitShip"]
 [connection signal="area_entered" from="Docking" to="." method="Docking"]
+[connection signal="area_entered" from="Passenger" to="." method="passenger"]

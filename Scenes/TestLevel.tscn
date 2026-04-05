@@ -3,11 +3,12 @@
 [ext_resource type="PackedScene" uid="uid://dunugb2m1rtoc" path="res://Scenes/Player/space_ship.tscn" id="1_bhm8u"]
 [ext_resource type="Shader" uid="uid://c25sukks4rqrl" path="res://Scenes/Space.gdshader" id="1_shgkq"]
 [ext_resource type="PackedScene" uid="uid://c51tdpwu6tcj0" path="res://Scenes/Objectives/SpaceStationTheta.tscn" id="3_shgkq"]
+[ext_resource type="PackedScene" uid="uid://dqwyonkjg2icr" path="res://Scenes/Objectives/spawner.tscn" id="4_ujyaq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ujyaq"]
 shader = ExtResource("1_shgkq")
 shader_parameter/space_color = Color(0.02, 0.01, 0.05, 1)
-shader_parameter/star_density = 0.1990000094525
+shader_parameter/star_density = 0.1650000078375
 
 [sub_resource type="Sky" id="Sky_5ms4e"]
 sky_material = SubResource("ShaderMaterial_ujyaq")
@@ -50,3 +51,6 @@ autoplay = true
 
 [node name="SpaceStationTheta2" parent="." unique_id=1795427457 instance=ExtResource("3_shgkq")]
 transform = Transform3D(0.2971579, 0.52078354, -0.8003009, 0.14336675, 0.8043245, 0.5766351, 0.9440038, -0.28608823, 0.16434842, -1135.7432, 1105.0027, 259.76608)
+
+[node name="Spawner" parent="." unique_id=308144453 instance=ExtResource("4_ujyaq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.838348, 0, 0)
