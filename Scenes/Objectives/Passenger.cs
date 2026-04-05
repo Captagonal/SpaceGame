@@ -22,10 +22,13 @@ public partial class Passenger : Node3D
 
 	public Texture2D passengerTexture = GD.Load<Texture2D>("res://icon.svg");
 	public Destinations destination = Destinations.SpaceStationTheta;
-	public void instantiatePassenger(Texture2D texture, Destinations destination)
-	{
+	public String message = "Hello :3";
+	public void instantiatePassenger(Texture2D texture, Destinations destination, String message){
+	
 		this.passengerTexture = texture;
 		this.destination = destination;
+		this.message = message;
+
 		
 	}
 }

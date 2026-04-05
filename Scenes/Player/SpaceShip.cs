@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 public partial class SpaceShip : CharacterBody3D
 {
-	[Export] public float MaxSpeed { get; set; } = 100.0f;
-	[Export] public float Acceleration { get; set; } = 1.0f;
+	[Export] public float MaxSpeed { get; set; } = 150.0f;
+	[Export] public float Acceleration { get; set; } = 1f;
 	[Export] public float Friction { get; set; } = 10.0f;
 	[Export] public float CameraSensitivity { get; set; } = 0.002f;
 	[Export] public float TurnSpeed { get; set; } = 1.5f;
@@ -25,6 +25,13 @@ public partial class SpaceShip : CharacterBody3D
 	Timer transmissionTimer;
 	AudioStreamPlayer transmissionSound;
 	List<Passenger> passengers = new List<Passenger>();
+
+	int MaxPassengers = 4;
+
+	public enum GameMode
+	{
+		timeTrial
+	}
 	public override void _Ready()
 	{
 		_head = GetNode<Node3D>("Head");
@@ -43,13 +50,13 @@ public partial class SpaceShip : CharacterBody3D
 		transmissionSound = transmissionLabel.GetNode<AudioStreamPlayer>("TransmissionSound");
 		transmissionTimer.Timeout += MakeMessage;
 
-		PackedScene a = GD.Load<PackedScene>("res://Scenes/Objectives/StrandedPerson.tscn");
-		Passenger newPassenger = a.Instantiate<Passenger>();
-		newPassenger.instantiatePassenger(GD.Load<Texture2D>("res://icon.svg"), Passenger.Destinations.SpaceStationTheta);
-		Passenger newPassenger2 = a.Instantiate<Passenger>();
-		newPassenger2.instantiatePassenger(GD.Load<Texture2D>("res://icon.svg"), Passenger.Destinations.SpaceStationTheta);
-		passengers.Add(newPassenger);
-		passengers.Add(newPassenger2);
+		// PackedScene a = GD.Load<PackedScene>("res://Scenes/Objectives/StrandedPerson.tscn");
+		// Passenger newPassenger = a.Instantiate<Passenger>();
+		// newPassenger.instantiatePassenger(GD.Load<Texture2D>("res://icon.svg"), Passenger.Destinations.SpaceStationTheta);
+		// Passenger newPassenger2 = a.Instantiate<Passenger>();
+		// newPassenger2.instantiatePassenger(GD.Load<Texture2D>("res://icon.svg"), Passenger.Destinations.SpaceStationTheta);
+		// passengers.Add(newPassenger);
+		// passengers.Add(newPassenger2);
 	}
 	public override void _PhysicsProcess(double delta)
 	{
@@ -101,6 +108,8 @@ public partial class SpaceShip : CharacterBody3D
 		{
 			shipTimer.Stop();
 		}
+		Control thetaIcon = HUD.GetNode<Control>("ReferenceRect").GetNode<Control>("SpaceStationTheta");
+		thetaIcon.GetChildren().Clear();
 		int SpaceStationThetaCount = 0;
 		//----Passenger HUD
 		GD.Print(passengers.Count);
@@ -109,25 +118,25 @@ public partial class SpaceShip : CharacterBody3D
 			switch (passenger.destination)
 			{
 				case Passenger.Destinations.SpaceStationTheta:
-					Control thetaIcon = HUD.GetNode<Control>("ReferenceRect").GetNode<Control>("SpaceStationTheta");
+					thetaIcon = HUD.GetNode<Control>("ReferenceRect").GetNode<Control>("SpaceStationTheta");
 					thetaIcon.Visible = true;
 					SpaceStationThetaCount++;
 					TextureRect thetaTexture = new TextureRect();
 					thetaTexture.Texture = passenger.passengerTexture;
 					thetaIcon.AddChild(thetaTexture);
-					thetaTexture.Position = new Vector2(0, (SpaceStationThetaCount ) * 125);
+					thetaTexture.Position = new Vector2(0, (SpaceStationThetaCount) * 125);
 					break;
 				case Passenger.Destinations.Planet:
-					
+
 					break;
 				case Passenger.Destinations.SpaceShip:
-					
+
 					break;
 				default:
-					
+
 					break;
 			}
-			
+
 		}
 
 		if (currentObjective == Objectives.DeliverToStation && passengers.Count > 0)
@@ -245,33 +254,36 @@ public partial class SpaceShip : CharacterBody3D
 		{
 			transmissionTimer.Stop();
 			GetTree().CreateTimer(2.0f).Timeout += () => transmissionLabel.Hide();
-		
+
 		}
 	}
 
-
-	public void Docking(Area3D targetDockingPoint){
+	public void Docking(Area3D targetDockingPoint)
+	{
 		//Fly towards station, then when close enough, snap to station and disable movement until undocked
 		SetPhysicsProcess(false);
 
-    	// Create the tween
-   	 Tween tween = GetTree().CreateTween().SetParallel(true);
-    
-    // EaseOut means it starts fast and slows down as it reaches the port
-    tween.SetTrans(Tween.TransitionType.Cubic);
-    tween.SetEase(Tween.EaseType.Out);
+		// Create the tween
+		Tween tween = GetTree().CreateTween().SetParallel(true);
 
-    // Slide to position and match rotation
-    tween.TweenProperty(this, "global_position", targetDockingPoint.GlobalPosition, 3.0f);
-    tween.TweenProperty(this, "global_rotation", targetDockingPoint.GlobalRotation, 3.0f);
-	RemoveAllPassengers();
-    tween.Finished += () => SetPhysicsProcess(true);
+		// EaseOut means it starts fast and slows down as it reaches the port
+		tween.SetTrans(Tween.TransitionType.Cubic);
+		tween.SetEase(Tween.EaseType.Out);
+
+		// Slide to position and match rotation
+		tween.TweenProperty(this, "global_position", targetDockingPoint.GlobalPosition, 3.0f);
+		tween.TweenProperty(this, "global_rotation", targetDockingPoint.GlobalRotation, 3.0f);
+		RemoveAllPassengers();
+		tween.Finished += () => SetPhysicsProcess(true);
 	}
 
-	public void RemoveAllPassengers(){
-		if (passengers.Count > 0){
+	public void RemoveAllPassengers()
+	{
+		if (passengers.Count > 0)
+		{
 			DisplayTransmission("Thank you for the ride Guardian");
-			foreach (Passenger passenger in passengers){
+			foreach (Passenger passenger in passengers)
+			{
 				passenger.QueueFree();
 			}
 			passengers.Clear();
@@ -280,15 +292,18 @@ public partial class SpaceShip : CharacterBody3D
 			thetaIcon.GetChildren().Clear();
 			currentObjective = Objectives.RescueStrandedPerson;
 		}
-		
+
 	}
 
-	public void pickUpPassenger(Passenger passenger){
+	public void pickUpPassenger(Passenger passenger)
+	{
 		passengers.Add(passenger);
 		passenger.Visible = false;
-		passenger.GetParent().RemoveChild(passenger);
-		AddChild(passenger);
+		passenger.GetNode<RigidBody3D>("Person").GetNode<Area3D>("Area3D").SetDeferred("monitorable",false);
+		// passenger.GetParent().RemoveChild(passenger);
+		// AddChild(passenger);
 		currentObjective = Objectives.DeliverToStation;
+		DisplayTransmission(passenger.message);
 	}
 
 	enum Objectives
@@ -296,12 +311,15 @@ public partial class SpaceShip : CharacterBody3D
 		RescueStrandedPerson,
 		DeliverToStation,
 
-	} 
+	}
 
 	private Objectives currentObjective = Objectives.DeliverToStation;
 
-	public void passenger(Area3D passengerArea){
-		if (passengerArea.GetParent().GetParent() is Passenger passenger){
+	public void passenger(Area3D passengerArea)
+	{
+		GD.Print("Passenger Area Triggered");
+		if (passengerArea.GetParent().GetParent() is Passenger passenger && passengers.Count < MaxPassengers)
+		{
 			pickUpPassenger(passenger);
 		}
 
