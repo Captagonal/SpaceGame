@@ -129,6 +129,7 @@ public partial class SpaceShip : CharacterBody3D
 		Control thetaIcon = HUD.GetNode<Control>("ReferenceRect").GetNode<Control>("SpaceStationTheta");
 		thetaIcon.GetChildren().Clear();
 		int SpaceStationThetaCount = 0;
+		int SpaceStationDeltaCount = 0;
 		//----Passenger HUD
 		GD.Print(passengers.Count);
 		foreach (Passenger passenger in passengers)
@@ -143,6 +144,14 @@ public partial class SpaceShip : CharacterBody3D
 					thetaTexture.Texture = passenger.passengerTexture;
 					thetaIcon.AddChild(thetaTexture);
 					thetaTexture.Position = new Vector2(0, (SpaceStationThetaCount) * 125);
+					break;
+				case Passenger.Destinations.SpaceStationDelta:
+					Control deltaIcon = HUD.GetNode<Control>("ReferenceRect").GetNode<Control>("SpaceStationDelta");
+					deltaIcon.Visible = true;
+					TextureRect deltaTexture = new TextureRect();
+					deltaTexture.Texture = passenger.passengerTexture;
+					deltaIcon.AddChild(deltaTexture);
+					deltaTexture.Position = new Vector2(0, (SpaceStationDeltaCount) * 125);
 					break;
 				case Passenger.Destinations.Planet:
 
@@ -160,7 +169,7 @@ public partial class SpaceShip : CharacterBody3D
 		if (currentObjective == Objectives.DeliverToStation && passengers.Count > 0)
 		{
 			Control arrow = HUD.GetNode<Control>("ReferenceRect").GetNode<Control>("Arrow");
-			var station = GetParent().GetNode<Node3D>("SpaceStationTheta2").GlobalPosition;
+			var station = GetParent().GetNode<Node3D>("SpaceStationTheta").GlobalPosition;
 			var shipPos = GlobalPosition;
 			station.Y = 0;
 			shipPos.Y = 0;
@@ -303,26 +312,40 @@ public partial class SpaceShip : CharacterBody3D
 		// Slide to position and match rotation
 		tween.TweenProperty(this, "global_position", targetDockingPoint.GlobalPosition, 3.0f);
 		tween.TweenProperty(this, "global_rotation", targetDockingPoint.GlobalRotation, 3.0f);
-		RemoveAllPassengers();
+		if (targetDockingPoint.GetParent().Name == "SpaceStationTheta"){
+			RemoveAllPassengers(Passenger.Destinations.SpaceStationTheta);	
+		} else if (targetDockingPoint.GetParent().Name == "SpaceStationDelta"){
+			RemoveAllPassengers(Passenger.Destinations.SpaceStationDelta);	
+		}
+		
 		tween.Finished += () => SetPhysicsProcess(true);
 	}
 
-	public void RemoveAllPassengers()
+	public void RemoveAllPassengers(Passenger.Destinations destinations)
 	{
-		if (passengers.Count > 0)
+		if (passengers.Count == 0)
 		{
-			DisplayTransmission("Thank you for the ride Guardian");
-			foreach (Passenger passenger in passengers)
-			{
-				score += passenger.getPoints(GlobalTransform.Origin);
-				passenger.QueueFree();
-			}
-			passengers.Clear();
-			Control thetaIcon = HUD.GetNode<Control>("ReferenceRect").GetNode<Control>("SpaceStationTheta");
-			thetaIcon.Visible = false;
-			thetaIcon.GetChildren().Clear();
-			currentObjective = Objectives.RescueStrandedPerson;
+			return;
 		}
+		for (int i = passengers.Count - 1; i >= 0; i--)
+		{
+			if (passengers[i].destination == destinations)
+			{	
+				DisplayTransmission(passengers[i].message);
+				score += passengers[i].getPoints(GlobalTransform.Origin);
+				passengers[i].QueueFree();
+				passengers.RemoveAt(i);
+				Control icon = HUD.GetNode<Control>("ReferenceRect").GetNode<Control>(destinations.ToString());
+				icon.GetChildren().Clear();
+				icon.Visible = false;
+			}
+		}
+		
+			if (passengers.Count == 0)
+			{
+				currentObjective = Objectives.RescueStrandedPerson;
+			}
+		
 
 	}
 

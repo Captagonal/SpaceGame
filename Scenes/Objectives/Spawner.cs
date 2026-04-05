@@ -11,7 +11,7 @@ public partial class Spawner : Node3D
 	};
 	public Passenger.Destinations randomDestination()
 	{
-		return Passenger.Destinations.SpaceStationTheta;
+		return GD.Randf() < 0.5 ? Passenger.Destinations.SpaceStationTheta : Passenger.Destinations.SpaceStationDelta;
 	}
 
 	public Texture2D randomIcon(){
@@ -22,6 +22,8 @@ public partial class Spawner : Node3D
 		switch (destination){
 			case Passenger.Destinations.SpaceStationTheta:
 				return "a";
+			case Passenger.Destinations.SpaceStationDelta:
+				return "b";
 			case Passenger.Destinations.Planet:
 				return "yo planet";
 			case Passenger.Destinations.SpaceShip:

@@ -6,6 +6,7 @@ public partial class Passenger : Node3D
 	public enum Destinations
 	{
 		SpaceStationTheta,
+		SpaceStationDelta,
 		Planet,
 		SpaceShip
 	}
@@ -37,6 +38,9 @@ public partial class Passenger : Node3D
 	public int getPoints(Vector3 currentPosition){
 		switch (destination){
 			case Destinations.SpaceStationTheta:
+				return (int)currentPosition.DistanceTo(startPosition);
+				break;
+			case Destinations.SpaceStationDelta:
 				return (int)currentPosition.DistanceTo(startPosition);
 				break;
 			case Destinations.Planet:
