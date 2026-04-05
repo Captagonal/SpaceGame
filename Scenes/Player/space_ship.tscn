@@ -8,7 +8,7 @@
 [ext_resource type="FontFile" uid="uid://ct2qfl48dxle4" path="res://Assets/Bitcount_Grid_Double/static/BitcountGridDouble_Cursive-Regular.ttf" id="6_bvfgm"]
 [ext_resource type="AudioStream" uid="uid://d3nexvpc061bg" path="res://Assets/Sounds/Incoming.wav" id="7_nv2yn"]
 [ext_resource type="Texture2D" uid="uid://thc8kosf6glp" path="res://Assets/Textures/SpaceStationTheta.png" id="8_bvfgm"]
-[ext_resource type="Texture2D" uid="uid://cgp56vhjfykt7" path="res://icon.svg" id="9_nv2yn"]
+[ext_resource type="Texture2D" uid="uid://b2rl7gex1knjo" path="res://Assets/Textures/Arrow.png" id="9_bvfgm"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xaeba"]
 radius = 0.9276428
@@ -96,7 +96,7 @@ fit_margin = 100.0
 [node name="ReferenceRect" type="ReferenceRect" parent="CanvasLayer/HUD" unique_id=1436759103]
 offset_left = 374.61194
 offset_top = 200.0
-offset_right = 1851.8025
+offset_right = 1850.4987
 offset_bottom = 990.9241
 scale = Vector2(0.4333072, 0.4333072)
 size_flags_horizontal = 3
@@ -116,6 +116,7 @@ text = "Current Speed:"
 label_settings = SubResource("LabelSettings_sm5ja")
 
 [node name="Transmission" type="Label" parent="CanvasLayer/HUD/ReferenceRect" unique_id=658839405]
+visible = false
 layout_mode = 0
 offset_left = 11.408783
 offset_top = 721.03436
@@ -132,31 +133,14 @@ stream = ExtResource("7_nv2yn")
 pitch_scale = 1.66
 mix_target = 1
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/HUD/ReferenceRect" unique_id=784828524]
+[node name="SpaceStationTheta" type="TextureRect" parent="CanvasLayer/HUD/ReferenceRect" unique_id=784828524]
+visible = false
 layout_mode = 1
 offset_left = 1358.5393
 offset_top = 56.06596
 offset_right = 1465.4558
 offset_bottom = 156.46315
 texture = ExtResource("8_bvfgm")
-expand_mode = 1
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/HUD/ReferenceRect/TextureRect" unique_id=343934068]
-layout_mode = 0
-offset_left = 36.50807
-offset_top = 114.73965
-offset_right = 92.79579
-offset_bottom = 171.02737
-texture = ExtResource("9_nv2yn")
-expand_mode = 1
-
-[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/HUD/ReferenceRect/TextureRect" unique_id=392076470]
-layout_mode = 0
-offset_left = 37.811867
-offset_top = 177.32489
-offset_right = 94.09959
-offset_bottom = 233.61261
-texture = ExtResource("9_nv2yn")
 expand_mode = 1
 
 [node name="Destinations" type="Label" parent="CanvasLayer/HUD/ReferenceRect" unique_id=1190448229]
@@ -169,13 +153,48 @@ scale = Vector2(0.43330723, 0.43330723)
 text = "Destinations:"
 label_settings = SubResource("LabelSettings_sm5ja")
 
-[node name="Area3D" type="Area3D" parent="." unique_id=1385519226]
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/HUD/ReferenceRect" unique_id=1021848782]
+visible = false
+layout_mode = 0
+offset_left = 1239.8881
+offset_top = 56.06596
+offset_right = 1346.8046
+offset_bottom = 156.46315
+texture = ExtResource("8_bvfgm")
+expand_mode = 1
+
+[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/HUD/ReferenceRect" unique_id=1068959634]
+visible = false
+layout_mode = 0
+offset_left = 1118.6292
+offset_top = 56.06596
+offset_right = 1225.5457
+offset_bottom = 156.46315
+texture = ExtResource("8_bvfgm")
+expand_mode = 1
+
+[node name="Arrow" type="TextureRect" parent="CanvasLayer/HUD/ReferenceRect" unique_id=690985843]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 475.0
+offset_top = 225.0
+offset_right = -600.8867
+offset_bottom = -165.92401
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 1.0576695
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("9_bvfgm")
+
+[node name="Docking" type="Area3D" parent="." unique_id=1385519226]
 collision_layer = 2
 collision_mask = 2
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1351985792]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Docking" unique_id=1351985792]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9727402, 0, 0)
 shape = SubResource("BoxShape3D_xaeba")
 
 [connection signal="timeout" from="ShipTimer" to="." method="ExitShip"]
-[connection signal="area_entered" from="Area3D" to="." method="Docking"]
+[connection signal="area_entered" from="Docking" to="." method="Docking"]

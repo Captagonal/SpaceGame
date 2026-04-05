@@ -1,17 +1,16 @@
 [gd_scene format=4 uid="uid://lsxnvlk6qo05"]
 
 [ext_resource type="PackedScene" uid="uid://dunugb2m1rtoc" path="res://Scenes/Player/space_ship.tscn" id="1_bhm8u"]
-[ext_resource type="PackedScene" uid="uid://bdjtnwjqa7rjl" path="res://Assets/Blender Assets/SpaceStationTheta.blend" id="2_5ms4e"]
+[ext_resource type="Shader" uid="uid://c25sukks4rqrl" path="res://Scenes/Space.gdshader" id="1_shgkq"]
 [ext_resource type="PackedScene" uid="uid://c51tdpwu6tcj0" path="res://Scenes/Objectives/SpaceStationTheta.tscn" id="3_shgkq"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bhm8u"]
-sky_top_color = Color(0, 0, 0, 1)
-sky_horizon_color = Color(0, 0, 0, 1)
-ground_bottom_color = Color(0, 0, 0, 1)
-ground_horizon_color = Color(0, 0, 0, 1)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ujyaq"]
+shader = ExtResource("1_shgkq")
+shader_parameter/space_color = Color(0.02, 0.01, 0.05, 1)
+shader_parameter/star_density = 0.1990000094525
 
 [sub_resource type="Sky" id="Sky_5ms4e"]
-sky_material = SubResource("ProceduralSkyMaterial_bhm8u")
+sky_material = SubResource("ShaderMaterial_ujyaq")
 
 [sub_resource type="Environment" id="Environment_shgkq"]
 background_mode = 2
@@ -48,10 +47,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.43956, 3.3664927, 0.62248
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1777402830]
 stream = SubResource("AudioStreamWAV_5ms4e")
 autoplay = true
-
-[node name="SpaceStationTheta" parent="." unique_id=2108691884 instance=ExtResource("2_5ms4e")]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 167.362, 16.46698, 5254.9043)
 
 [node name="SpaceStationTheta2" parent="." unique_id=1795427457 instance=ExtResource("3_shgkq")]
 transform = Transform3D(0.2971579, 0.52078354, -0.8003009, 0.14336675, 0.8043245, 0.5766351, 0.9440038, -0.28608823, 0.16434842, -1135.7432, 1105.0027, 259.76608)

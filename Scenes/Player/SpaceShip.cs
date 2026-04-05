@@ -43,7 +43,13 @@ public partial class SpaceShip : CharacterBody3D
 		transmissionSound = transmissionLabel.GetNode<AudioStreamPlayer>("TransmissionSound");
 		transmissionTimer.Timeout += MakeMessage;
 
-		
+		PackedScene a = GD.Load<PackedScene>("res://Scenes/Objectives/StrandedPerson.tscn");
+		Passenger newPassenger = a.Instantiate<Passenger>();
+		newPassenger.instantiatePassenger(GD.Load<Texture2D>("res://icon.svg"), Passenger.Destinations.SpaceStationTheta);
+		Passenger newPassenger2 = a.Instantiate<Passenger>();
+		newPassenger2.instantiatePassenger(GD.Load<Texture2D>("res://icon.svg"), Passenger.Destinations.SpaceStationTheta);
+		passengers.Add(newPassenger);
+		passengers.Add(newPassenger2);
 	}
 	public override void _PhysicsProcess(double delta)
 	{
@@ -94,6 +100,45 @@ public partial class SpaceShip : CharacterBody3D
 		else if (Input.IsActionJustReleased("EnterShip"))
 		{
 			shipTimer.Stop();
+		}
+		int SpaceStationThetaCount = 0;
+		//----Passenger HUD
+		GD.Print(passengers.Count);
+		foreach (Passenger passenger in passengers)
+		{
+			switch (passenger.destination)
+			{
+				case Passenger.Destinations.SpaceStationTheta:
+					Control thetaIcon = HUD.GetNode<Control>("ReferenceRect").GetNode<Control>("SpaceStationTheta");
+					thetaIcon.Visible = true;
+					SpaceStationThetaCount++;
+					TextureRect thetaTexture = new TextureRect();
+					thetaTexture.Texture = passenger.passengerTexture;
+					thetaIcon.AddChild(thetaTexture);
+					thetaTexture.Position = new Vector2(0, (SpaceStationThetaCount ) * 125);
+					break;
+				case Passenger.Destinations.Planet:
+					
+					break;
+				case Passenger.Destinations.SpaceShip:
+					
+					break;
+				default:
+					
+					break;
+			}
+			
+		}
+
+		if (currentObjective == Objectives.DeliverToStation && passengers.Count > 0)
+		{
+			Control arrow = HUD.GetNode<Control>("ReferenceRect").GetNode<Control>("Arrow");
+			var station = GetParent().GetNode<Node3D>("SpaceStationTheta2").GlobalPosition;
+			var shipPos = GlobalPosition;
+			station.Y = 0;
+			shipPos.Y = 0;
+
+			arrow.Rotation = 0;
 		}
 	}
 
@@ -229,6 +274,27 @@ public partial class SpaceShip : CharacterBody3D
 				passenger.QueueFree();
 			}
 			passengers.Clear();
+			Control thetaIcon = HUD.GetNode<Control>("ReferenceRect").GetNode<Control>("SpaceStationTheta");
+			thetaIcon.Visible = false;
+			thetaIcon.GetChildren().Clear();
+			currentObjective = Objectives.RescueStrandedPerson;
 		}
+		
 	}
+
+	public void pickUpPassenger(Passenger passenger){
+		passengers.Add(passenger);
+		passenger.Visible = false;
+		passenger.GetParent().RemoveChild(passenger);
+		AddChild(passenger);
+		currentObjective = Objectives.DeliverToStation;
+	}
+
+	enum Objectives
+	{
+		RescueStrandedPerson,
+		DeliverToStation
+	} 
+
+	private Objectives currentObjective = Objectives.DeliverToStation;
 }

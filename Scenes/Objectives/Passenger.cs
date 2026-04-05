@@ -20,8 +20,8 @@ public partial class Passenger : Node3D
 	{
 	}
 
-	Texture2D passengerTexture = GD.Load<Texture2D>("res://icon.svg");
-	Destinations destination = Destinations.SpaceStationTheta;
+	public Texture2D passengerTexture = GD.Load<Texture2D>("res://icon.svg");
+	public Destinations destination = Destinations.SpaceStationTheta;
 	public void instantiatePassenger(Texture2D texture, Destinations destination)
 	{
 		this.passengerTexture = texture;
