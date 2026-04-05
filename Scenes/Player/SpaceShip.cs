@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 public partial class SpaceShip : CharacterBody3D
 {
@@ -57,11 +58,28 @@ public partial class SpaceShip : CharacterBody3D
 		// newPassenger2.instantiatePassenger(GD.Load<Texture2D>("res://icon.svg"), Passenger.Destinations.SpaceStationTheta);
 		// passengers.Add(newPassenger);
 		// passengers.Add(newPassenger2);
+		if (currentGameMode == GameMode.timeTrial)
+		{
+			Label timer = HUD.GetNode<Control>("ReferenceRect").GetNode<Label>("Time");
+			timer.Visible = true;
+			Timer time = timer.GetNode<Timer>("TimeTrial");
+			time.Timeout += () => timeTrialEnd();
+		}
 	}
+
+	public void timeTrialEnd()
+	{
+		GD.Print("Time Trial Ended! Final Score: " + score);
+		Label timer = HUD.GetNode<Control>("ReferenceRect").GetNode<Label>("Time");
+		timer.Visible = true;
+		Timer time = timer.GetNode<Timer>("TimeTrial");
+		time.Stop();
+	}
+	float time = 0;
 	public override void _PhysicsProcess(double delta)
 	{
 		float d = (float)delta;
-
+		time += d;
 		float turnInput = Input.GetAxis("MoveRight", "MoveLeft");
 
 		if (turnInput != 0)
@@ -149,8 +167,19 @@ public partial class SpaceShip : CharacterBody3D
 
 			arrow.Rotation = 0;
 		}
-	}
+		if (currentGameMode == GameMode.timeTrial)
+		{
+			Label timer = HUD.GetNode<Control>("ReferenceRect").GetNode<Label>("Time");
+			timer.Visible = true;
+			Timer time = timer.GetNode<Timer>("TimeTrial");
+			timer.Text = "Time: " + time.TimeLeft.ToString("F2") + "s";
+			Label scoreDisplay = HUD.GetNode<Control>("ReferenceRect").GetNode<Label>("Score");
+			scoreDisplay.Visible = true;
+			scoreDisplay.Text = "Score: " + score.ToString();
 
+		}
+	}
+	GameMode currentGameMode = GameMode.timeTrial;
 	public override void _Input(InputEvent @event)
 	{
 		// Vector2 inputCam = Input.GetVector("camera_left", "camera_right", "camera_up", "camera_down");
@@ -223,6 +252,7 @@ public partial class SpaceShip : CharacterBody3D
 	int messageIndex = 0;
 	const int charsOnScreen = 35;
 	char[] messageChars;
+	int score;
 	public void DisplayTransmission(String message)
 	{
 		transmissionSound.Play();
@@ -284,6 +314,7 @@ public partial class SpaceShip : CharacterBody3D
 			DisplayTransmission("Thank you for the ride Guardian");
 			foreach (Passenger passenger in passengers)
 			{
+				score += passenger.getPoints(GlobalTransform.Origin);
 				passenger.QueueFree();
 			}
 			passengers.Clear();
@@ -299,10 +330,16 @@ public partial class SpaceShip : CharacterBody3D
 	{
 		passengers.Add(passenger);
 		passenger.Visible = false;
-		passenger.GetNode<RigidBody3D>("Person").GetNode<Area3D>("Area3D").SetDeferred("monitorable",false);
+		passenger.GetNode<RigidBody3D>("Person").GetNode<Area3D>("Area3D").SetDeferred("monitorable", false);
 		// passenger.GetParent().RemoveChild(passenger);
 		// AddChild(passenger);
 		currentObjective = Objectives.DeliverToStation;
+		Label timer = HUD.GetNode<Control>("ReferenceRect").GetNode<Label>("Time");
+		timer.Visible = true;
+		Timer timeTrial = timer.GetNode<Timer>("TimeTrial");
+
+		timeTrial.WaitTime = timeTrial.TimeLeft + 20 - .15 * time;
+		timeTrial.Start();
 		DisplayTransmission(passenger.message);
 	}
 

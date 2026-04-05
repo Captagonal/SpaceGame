@@ -187,9 +187,32 @@ offset_right = -600.8867
 offset_bottom = -165.92401
 grow_horizontal = 2
 grow_vertical = 2
-rotation = 1.0576695
 pivot_offset_ratio = Vector2(0.5, 0.5)
 texture = ExtResource("9_bvfgm")
+
+[node name="Time" type="Label" parent="CanvasLayer/HUD/ReferenceRect" unique_id=292836151]
+layout_mode = 0
+offset_left = 32.270523
+offset_top = 69.10455
+offset_right = 1021.2705
+offset_bottom = 257.10455
+scale = Vector2(0.43330723, 0.43330723)
+text = "Time: 50.5 s"
+label_settings = SubResource("LabelSettings_sm5ja")
+
+[node name="TimeTrial" type="Timer" parent="CanvasLayer/HUD/ReferenceRect/Time" unique_id=1885258206]
+wait_time = 50.0
+autostart = true
+
+[node name="Score" type="Label" parent="CanvasLayer/HUD/ReferenceRect" unique_id=1327828347]
+layout_mode = 0
+offset_left = 32.270523
+offset_top = 123.86665
+offset_right = 1021.2705
+offset_bottom = 311.86664
+scale = Vector2(0.43330723, 0.43330723)
+text = "Score: 1"
+label_settings = SubResource("LabelSettings_sm5ja")
 
 [node name="Docking" type="Area3D" parent="." unique_id=1385519226]
 collision_layer = 2

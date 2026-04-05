@@ -50,7 +50,7 @@ stream = SubResource("AudioStreamWAV_5ms4e")
 autoplay = true
 
 [node name="SpaceStationTheta2" parent="." unique_id=1795427457 instance=ExtResource("3_shgkq")]
-transform = Transform3D(0.2971579, 0.52078354, -0.8003009, 0.14336675, 0.8043245, 0.5766351, 0.9440038, -0.28608823, 0.16434842, -1135.7432, 1105.0027, 259.76608)
+transform = Transform3D(0.5311176, 0, -0.8472981, 0, 1, 0, 0.8472981, 0, 0.5311176, -1135.7432, 1105.0027, 259.76608)
 
 [node name="Spawner" parent="." unique_id=308144453 instance=ExtResource("4_ujyaq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.838348, 0, 0)

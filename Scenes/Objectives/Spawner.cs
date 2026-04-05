@@ -17,6 +17,18 @@ public partial class Spawner : Node3D
 	public Texture2D randomIcon(){
 		return Icons[GD.Randi()%Icons.Length];
 	}
+ 
+	public String randomMessage(Passenger.Destinations destination){
+		switch (destination){
+			case Passenger.Destinations.SpaceStationTheta:
+				return "a";
+			case Passenger.Destinations.Planet:
+				return "yo planet";
+			case Passenger.Destinations.SpaceShip:
+				return "test";
+		}
+		return "BAD DESTINATION";
+	}
 
 	public override void _Ready()
 	{
@@ -25,8 +37,9 @@ public partial class Spawner : Node3D
 			return;
 		}
 		Passenger newPassenger = Person.Instantiate<Passenger>();
-		newPassenger.instantiatePassenger(GD.Load<Texture2D>("res://icon.svg"), randomDestination(),"helo");
+		Passenger.Destinations destinations = randomDestination();
 		AddChild(newPassenger);
+		newPassenger.instantiatePassenger(GD.Load<Texture2D>("res://icon.svg"), destinations,randomMessage(destinations));
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

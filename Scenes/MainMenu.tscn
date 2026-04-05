@@ -11,6 +11,7 @@ font_size = 50
 
 [node name="MainMenu" type="Control" unique_id=1361869593]
 layout_mode = 3
+anchors_preset = 0
 offset_bottom = -188.56801
 script = ExtResource("1_tt5f1")
 
@@ -42,7 +43,7 @@ layout_mode = 0
 offset_left = 12.0
 offset_right = 445.0
 offset_bottom = 69.0
-text = "Start"
+text = "Time Trial"
 label_settings = SubResource("LabelSettings_8saeu")
 
 [node name="Settings" type="Button" parent="." unique_id=1061729881]
