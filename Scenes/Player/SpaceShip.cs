@@ -249,7 +249,7 @@ public partial class SpaceShip : CharacterBody3D
 		if (inShip)
 		{
 			inShip = false;
-			GD.Print("Exiting Ship");
+			// GD.Print("Exiting Ship");
 			player.Position = new Vector3(0, 0, -2.265f);
 			player.Visible = true;
 			player.GetNode<CanvasLayer>("CanvasLayer").Visible = true;
@@ -267,7 +267,7 @@ public partial class SpaceShip : CharacterBody3D
 				return;
 			}
 			inShip = true;
-			GD.Print("Entering Ship");
+			// GD.Print("Entering Ship");
 			player.Visible = false;
 			player.SetPhysicsProcess(false);
 			player.GetNode<CanvasLayer>("CanvasLayer").Visible = false;
@@ -359,7 +359,7 @@ public partial class SpaceShip : CharacterBody3D
 		{
 			if (passengers[i].destination == destinations)
 			{
-				DisplayTransmission("Thankl you for the ride!");
+				DisplayTransmission("Thanks for the ride!");
 				score += passengers[i].getPoints(GlobalTransform.Origin);
 				passengers[i].QueueFree();
 				passengers.RemoveAt(i);
@@ -405,7 +405,7 @@ public partial class SpaceShip : CharacterBody3D
 
 	public void passenger(Area3D passengerArea)
 	{
-		GD.Print("Passenger Area Triggered");
+		// GD.Print("Passenger Area Triggered");
 		if (passengerArea.GetParent().GetParent() is Passenger passenger && passengers.Count < MaxPassengers)
 		{
 			pickUpPassenger(passenger);

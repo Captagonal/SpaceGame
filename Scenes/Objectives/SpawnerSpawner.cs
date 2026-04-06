@@ -4,7 +4,7 @@ using System;
 public partial class SpawnerSpawner : Node3D
 {
 	// Called when the node enters the scene tree for the first time.
-	int NumSpawners = 1000;
+	int NumSpawners = 200;
 	int minx = -50;
 	int maxx = 50;
 	int minz = -50;
@@ -21,7 +21,6 @@ public partial class SpawnerSpawner : Node3D
 			AddChild(spawner);
 			spawner.Position = getRandomSpot();
 		}
-
 	}
 
 	public Vector3 getRandomSpot(){

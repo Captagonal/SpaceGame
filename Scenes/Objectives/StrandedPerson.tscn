@@ -7,7 +7,16 @@
 [sub_resource type="SphereMesh" id="SphereMesh_jl55m"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_hf2dp"]
-radius = 1.1274161
+radius = 1.862521
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jl55m"]
+albedo_color = Color(5.2271886, 0, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_hf2dp"]
+material = SubResource("StandardMaterial3D_jl55m")
+top_radius = 0.0
+bottom_radius = 2.535
+height = 3.895
 
 [node name="StrandedPerson" type="Node3D" unique_id=1050291092]
 script = ExtResource("1_jl55m")
@@ -27,3 +36,11 @@ collision_mask = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Person/Area3D" unique_id=1310835927]
 shape = SubResource("SphereShape3D_hf2dp")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Person" unique_id=1300044698]
+transform = Transform3D(-1, 1.509958e-07, 0, -1.509958e-07, -1, 0, 0, 0, 1, 0, 4.243, 0)
+mesh = SubResource("CylinderMesh_hf2dp")
+
+[node name="Timer" type="Timer" parent="." unique_id=809916714]
+wait_time = 1.9409999999999998
+autostart = true
