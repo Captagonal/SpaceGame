@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://cnb8oh5jm8cfg"]
+
+[ext_resource type="PackedScene" uid="uid://dsgelwahfqgat" path="res://Assets/Blender Assets/SpaceStationOmega.blend" id="1_ttv0o"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ttv0o"]
+size = Vector3(107.95679, 93.744385, 113.64282)
+
+[node name="SpaceStationOmega" type="Node3D" unique_id=1302074139]
+
+[node name="SpaceStationOmega" parent="." unique_id=1959552477 instance=ExtResource("1_ttv0o")]
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1116011597]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 125.15216, 0, 0)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=139254069]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.271, 0, 0)
+shape = SubResource("BoxShape3D_ttv0o")

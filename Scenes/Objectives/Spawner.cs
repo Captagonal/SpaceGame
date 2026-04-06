@@ -7,11 +7,11 @@ public partial class Spawner : Node3D
 	// Called when the node enters the scene tree for the first time.
 	PackedScene Person = GD.Load<PackedScene>("res://Scenes/Objectives/StrandedPerson.tscn");
 	public Texture2D[] Icons = {
-		GD.Load<Texture2D>("res://icon.svg")
+		GD.Load<Texture2D>("res://Assets/Textures/Passenger.png")
 	};
 	public Passenger.Destinations randomDestination()
 	{
-		return GD.Randf() < 0.5 ? Passenger.Destinations.SpaceStationTheta : Passenger.Destinations.SpaceStationDelta;
+		return (Passenger.Destinations)(GD.Randi() % Enum.GetNames(typeof(Passenger.Destinations)).Length);
 	}
 
 	public Texture2D randomIcon(){
@@ -21,13 +21,15 @@ public partial class Spawner : Node3D
 	public String randomMessage(Passenger.Destinations destination){
 		switch (destination){
 			case Passenger.Destinations.SpaceStationTheta:
-				return "a";
+				return "Help I need a ride to space station theta";
 			case Passenger.Destinations.SpaceStationDelta:
-				return "b";
-			case Passenger.Destinations.Planet:
-				return "yo planet";
-			case Passenger.Destinations.SpaceShip:
-				return "test";
+				return "Help I need a ride to Space station delta";
+			case Passenger.Destinations.SpaceStationOmega:
+				return "Help I need a ride to Space station omega";
+			// case Passenger.Destinations.Planet:
+			// 	return "yo gurt, gurt yo";
+			// case Passenger.Destinations.SpaceShip:
+				// return "test";
 		}
 		return "BAD DESTINATION";
 	}
@@ -41,7 +43,7 @@ public partial class Spawner : Node3D
 		Passenger newPassenger = Person.Instantiate<Passenger>();
 		Passenger.Destinations destinations = randomDestination();
 		AddChild(newPassenger);
-		newPassenger.instantiatePassenger(GD.Load<Texture2D>("res://icon.svg"), destinations,randomMessage(destinations));
+		newPassenger.instantiatePassenger(randomIcon(), destinations,randomMessage(destinations));
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

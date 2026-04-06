@@ -7,8 +7,9 @@ public partial class Passenger : Node3D
 	{
 		SpaceStationTheta,
 		SpaceStationDelta,
-		Planet,
-		SpaceShip
+		SpaceStationOmega,
+		// Planet,
+		// SpaceShip
 	}
 
 	// Called when the node enters the scene tree for the first time.
@@ -43,12 +44,15 @@ public partial class Passenger : Node3D
 			case Destinations.SpaceStationDelta:
 				return (int)currentPosition.DistanceTo(startPosition);
 				break;
-			case Destinations.Planet:
-				//add points for planet
+			case Destinations.SpaceStationOmega:
+				return (int)currentPosition.DistanceTo(startPosition);
 				break;
-			case Destinations.SpaceShip:
-				//add points for spaceship
-				break;
+			// case Destinations.Planet:
+			// 	//add points for planet
+			// 	break;
+			// case Destinations.SpaceShip:
+			// 	//add points for spaceship
+			// 	break;
 		}
 		return 1;
 	}

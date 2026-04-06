@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://c51tdpwu6tcj0" path="res://Scenes/Objectives/SpaceStationTheta.tscn" id="3_shgkq"]
 [ext_resource type="PackedScene" uid="uid://dqwyonkjg2icr" path="res://Scenes/Objectives/spawner.tscn" id="4_ujyaq"]
 [ext_resource type="PackedScene" uid="uid://b1f3f0rvm88ot" path="res://Scenes/Objectives/space_station_delta.tscn" id="5_oy2kj"]
+[ext_resource type="PackedScene" uid="uid://cnb8oh5jm8cfg" path="res://Scenes/Objectives/space_station_omega.tscn" id="6_sa0i8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ujyaq"]
 shader = ExtResource("1_shgkq")
@@ -64,3 +65,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.838348, 0, 7.776865)
 
 [node name="SpaceStationDelta" parent="." unique_id=252804212 instance=ExtResource("5_oy2kj")]
 transform = Transform3D(0.35875902, 0, 0.9334302, 0, 1, 0, -0.9334302, 0, 0.35875902, 956.24976, 357.95258, 713.1399)
+
+[node name="Spawner4" parent="." unique_id=910824769 instance=ExtResource("4_ujyaq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.237278, 0, 97.452896)
+
+[node name="Spawner5" parent="." unique_id=1580244397 instance=ExtResource("4_ujyaq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.237278, 0, 100.51877)
+
+[node name="Spawner6" parent="." unique_id=1201859676 instance=ExtResource("4_ujyaq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.237278, 0, 105.22976)
+
+[node name="SpaceStationOmega" parent="." unique_id=1302074139 instance=ExtResource("6_sa0i8")]
+transform = Transform3D(-0.28809598, 0, -0.95760155, 0, 1, 0, 0.95760155, 0, -0.28809598, 1190.4619, -510.02408, -1893.739)

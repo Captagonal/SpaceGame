@@ -128,8 +128,13 @@ public partial class SpaceShip : CharacterBody3D
 		}
 		Control thetaIcon = HUD.GetNode<Control>("ReferenceRect").GetNode<Control>("SpaceStationTheta");
 		thetaIcon.GetChildren().Clear();
+		Control deltaIcon = HUD.GetNode<Control>("ReferenceRect").GetNode<Control>("SpaceStationDelta");
+		deltaIcon.GetChildren().Clear();
+		Control omegaIcon = HUD.GetNode<Control>("ReferenceRect").GetNode<Control>("SpaceStationOmega");
+		omegaIcon.GetChildren().Clear();
 		int SpaceStationThetaCount = 0;
 		int SpaceStationDeltaCount = 0;
+		int SpaceStationOmegaCount = 0;
 		//----Passenger HUD
 		GD.Print(passengers.Count);
 		foreach (Passenger passenger in passengers)
@@ -144,21 +149,38 @@ public partial class SpaceShip : CharacterBody3D
 					thetaTexture.Texture = passenger.passengerTexture;
 					thetaIcon.AddChild(thetaTexture);
 					thetaTexture.Position = new Vector2(0, (SpaceStationThetaCount) * 125);
+					thetaTexture.ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize; 
+					thetaTexture.Size = new Vector2(100, 100);
 					break;
 				case Passenger.Destinations.SpaceStationDelta:
-					Control deltaIcon = HUD.GetNode<Control>("ReferenceRect").GetNode<Control>("SpaceStationDelta");
+					deltaIcon = HUD.GetNode<Control>("ReferenceRect").GetNode<Control>("SpaceStationDelta");
 					deltaIcon.Visible = true;
+					SpaceStationDeltaCount++;
 					TextureRect deltaTexture = new TextureRect();
 					deltaTexture.Texture = passenger.passengerTexture;
 					deltaIcon.AddChild(deltaTexture);
 					deltaTexture.Position = new Vector2(0, (SpaceStationDeltaCount) * 125);
+					deltaTexture.ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize; 
+					deltaTexture.Size = new Vector2(100, 100);
 					break;
-				case Passenger.Destinations.Planet:
+				case Passenger.Destinations.SpaceStationOmega:
+					omegaIcon = HUD.GetNode<Control>("ReferenceRect").GetNode<Control>("SpaceStationOmega");
+					omegaIcon.Visible = true;
+					SpaceStationOmegaCount++;
+					TextureRect omegaTexture = new TextureRect();
+					omegaTexture.Texture = passenger.passengerTexture;
+					omegaIcon.AddChild(omegaTexture);
+					omegaTexture.Position = new Vector2(0, (SpaceStationOmegaCount) * 125);
+					omegaTexture.ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize; 
+					omegaTexture.Size = new Vector2(100, 100);
+					
+					break;
+				// case Passenger.Destinations.Planet:
 
-					break;
-				case Passenger.Destinations.SpaceShip:
+				// 	break;
+				// case Passenger.Destinations.SpaceShip:
 
-					break;
+				// 	break;
 				default:
 
 					break;
@@ -312,12 +334,18 @@ public partial class SpaceShip : CharacterBody3D
 		// Slide to position and match rotation
 		tween.TweenProperty(this, "global_position", targetDockingPoint.GlobalPosition, 3.0f);
 		tween.TweenProperty(this, "global_rotation", targetDockingPoint.GlobalRotation, 3.0f);
-		if (targetDockingPoint.GetParent().Name == "SpaceStationTheta"){
-			RemoveAllPassengers(Passenger.Destinations.SpaceStationTheta);	
-		} else if (targetDockingPoint.GetParent().Name == "SpaceStationDelta"){
-			RemoveAllPassengers(Passenger.Destinations.SpaceStationDelta);	
+		if (targetDockingPoint.GetParent().Name == "SpaceStationTheta")
+		{
+			RemoveAllPassengers(Passenger.Destinations.SpaceStationTheta);
 		}
-		
+		else if (targetDockingPoint.GetParent().Name == "SpaceStationDelta")
+		{
+			RemoveAllPassengers(Passenger.Destinations.SpaceStationDelta);
+		} else if (targetDockingPoint.GetParent().Name == "SpaceStationOmega")
+		{
+			RemoveAllPassengers(Passenger.Destinations.SpaceStationOmega);
+		}
+
 		tween.Finished += () => SetPhysicsProcess(true);
 	}
 
@@ -330,8 +358,8 @@ public partial class SpaceShip : CharacterBody3D
 		for (int i = passengers.Count - 1; i >= 0; i--)
 		{
 			if (passengers[i].destination == destinations)
-			{	
-				DisplayTransmission(passengers[i].message);
+			{
+				DisplayTransmission("Thankl you for the ride!");
 				score += passengers[i].getPoints(GlobalTransform.Origin);
 				passengers[i].QueueFree();
 				passengers.RemoveAt(i);
@@ -340,12 +368,12 @@ public partial class SpaceShip : CharacterBody3D
 				icon.Visible = false;
 			}
 		}
-		
-			if (passengers.Count == 0)
-			{
-				currentObjective = Objectives.RescueStrandedPerson;
-			}
-		
+
+		if (passengers.Count == 0)
+		{
+			currentObjective = Objectives.RescueStrandedPerson;
+		}
+
 
 	}
 
