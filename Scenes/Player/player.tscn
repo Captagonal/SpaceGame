@@ -29,6 +29,9 @@ font_color = Color(0.76862746, 1, 0.827451, 1)
 shadow_size = 14
 shadow_color = Color(0, 0.49411765, 0, 0.6392157)
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_dd0ac"]
+radius = 1.298497
+
 [node name="Player" type="CharacterBody3D" unique_id=540873997]
 motion_mode = 1
 script = ExtResource("1_uvnfx")
@@ -92,3 +95,13 @@ wait_time = 0.2
 stream = ExtResource("6_dd0ac")
 pitch_scale = 1.66
 mix_target = 1
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1622795480]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=77795187]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.7973752)
+shape = SubResource("SphereShape3D_dd0ac")
+
+[connection signal="area_entered" from="Area3D" to="." method="Passenger"]

@@ -23,6 +23,7 @@ script = ExtResource("1_jl55m")
 
 [node name="Person" type="RigidBody3D" parent="." unique_id=1185096006]
 gravity_scale = 0.0
+freeze_mode = 1
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Person" unique_id=174625889]
 shape = SubResource("SphereShape3D_lu832")

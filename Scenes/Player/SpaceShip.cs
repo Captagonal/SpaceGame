@@ -149,7 +149,7 @@ public partial class SpaceShip : CharacterBody3D
 					thetaTexture.Texture = passenger.passengerTexture;
 					thetaIcon.AddChild(thetaTexture);
 					thetaTexture.Position = new Vector2(0, (SpaceStationThetaCount) * 125);
-					thetaTexture.ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize; 
+					thetaTexture.ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize;
 					thetaTexture.Size = new Vector2(100, 100);
 					break;
 				case Passenger.Destinations.SpaceStationDelta:
@@ -160,7 +160,7 @@ public partial class SpaceShip : CharacterBody3D
 					deltaTexture.Texture = passenger.passengerTexture;
 					deltaIcon.AddChild(deltaTexture);
 					deltaTexture.Position = new Vector2(0, (SpaceStationDeltaCount) * 125);
-					deltaTexture.ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize; 
+					deltaTexture.ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize;
 					deltaTexture.Size = new Vector2(100, 100);
 					break;
 				case Passenger.Destinations.SpaceStationOmega:
@@ -171,9 +171,9 @@ public partial class SpaceShip : CharacterBody3D
 					omegaTexture.Texture = passenger.passengerTexture;
 					omegaIcon.AddChild(omegaTexture);
 					omegaTexture.Position = new Vector2(0, (SpaceStationOmegaCount) * 125);
-					omegaTexture.ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize; 
+					omegaTexture.ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize;
 					omegaTexture.Size = new Vector2(100, 100);
-					
+
 					break;
 				// case Passenger.Destinations.Planet:
 
@@ -341,7 +341,8 @@ public partial class SpaceShip : CharacterBody3D
 		else if (targetDockingPoint.GetParent().Name == "SpaceStationDelta")
 		{
 			RemoveAllPassengers(Passenger.Destinations.SpaceStationDelta);
-		} else if (targetDockingPoint.GetParent().Name == "SpaceStationOmega")
+		}
+		else if (targetDockingPoint.GetParent().Name == "SpaceStationOmega")
 		{
 			RemoveAllPassengers(Passenger.Destinations.SpaceStationOmega);
 		}
@@ -392,6 +393,46 @@ public partial class SpaceShip : CharacterBody3D
 		timeTrial.WaitTime = timeTrial.TimeLeft + 20 - .15 * time;
 		timeTrial.Start();
 		DisplayTransmission(passenger.message);
+	}
+
+
+	public void PickUpPassenger2(Passenger passenger)
+	{
+		GD.Print("Attempting to pick up passenger...");
+		if (passengers.Count >= MaxPassengers)
+		{
+			DisplayTransmission("Can't pick up passenger, ship is at max capacity!");
+			return;
+		}
+		passenger.PickedUp();
+		passengers.Add(passenger);
+		DisplayTransmission(passenger.message);
+		passenger.GetNode<RigidBody3D>("Person").Freeze = false;
+		switch (passengers.Count){
+			case 1:
+				GetNode<Generic6DofJoint3D>("Generic6DOFJoint3D").NodeB = passenger.GetNode<RigidBody3D>("Person").GetPath();
+				break;
+			case 2:
+				score += 250;
+				break;
+			case 3:
+				score += 500;
+				break;
+			case 4:
+				score += 1000;
+				break;
+		}
+
+		currentObjective = Objectives.DeliverToStation;
+		if (currentGameMode == GameMode.timeTrial)
+		{
+			Label timer = HUD.GetNode<Control>("ReferenceRect").GetNode<Label>("Time");
+			timer.Visible = true;
+			Timer timeTrial = timer.GetNode<Timer>("TimeTrial");
+			timeTrial.WaitTime = timeTrial.TimeLeft + 20 - .15f * time;
+			timeTrial.Start();
+		}
+
 	}
 
 	enum Objectives

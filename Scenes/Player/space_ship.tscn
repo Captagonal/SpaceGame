@@ -54,6 +54,8 @@ size = Vector3(4.27063, 5.5080566, 6.0117188)
 [sub_resource type="BoxShape3D" id="BoxShape3D_bvfgm"]
 size = Vector3(17.185059, 7.958008, 11.854492)
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_vobda"]
+
 [node name="SpaceShip" type="CharacterBody3D" unique_id=203800574]
 collision_layer = 0
 collision_mask = 0
@@ -225,13 +227,122 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9727402, 0, 0)
 shape = SubResource("BoxShape3D_xaeba")
 
 [node name="Passenger" type="Area3D" parent="." unique_id=857157451]
-collision_layer = 4
-collision_mask = 4
+collision_layer = 0
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Passenger" unique_id=14410073]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.352295, 0, 0)
 shape = SubResource("BoxShape3D_bvfgm")
 
+[node name="Generic6DOFJoint3D" type="Generic6DOFJoint3D" parent="." unique_id=1691199741]
+transform = Transform3D(0.99670285, 0, 0.08113833, 0, 1, 0, -0.08113833, 0, 0.99670285, -15.355203, 0, -4.134819)
+node_a = NodePath("RigidBody3D")
+linear_limit_x/enabled = false
+linear_limit_y/enabled = false
+linear_limit_z/enabled = false
+linear_spring_x/enabled = true
+linear_spring_x/stiffness = 129.32
+linear_spring_x/damping = 112.64
+linear_spring_y/enabled = true
+linear_spring_y/stiffness = 118.52
+linear_spring_y/damping = 104.84
+linear_spring_z/enabled = true
+linear_spring_z/stiffness = 148.005
+linear_spring_z/damping = 482.84
+angular_spring_x/enabled = true
+angular_spring_x/stiffness = 26.765
+angular_spring_y/enabled = true
+angular_spring_y/stiffness = 25.69
+angular_spring_z/enabled = true
+angular_spring_z/stiffness = 23.595
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Generic6DOFJoint3D" unique_id=463757238]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Generic6DOFJoint3D/RigidBody3D" unique_id=1574061463]
+shape = SubResource("SphereShape3D_vobda")
+
+[node name="Generic6DOFJoint3D2" type="Generic6DOFJoint3D" parent="." unique_id=179619077]
+transform = Transform3D(0.99670285, 0, 0.08113833, 0, 1, 0, -0.08113833, 0, 0.99670285, -15.355203, 0, 4.194147)
+node_a = NodePath("RigidBody3D")
+linear_limit_x/enabled = false
+linear_limit_y/enabled = false
+linear_limit_z/enabled = false
+linear_spring_x/enabled = true
+linear_spring_x/stiffness = 129.32
+linear_spring_x/damping = 50.0
+linear_spring_y/enabled = true
+linear_spring_y/stiffness = 100.0
+linear_spring_y/damping = 50.0
+linear_spring_z/enabled = true
+linear_spring_z/stiffness = 100.0
+linear_spring_z/damping = 500.0
+angular_spring_x/enabled = true
+angular_spring_x/stiffness = 26.765
+angular_spring_y/enabled = true
+angular_spring_y/stiffness = 25.69
+angular_spring_z/enabled = true
+angular_spring_z/stiffness = 23.595
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Generic6DOFJoint3D2" unique_id=1335384784]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Generic6DOFJoint3D2/RigidBody3D" unique_id=1008080627]
+shape = SubResource("SphereShape3D_vobda")
+
+[node name="Generic6DOFJoint3D3" type="Generic6DOFJoint3D" parent="." unique_id=2097591990]
+transform = Transform3D(0.99670285, 0, 0.08113833, 0, 1, 0, -0.08113833, 0, 0.99670285, -15.355203, 0, -1.6448779)
+node_a = NodePath("RigidBody3D")
+linear_limit_x/enabled = false
+linear_limit_y/enabled = false
+linear_limit_z/enabled = false
+linear_spring_x/enabled = true
+linear_spring_x/stiffness = 129.32
+linear_spring_x/damping = 50.0
+linear_spring_y/enabled = true
+linear_spring_y/stiffness = 100.0
+linear_spring_y/damping = 50.0
+linear_spring_z/enabled = true
+linear_spring_z/stiffness = 100.0
+linear_spring_z/damping = 500.0
+angular_spring_x/enabled = true
+angular_spring_x/stiffness = 26.765
+angular_spring_y/enabled = true
+angular_spring_y/stiffness = 25.69
+angular_spring_z/enabled = true
+angular_spring_z/stiffness = 23.595
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Generic6DOFJoint3D3" unique_id=623459894]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Generic6DOFJoint3D3/RigidBody3D" unique_id=1023226745]
+shape = SubResource("SphereShape3D_vobda")
+
+[node name="Generic6DOFJoint3D4" type="Generic6DOFJoint3D" parent="." unique_id=872434937]
+transform = Transform3D(0.99670285, 0, 0.08113833, 0, 1, 0, -0.08113833, 0, 0.99670285, -15.355203, 0, 1.533494)
+node_a = NodePath("RigidBody3D")
+linear_limit_x/enabled = false
+linear_limit_y/enabled = false
+linear_limit_z/enabled = false
+linear_spring_x/enabled = true
+linear_spring_x/stiffness = 129.32
+linear_spring_x/damping = 50.0
+linear_spring_y/enabled = true
+linear_spring_y/stiffness = 100.0
+linear_spring_y/damping = 50.0
+linear_spring_z/enabled = true
+linear_spring_z/stiffness = 100.0
+linear_spring_z/damping = 500.0
+angular_spring_x/enabled = true
+angular_spring_x/stiffness = 26.765
+angular_spring_y/enabled = true
+angular_spring_y/stiffness = 25.69
+angular_spring_z/enabled = true
+angular_spring_z/stiffness = 23.595
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Generic6DOFJoint3D4" unique_id=490715938]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Generic6DOFJoint3D4/RigidBody3D" unique_id=1396473067]
+shape = SubResource("SphereShape3D_vobda")
+
 [connection signal="timeout" from="ShipTimer" to="." method="ExitShip"]
+[connection signal="passengerColected" from="Player" to="." method="PickUpPassenger2"]
 [connection signal="area_entered" from="Docking" to="." method="Docking"]
 [connection signal="area_entered" from="Passenger" to="." method="passenger"]

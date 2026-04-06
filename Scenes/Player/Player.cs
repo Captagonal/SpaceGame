@@ -22,6 +22,9 @@ public partial class Player : CharacterBody3D
 	private float MAXropeLength = 14;
 	private float ropeLength = 0;
 	private Node2D HUD;
+
+	[Signal]
+	public delegate void passengerColectedEventHandler(Passenger passenger);
 	public override void _Ready()
 	{
 		camera3D = GetNode<Camera3D>("Camera3D");
@@ -155,6 +158,13 @@ public partial class Player : CharacterBody3D
 		{
 			transmissionTimer.Stop();
 			transmissionLabel.Hide();
+		}
+	}
+
+	public void Passenger(Area3D passengerArea){
+		if (passengerArea.GetParent().GetParent() is Passenger passenger)
+		{
+			EmitSignal(SignalName.passengerColected, passenger);
 		}
 	}
 }

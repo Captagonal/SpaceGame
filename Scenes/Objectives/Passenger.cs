@@ -44,6 +44,7 @@ public partial class Passenger : Node3D
 	}
 	bool big = false;
 	public void timer(){
+		Node3D Notifer = GetNode<Node3D>("Person").GetNode<Node3D>("MeshInstance3D2");
 		big = !big;
 		Tween tween = GetTree().CreateTween().SetParallel(true);
 
@@ -51,10 +52,10 @@ public partial class Passenger : Node3D
 		tween.SetTrans(Tween.TransitionType.Linear);
 		tween.SetEase(Tween.EaseType.InOut);
 		if (big){
-			tween.TweenProperty(this, "scale", new Vector3(2,2,2), timerScale.WaitTime);
+			tween.TweenProperty(Notifer, "scale", new Vector3(2,2,2), timerScale.WaitTime);
 		}
 		else{
-			tween.TweenProperty(this, "scale", new Vector3(1,1,1), timerScale.WaitTime);
+			tween.TweenProperty(Notifer, "scale", new Vector3(1,1,1), timerScale.WaitTime);
 		}
 		// Slide to position and match rotation
 		// tween.TweenProperty(this, "global_rotation", 1, 3.0f);
@@ -79,5 +80,13 @@ public partial class Passenger : Node3D
 			// 	break;
 		}
 		return 1;
+	}
+
+	public void PickedUp(){
+		RigidBody3D rigidBody3D = GetNode<RigidBody3D>("Person");
+		rigidBody3D.GetNode<Area3D>("Area3D").SetDeferred("monitorable", false);
+		rigidBody3D.GetNode<Area3D>("Area3D").SetDeferred("monitoring", false);
+		// rigidBody3D.GetNode<CollisionShape3D>("CollisionShape3D").SetDeferred("disabled", true);
+		rigidBody3D.GetNode<MeshInstance3D>("MeshInstance3D2").SetDeferred("visible", false);
 	}
 }
