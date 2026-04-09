@@ -2,12 +2,162 @@
 
 [ext_resource type="PackedScene" uid="uid://bdjtnwjqa7rjl" path="res://Assets/Blender Assets/SpaceStationTheta.blend" id="1_txkfa"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_txkfa"]
+render_priority = 1
+transparency = 1
+shading_mode = 0
+grow = true
+grow_amount = 2.755
+stencil_mode = 3
+stencil_flags = 1
+stencil_compare = 5
+metadata/_stencil_owned = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b6vho"]
+next_pass = SubResource("StandardMaterial3D_txkfa")
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0.31061712, 0.31061712, 0.3106171, 1)
+metallic = 0.4
+metallic_specular = 1.0
+roughness = 0.0
+stencil_mode = 1
+stencil_flags = 2
+stencil_color = Color(1, 1, 1, 1)
+stencil_outline_thickness = 2.755
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ext4x"]
+render_priority = 1
+transparency = 1
+shading_mode = 0
+grow = true
+grow_amount = 0.355
+stencil_mode = 3
+stencil_flags = 1
+stencil_compare = 5
+metadata/_stencil_owned = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qbime"]
+next_pass = SubResource("StandardMaterial3D_ext4x")
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0.3180198, 0.31801978, 0.31801975, 1)
+metallic = 0.05
+metallic_specular = 0.69
+roughness = 0.0
+stencil_mode = 1
+stencil_flags = 2
+stencil_color = Color(1, 1, 1, 1)
+stencil_outline_thickness = 0.355
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_om6wv"]
+render_priority = 1
+transparency = 1
+shading_mode = 0
+grow = true
+grow_amount = 0.911
+stencil_mode = 3
+stencil_flags = 1
+stencil_compare = 5
+stencil_reference = 3
+metadata/_stencil_owned = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u5at1"]
+next_pass = SubResource("StandardMaterial3D_om6wv")
+transparency = 1
+depth_draw_mode = 1
+albedo_color = Color(0, 1, 1, 0.5294118)
+emission_enabled = true
+emission = Color(0.20697439, 0.74475354, 0.7049374, 1)
+emission_energy_multiplier = 2.23
+rim_enabled = true
+rim = 0.69
+rim_tint = 0.09
+stencil_mode = 1
+stencil_flags = 2
+stencil_reference = 3
+stencil_color = Color(1, 1, 1, 1)
+stencil_outline_thickness = 0.911
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kpdkv"]
+render_priority = 1
+transparency = 1
+shading_mode = 0
+grow = true
+grow_amount = 0.37
+stencil_mode = 3
+stencil_flags = 1
+stencil_compare = 5
+stencil_reference = 2
+metadata/_stencil_owned = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_787ey"]
+next_pass = SubResource("StandardMaterial3D_kpdkv")
+transparency = 1
+depth_draw_mode = 1
+albedo_color = Color(0.15686275, 1, 1, 0.3137255)
+emission_enabled = true
+emission = Color(0.12946963, 0.529425, 0.658352, 1)
+emission_energy_multiplier = 4.52
+rim_enabled = true
+rim_tint = 0.79
+stencil_mode = 1
+stencil_flags = 2
+stencil_reference = 2
+stencil_color = Color(1, 1, 1, 1)
+stencil_outline_thickness = 0.37
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7mw0i"]
+render_priority = 1
+transparency = 1
+shading_mode = 0
+grow = true
+grow_amount = 1.89
+stencil_mode = 3
+stencil_flags = 1
+stencil_compare = 5
+stencil_reference = 2
+metadata/_stencil_owned = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_avwtg"]
+render_priority = 1
+next_pass = SubResource("StandardMaterial3D_7mw0i")
+albedo_color = Color(0.23126268, 0.62549984, 0.7282229, 1)
+emission_enabled = true
+rim_enabled = true
+stencil_mode = 1
+stencil_flags = 2
+stencil_reference = 2
+stencil_color = Color(1, 1, 1, 1)
+stencil_outline_thickness = 1.89
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_txkfa"]
 size = Vector3(84.39209, 88.885376, 120.91516)
 
 [node name="SpaceStationTheta" type="Node3D" unique_id=1795427457]
 
-[node name="SpaceStationTheta" parent="." unique_id=2108691884 instance=ExtResource("1_txkfa")]
+[node name="SpaceStationTheta" parent="." unique_id=198110900 instance=ExtResource("1_txkfa")]
+
+[node name="Torus" parent="SpaceStationTheta" index="0" unique_id=129467970]
+surface_material_override/0 = SubResource("StandardMaterial3D_b6vho")
+
+[node name="Torus_001" parent="SpaceStationTheta" index="1" unique_id=1671897083]
+transform = Transform3D(0.9135664, -0.0006947663, -0.0010583733, 0.00069313403, 0.91356593, -0.0013922094, 0.0010594429, 0.0013913956, 0.9135656, 0, 0, 0)
+surface_material_override/0 = SubResource("StandardMaterial3D_b6vho")
+
+[node name="Cylinder" parent="SpaceStationTheta" index="2" unique_id=1710410188]
+surface_material_override/0 = SubResource("StandardMaterial3D_qbime")
+
+[node name="Cylinder_001" parent="SpaceStationTheta" index="3" unique_id=1211353591]
+transform = Transform3D(6.1962395, 0, 0, 0, 0, 5.4367204, 0, -0.21392137, 0, 0, 0, -286.91055)
+surface_material_override/0 = SubResource("StandardMaterial3D_u5at1")
+
+[node name="Cylinder_002" parent="SpaceStationTheta" index="4" unique_id=47351694]
+transform = Transform3D(13.253828, -0.0048574414, 0.16529123, -0.15844212, 0.0008389909, 13.809015, -0.12970176, -0.49739206, 0.021678586, 0, 0, -342.0141)
+surface_material_override/0 = SubResource("StandardMaterial3D_787ey")
+
+[node name="Cylinder_003" parent="SpaceStationTheta" index="5" unique_id=594017481]
+surface_material_override/0 = SubResource("StandardMaterial3D_avwtg")
 
 [node name="Area3D" type="Area3D" parent="." unique_id=41219214 groups=["docking"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -317.6867)
@@ -16,3 +166,5 @@ collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1822242123]
 shape = SubResource("BoxShape3D_txkfa")
+
+[editable path="SpaceStationTheta"]

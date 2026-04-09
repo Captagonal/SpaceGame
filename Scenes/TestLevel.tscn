@@ -18,8 +18,13 @@ sky_material = SubResource("ShaderMaterial_ujyaq")
 [sub_resource type="Environment" id="Environment_shgkq"]
 background_mode = 2
 sky = SubResource("Sky_5ms4e")
-tonemap_mode = 2
+ambient_light_source = 2
+ambient_light_color = Color(0.50928617, 0.50928617, 0.50928617, 1)
+ambient_light_energy = 0.4
+tonemap_exposure = 3.02
 glow_enabled = true
+glow_intensity = 0.1
+glow_bloom = 0.2
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_vkdvt"]
 size = Vector2(6.525, 3.68)
@@ -45,7 +50,7 @@ shadow_enabled = true
 mesh = SubResource("PlaneMesh_vkdvt")
 
 [node name="SpaceShip" parent="." unique_id=203800574 instance=ExtResource("1_bhm8u")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.43956, 3.3664927, 0.62248933)
+transform = Transform3D(0.91457033, 0, -0.11364019, 0, 0.9216035, 0, 0.11364019, 0, 0.91457033, -21.43956, 3.3664927, 0.62248933)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1777402830]
 stream = SubResource("AudioStreamWAV_5ms4e")

@@ -407,10 +407,10 @@ public partial class SpaceShip : CharacterBody3D
 		passenger.PickedUp();
 		passengers.Add(passenger);
 		DisplayTransmission(passenger.message);
-		passenger.GetNode<RigidBody3D>("Person").Freeze = false;
+		// passenger.GetNode<RigidBody3D>("Person").Freeze = false;
 		switch (passengers.Count){
 			case 1:
-				GetNode<Generic6DofJoint3D>("Generic6DOFJoint3D").NodeB = passenger.GetNode<RigidBody3D>("Person").GetPath();
+				GetNode<Generic6DofJoint3D>("Generic6DOFJoint3D3").NodeB = passenger.GetNode<RigidBody3D>("Person").GetPath();
 				break;
 			case 2:
 				score += 250;

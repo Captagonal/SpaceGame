@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://c1upripwrk1wo"]
 
 [ext_resource type="Script" uid="uid://bc2j6y0xan6p5" path="res://Scenes/Objectives/Passenger.cs" id="1_jl55m"]
+[ext_resource type="PackedScene" uid="uid://cxjk1c6q48rwt" path="res://Assets/Blender Assets/PersonToSave.blend" id="2_hf2dp"]
+[ext_resource type="PackedScene" uid="uid://dk5y0wv0l704c" path="res://Assets/Blender Assets/SpaceBloblin.blend" id="3_elbc0"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_lu832"]
-
-[sub_resource type="SphereMesh" id="SphereMesh_jl55m"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_hf2dp"]
 radius = 1.862521
@@ -18,18 +18,242 @@ top_radius = 0.0
 bottom_radius = 2.535
 height = 3.895
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_elbc0"]
+render_priority = 1
+transparency = 1
+shading_mode = 0
+grow = true
+grow_amount = 0.06
+stencil_mode = 3
+stencil_flags = 1
+stencil_compare = 5
+stencil_reference = 2
+metadata/_stencil_owned = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_muea1"]
+next_pass = SubResource("StandardMaterial3D_elbc0")
+transparency = 1
+blend_mode = 1
+depth_draw_mode = 1
+diffuse_mode = 3
+specular_mode = 1
+disable_ambient_light = true
+albedo_color = Color(0.29411766, 0.29411766, 0.29411766, 0.4392157)
+roughness = 0.0
+stencil_mode = 1
+stencil_flags = 2
+stencil_reference = 2
+stencil_color = Color(1, 1, 1, 1)
+stencil_outline_thickness = 0.06
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o3npk"]
+render_priority = 1
+transparency = 1
+shading_mode = 0
+grow = true
+grow_amount = 0.015
+stencil_mode = 3
+stencil_flags = 1
+stencil_compare = 5
+stencil_reference = 2
+metadata/_stencil_owned = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c3c6r"]
+next_pass = SubResource("StandardMaterial3D_o3npk")
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0.24840015, 0.24840018, 0.24840015, 1)
+roughness = 0.0
+stencil_mode = 1
+stencil_flags = 2
+stencil_reference = 2
+stencil_color = Color(1, 1, 1, 1)
+stencil_outline_thickness = 0.015
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m7bqp"]
+render_priority = 1
+transparency = 1
+shading_mode = 0
+grow = true
+grow_amount = 0.025
+stencil_mode = 3
+stencil_flags = 1
+stencil_compare = 5
+metadata/_stencil_owned = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tp68i"]
+next_pass = SubResource("StandardMaterial3D_m7bqp")
+cull_mode = 1
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0, 0, 0, 1)
+roughness = 0.0
+stencil_mode = 1
+stencil_flags = 2
+stencil_reference = 0
+stencil_color = Color(1, 1, 1, 1)
+stencil_outline_thickness = 0.155
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qy0bo"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0.5751375, 0.4969738, 0.3806749, 1)
+roughness = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ss262"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0.28306293, 0.21194503, 0.1295135, 1)
+roughness = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dj30d"]
+next_pass = SubResource("StandardMaterial3D_m7bqp")
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0, 0, 0, 1)
+roughness = 0.0
+stencil_mode = 1
+stencil_flags = 2
+stencil_color = Color(1, 1, 1, 1)
+stencil_outline_thickness = 0.025
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vblug"]
+render_priority = 1
+transparency = 1
+shading_mode = 0
+grow = true
+grow_amount = 0.01
+stencil_mode = 3
+stencil_flags = 1
+stencil_compare = 5
+metadata/_stencil_owned = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i45pc"]
+next_pass = SubResource("StandardMaterial3D_vblug")
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0, 0, 0, 1)
+roughness = 0.0
+stencil_mode = 1
+stencil_flags = 2
+stencil_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_syamg"]
+render_priority = 1
+transparency = 1
+shading_mode = 0
+grow = true
+grow_amount = 0.125
+stencil_mode = 3
+stencil_flags = 1
+stencil_compare = 5
+metadata/_stencil_owned = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_anvck"]
+next_pass = SubResource("StandardMaterial3D_syamg")
+diffuse_mode = 3
+specular_mode = 1
+roughness = 0.0
+stencil_mode = 1
+stencil_flags = 2
+stencil_color = Color(1, 1, 1, 1)
+stencil_outline_thickness = 0.125
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4n73q"]
+render_priority = 1
+transparency = 1
+shading_mode = 0
+grow = true
+grow_amount = 0.08
+stencil_mode = 3
+stencil_flags = 1
+stencil_compare = 5
+metadata/_stencil_owned = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_atpot"]
+next_pass = SubResource("StandardMaterial3D_4n73q")
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0, 0, 0, 1)
+roughness = 0.0
+stencil_mode = 1
+stencil_flags = 2
+stencil_color = Color(1, 1, 1, 1)
+stencil_outline_thickness = 0.08
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_871jn"]
+render_priority = 1
+transparency = 1
+shading_mode = 0
+grow = true
+grow_amount = 0.53
+stencil_mode = 3
+stencil_flags = 1
+stencil_compare = 5
+metadata/_stencil_owned = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gejv3"]
+next_pass = SubResource("StandardMaterial3D_871jn")
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0.19025967, 0.7740818, 0.7769724, 1)
+roughness = 0.0
+stencil_mode = 1
+stencil_flags = 2
+stencil_color = Color(1, 1, 1, 1)
+stencil_outline_thickness = 0.53
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1giun"]
+render_priority = 1
+transparency = 1
+shading_mode = 0
+grow = true
+grow_amount = 0.03
+stencil_mode = 3
+stencil_flags = 1
+stencil_compare = 5
+metadata/_stencil_owned = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ku2s8"]
+next_pass = SubResource("StandardMaterial3D_1giun")
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0, 0, 0, 1)
+roughness = 0.0
+stencil_mode = 1
+stencil_flags = 2
+stencil_color = Color(1, 1, 1, 1)
+stencil_outline_thickness = 0.03
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rtht6"]
+render_priority = 1
+transparency = 1
+shading_mode = 0
+grow = true
+grow_amount = 0.055
+stencil_mode = 3
+stencil_flags = 1
+stencil_compare = 5
+metadata/_stencil_owned = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3k5pp"]
+next_pass = SubResource("StandardMaterial3D_rtht6")
+transparency = 1
+albedo_color = Color(0.37254903, 0.37254903, 0.37254903, 0.36078432)
+roughness = 0.0
+stencil_mode = 1
+stencil_flags = 2
+stencil_color = Color(1, 1, 1, 1)
+stencil_outline_thickness = 0.055
+
 [node name="StrandedPerson" type="Node3D" unique_id=1050291092]
 script = ExtResource("1_jl55m")
 
 [node name="Person" type="RigidBody3D" parent="." unique_id=1185096006]
 gravity_scale = 0.0
-freeze_mode = 1
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Person" unique_id=174625889]
 shape = SubResource("SphereShape3D_lu832")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Person" unique_id=2098291273]
-mesh = SubResource("SphereMesh_jl55m")
 
 [node name="Area3D" type="Area3D" parent="Person" unique_id=919294390 groups=["Person"]]
 collision_layer = 4
@@ -37,11 +261,57 @@ collision_mask = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Person/Area3D" unique_id=1310835927]
 shape = SubResource("SphereShape3D_hf2dp")
+debug_fill = false
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Person" unique_id=1300044698]
 transform = Transform3D(-1, 1.509958e-07, 0, -1.509958e-07, -1, 0, 0, 0, 1, 0, 4.243, 0)
 mesh = SubResource("CylinderMesh_hf2dp")
 
+[node name="PersonToSave" parent="Person" unique_id=378090514 instance=ExtResource("2_hf2dp")]
+transform = Transform3D(0.21644929, 0.9577653, -0.18930238, -0.8688233, 0.10052633, -0.48480967, -0.44530386, 0.26940703, 0.85388786, 0, 0, 0)
+visible = false
+
+[node name="Sphere" parent="Person/PersonToSave" index="0" unique_id=879237769]
+surface_material_override/0 = SubResource("StandardMaterial3D_muea1")
+
+[node name="Cube" parent="Person/PersonToSave" index="1" unique_id=1585979372]
+surface_material_override/0 = SubResource("StandardMaterial3D_c3c6r")
+
+[node name="Cube_003" parent="Person/PersonToSave" index="2" unique_id=865490518]
+surface_material_override/1 = SubResource("StandardMaterial3D_tp68i")
+
+[node name="Sphere_001" parent="Person/PersonToSave" index="3" unique_id=1561803434]
+surface_material_override/0 = SubResource("StandardMaterial3D_qy0bo")
+
+[node name="Sphere_002" parent="Person/PersonToSave" index="4" unique_id=1672858376]
+surface_material_override/0 = SubResource("StandardMaterial3D_ss262")
+
+[node name="Cube_004" parent="Person/PersonToSave" index="5" unique_id=124331476]
+surface_material_override/0 = SubResource("StandardMaterial3D_dj30d")
+
+[node name="Cube_005" parent="Person/PersonToSave" index="6" unique_id=2116078566]
+surface_material_override/0 = SubResource("StandardMaterial3D_i45pc")
+
+[node name="Sphere_003" parent="Person/PersonToSave" index="8" unique_id=1580519708]
+surface_material_override/0 = SubResource("StandardMaterial3D_c3c6r")
+
+[node name="Sphere_004" parent="Person/PersonToSave" index="9" unique_id=350406862]
+surface_material_override/0 = SubResource("StandardMaterial3D_c3c6r")
+
+[node name="SpaceBloblin" parent="Person" unique_id=1429799685 instance=ExtResource("3_elbc0")]
+
+[node name="Sphere_002" parent="Person/SpaceBloblin" index="0" unique_id=1932518549]
+surface_material_override/0 = SubResource("StandardMaterial3D_anvck")
+surface_material_override/1 = SubResource("StandardMaterial3D_atpot")
+surface_material_override/2 = SubResource("StandardMaterial3D_gejv3")
+
+[node name="Torus" parent="Person/SpaceBloblin" index="1" unique_id=1443486940]
+surface_material_override/0 = SubResource("StandardMaterial3D_ku2s8")
+surface_material_override/1 = SubResource("StandardMaterial3D_3k5pp")
+
 [node name="Timer" type="Timer" parent="." unique_id=809916714]
-wait_time = 1.9409999999999998
+wait_time = 1.941
 autostart = true
+
+[editable path="Person/PersonToSave"]
+[editable path="Person/SpaceBloblin"]

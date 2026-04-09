@@ -2,12 +2,182 @@
 
 [ext_resource type="PackedScene" uid="uid://dqxwbilpkv4l2" path="res://Assets/Blender Assets/SpaceStationDelta.blend" id="1_ac5o4"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ac5o4"]
+render_priority = 1
+transparency = 1
+shading_mode = 0
+grow = true
+grow_amount = 1.205
+stencil_mode = 3
+stencil_flags = 1
+stencil_compare = 5
+stencil_reference = 2
+metadata/_stencil_owned = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oyn40"]
+next_pass = SubResource("StandardMaterial3D_ac5o4")
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0, 0, 0, 1)
+metallic = 1.0
+roughness = 0.0
+stencil_mode = 1
+stencil_flags = 2
+stencil_reference = 2
+stencil_color = Color(1, 1, 1, 1)
+stencil_outline_thickness = 1.205
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dl8vv"]
+render_priority = 1
+transparency = 1
+shading_mode = 0
+grow = true
+grow_amount = 0.12
+stencil_mode = 3
+stencil_flags = 1
+stencil_compare = 5
+stencil_reference = 2
+metadata/_stencil_owned = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s6a8u"]
+next_pass = SubResource("StandardMaterial3D_dl8vv")
+albedo_color = Color(0.48235294, 0.02745098, 0, 1)
+emission_enabled = true
+emission = Color(0.7647059, 0, 0, 1)
+stencil_mode = 1
+stencil_flags = 2
+stencil_reference = 2
+stencil_color = Color(1, 1, 1, 1)
+stencil_outline_thickness = 0.12
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_47nhj"]
+render_priority = 1
+transparency = 1
+shading_mode = 0
+grow = true
+grow_amount = 0.745
+stencil_mode = 3
+stencil_flags = 1
+stencil_compare = 5
+metadata/_stencil_owned = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i3se2"]
+next_pass = SubResource("StandardMaterial3D_47nhj")
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0.19434929, 0.19434926, 0.19434926, 1)
+metallic = 0.41
+roughness = 0.0
+stencil_mode = 1
+stencil_flags = 2
+stencil_color = Color(1, 1, 1, 1)
+stencil_outline_thickness = 0.745
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8aba7"]
+render_priority = 1
+transparency = 1
+shading_mode = 0
+grow = true
+grow_amount = 0.405
+stencil_mode = 3
+stencil_flags = 1
+stencil_compare = 5
+stencil_reference = 3
+metadata/_stencil_owned = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sag3p"]
+next_pass = SubResource("StandardMaterial3D_8aba7")
+transparency = 1
+depth_draw_mode = 1
+albedo_color = Color(0.69803923, 0, 0, 0.34901962)
+emission_enabled = true
+emission = Color(0.7647059, 0, 0, 1)
+emission_energy_multiplier = 7.26
+rim_enabled = true
+stencil_mode = 1
+stencil_flags = 2
+stencil_reference = 3
+stencil_color = Color(1, 1, 1, 1)
+stencil_outline_thickness = 0.405
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ggi4q"]
+render_priority = 1
+transparency = 1
+shading_mode = 0
+grow = true
+grow_amount = 1.205
+stencil_mode = 3
+stencil_flags = 1
+stencil_compare = 5
+metadata/_stencil_owned = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ojavm"]
+next_pass = SubResource("StandardMaterial3D_ggi4q")
+specular_mode = 1
+albedo_color = Color(0.19434929, 0.19434926, 0.19434926, 1)
+metallic = 0.65
+stencil_mode = 1
+stencil_flags = 2
+stencil_color = Color(1, 1, 1, 1)
+stencil_outline_thickness = 1.205
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_afv6k"]
+render_priority = 1
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+grow = true
+grow_amount = 0.018
+stencil_mode = 3
+stencil_flags = 1
+stencil_compare = 5
+stencil_reference = 2
+metadata/_stencil_owned = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_shn2n"]
+next_pass = SubResource("StandardMaterial3D_afv6k")
+shading_mode = 0
+albedo_color = Color(1, 0, 0, 1)
+stencil_mode = 1
+stencil_flags = 2
+stencil_reference = 2
+stencil_outline_thickness = 0.018
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_oyn40"]
 size = Vector3(49.23047, 39.569336, 47.612305)
 
 [node name="SpaceStationDelta" type="Node3D" unique_id=252804212]
 
-[node name="SpaceStationDelta" parent="." unique_id=749949191 instance=ExtResource("1_ac5o4")]
+[node name="SpaceStationDelta" parent="." unique_id=1846131448 instance=ExtResource("1_ac5o4")]
+
+[node name="Cube" parent="SpaceStationDelta" index="0" unique_id=143378889]
+surface_material_override/0 = SubResource("StandardMaterial3D_oyn40")
+
+[node name="CollisionShape3D" parent="SpaceStationDelta/Cube/StaticBody3D" parent_id_path=PackedInt32Array(1846131448, 134114366) index="0" unique_id=1082450117]
+visible = false
+
+[node name="Cylinder" parent="SpaceStationDelta" index="1" unique_id=602850392]
+surface_material_override/0 = SubResource("StandardMaterial3D_s6a8u")
+
+[node name="Torus" parent="SpaceStationDelta" index="2" unique_id=1946719281]
+surface_material_override/0 = SubResource("StandardMaterial3D_i3se2")
+
+[node name="CollisionShape3D" parent="SpaceStationDelta/Torus/StaticBody3D" parent_id_path=PackedInt32Array(1846131448, 273959195) index="0" unique_id=598280278]
+visible = false
+
+[node name="Cylinder_001" parent="SpaceStationDelta" index="3" unique_id=60714763]
+transform = Transform3D(2.0694501, 0, 0, 0, 0, -2.0694501, 0, 2.0694501, 0, 0, 0, -47.322083)
+surface_material_override/0 = SubResource("StandardMaterial3D_sag3p")
+
+[node name="Cylinder_002" parent="SpaceStationDelta" index="4" unique_id=904068225]
+transform = Transform3D(4.268418, 0, 0, 0, 0, -4.486328, 0, 1.9515854, 0, 0, 0, -82.623215)
+surface_material_override/0 = SubResource("StandardMaterial3D_sag3p")
+
+[node name="Cylinder_003" parent="SpaceStationDelta" index="5" unique_id=1982784790]
+surface_material_override/0 = SubResource("StandardMaterial3D_ojavm")
+
+[node name="Test" parent="SpaceStationDelta" index="6" unique_id=563418801]
+surface_material_override/0 = SubResource("StandardMaterial3D_shn2n")
 
 [node name="Area3D" type="Area3D" parent="." unique_id=825696495]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -55.9)
@@ -16,3 +186,6 @@ collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1377522381]
 shape = SubResource("BoxShape3D_oyn40")
+debug_fill = false
+
+[editable path="SpaceStationDelta"]

@@ -2,12 +2,160 @@
 
 [ext_resource type="PackedScene" uid="uid://dsgelwahfqgat" path="res://Assets/Blender Assets/SpaceStationOmega.blend" id="1_ttv0o"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ttv0o"]
+render_priority = 1
+transparency = 1
+shading_mode = 0
+grow = true
+grow_amount = 1.98
+stencil_mode = 3
+stencil_flags = 1
+stencil_compare = 5
+metadata/_stencil_owned = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bvgp7"]
+next_pass = SubResource("StandardMaterial3D_ttv0o")
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0.69135714, 0.6913567, 0.6913567, 1)
+metallic = 0.4
+metallic_specular = 0.3
+roughness = 0.0
+stencil_mode = 1
+stencil_flags = 2
+stencil_color = Color(1, 1, 1, 1)
+stencil_outline_thickness = 1.98
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a8kbw"]
+render_priority = 1
+transparency = 1
+shading_mode = 0
+grow = true
+grow_amount = 0.015
+stencil_mode = 3
+stencil_flags = 1
+stencil_compare = 5
+stencil_reference = 2
+metadata/_stencil_owned = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3amvo"]
+next_pass = SubResource("StandardMaterial3D_a8kbw")
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0, 0.7882353, 0, 1)
+metallic = 0.55
+roughness = 0.0
+stencil_mode = 1
+stencil_flags = 2
+stencil_reference = 2
+stencil_color = Color(1, 1, 1, 1)
+stencil_outline_thickness = 0.015
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b7anw"]
+render_priority = 1
+transparency = 1
+shading_mode = 0
+grow = true
+grow_amount = 0.145
+stencil_mode = 3
+stencil_flags = 1
+stencil_compare = 5
+stencil_reference = 2
+metadata/_stencil_owned = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pnjqw"]
+next_pass = SubResource("StandardMaterial3D_b7anw")
+albedo_color = Color(0, 1, 1, 1)
+emission_enabled = true
+emission = Color(0.15350902, 0.57228124, 0.6762832, 1)
+emission_energy_multiplier = 5.57
+rim_enabled = true
+rim = 0.47
+stencil_mode = 1
+stencil_flags = 2
+stencil_reference = 2
+stencil_color = Color(1, 1, 1, 1)
+stencil_outline_thickness = 0.145
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8aba7"]
+render_priority = 1
+transparency = 1
+shading_mode = 0
+grow = true
+grow_amount = 3.56
+stencil_mode = 3
+stencil_flags = 1
+stencil_compare = 5
+stencil_reference = 4
+metadata/_stencil_owned = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8di5a"]
+next_pass = SubResource("StandardMaterial3D_8aba7")
+transparency = 1
+depth_draw_mode = 1
+albedo_color = Color(0.078431375, 0.61960787, 0, 0.34901962)
+emission_enabled = true
+emission = Color(0.08627451, 0.7411765, 0, 1)
+emission_energy_multiplier = 8.49
+rim_enabled = true
+stencil_mode = 1
+stencil_flags = 2
+stencil_reference = 4
+stencil_color = Color(1, 1, 1, 1)
+stencil_outline_thickness = 3.56
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_syu3d"]
+render_priority = 1
+transparency = 1
+shading_mode = 0
+grow = true
+grow_amount = 3.285
+stencil_mode = 3
+stencil_flags = 1
+stencil_compare = 5
+stencil_reference = 4
+metadata/_stencil_owned = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lun7l"]
+next_pass = SubResource("StandardMaterial3D_syu3d")
+transparency = 1
+depth_draw_mode = 1
+albedo_color = Color(0.078431375, 0.61960787, 0, 0.34901962)
+emission_enabled = true
+emission = Color(0.08627451, 0.7411765, 0, 1)
+emission_energy_multiplier = 8.49
+rim_enabled = true
+stencil_mode = 1
+stencil_flags = 2
+stencil_reference = 4
+stencil_color = Color(1, 1, 1, 1)
+stencil_outline_thickness = 3.285
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_ttv0o"]
 size = Vector3(107.95679, 93.744385, 113.64282)
 
 [node name="SpaceStationOmega" type="Node3D" unique_id=1302074139]
 
-[node name="SpaceStationOmega" parent="." unique_id=1959552477 instance=ExtResource("1_ttv0o")]
+[node name="SpaceStationOmega" parent="." unique_id=1857044737 instance=ExtResource("1_ttv0o")]
+transform = Transform3D(1.006453, 0, 0, 0, 1.006453, 0, 0, 0, 1.006453, 0, 0, 0)
+
+[node name="Cone" parent="SpaceStationOmega" index="0" unique_id=358133090]
+surface_material_override/0 = SubResource("StandardMaterial3D_bvgp7")
+
+[node name="Cone_002" parent="SpaceStationOmega" index="2" unique_id=1526804295]
+surface_material_override/0 = SubResource("StandardMaterial3D_bvgp7")
+
+[node name="Text" parent="SpaceStationOmega" index="3" unique_id=1105109880]
+surface_material_override/0 = SubResource("StandardMaterial3D_3amvo")
+
+[node name="BézierCurve_003" parent="SpaceStationOmega" index="4" unique_id=1153183627]
+surface_material_override/0 = SubResource("StandardMaterial3D_pnjqw")
+
+[node name="Cylinder_001" parent="SpaceStationOmega" index="5" unique_id=2127958779]
+surface_material_override/0 = SubResource("StandardMaterial3D_8di5a")
+
+[node name="Cylinder_002" parent="SpaceStationOmega" index="6" unique_id=1369097464]
+surface_material_override/0 = SubResource("StandardMaterial3D_lun7l")
 
 [node name="Area3D" type="Area3D" parent="." unique_id=1116011597]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 125.15216, 0, 0)
@@ -17,3 +165,5 @@ collision_mask = 2
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=139254069]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.271, 0, 0)
 shape = SubResource("BoxShape3D_ttv0o")
+
+[editable path="SpaceStationOmega"]
