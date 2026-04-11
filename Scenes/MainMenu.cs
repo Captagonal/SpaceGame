@@ -21,14 +21,31 @@ public partial class MainMenu : Control
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		
 		title = GetNode<Label>("Title");
 		scoreBoard = GetNode<Label>("ScoreBoard");
 		scoreBoard.Text = "";
 		scoreBoard.Text += "Top Scores:\n";
 		loadScores();
-		 
-		 var backgroundSprite = GetNode<TextureRect>("Background");
-		 backgroundSprite.Texture = backgrounds[GD.Randi() % backgrounds.Length];
+
+		var backgroundSprite = GetNode<TextureRect>("Background");
+		backgroundSprite.Texture = backgrounds[GD.Randi() % backgrounds.Length];
+
+		var config = new ConfigFile();
+
+		// Load data from a file.
+		Error err = config.Load("user://config.cfg");
+
+		// If the file didn't load, ignore it.
+		if (err != Error.Ok)
+		{
+			return;
+		}
+
+		var audioBus = AudioServer.GetBusIndex("Master");
+
+		AudioServer.SetBusVolumeDb(audioBus, Mathf.LinearToDb((float)config.GetValue("Audio", "Volume", 1f)));
+
 	}
 
 

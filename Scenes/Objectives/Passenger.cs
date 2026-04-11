@@ -3,6 +3,7 @@ using System;
  
 public partial class Passenger : Node3D
 {
+	public Vector3 randomDirection;
 	public enum Destinations
 	{
 		SpaceStationTheta,
@@ -19,12 +20,14 @@ public partial class Passenger : Node3D
 		timerScale = GetNode<Timer>("Timer");
 		meshInstance = GetNode<RigidBody3D>("Person").GetNode<MeshInstance3D>("MeshInstance3D2");
 		timerScale.Timeout += timer;
+		randomDirection = new Vector3((float)(GD.Randf() - 0.5), (float)(GD.Randf() - 0.5), (float)(GD.Randf() - 0.5)).Normalized();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		
+		GetNode<Node3D>("Person").GetNode<Node3D>("SpaceBloblin").RotateObjectLocal(randomDirection, (float)delta);
+		GetNode<Node3D>("Person").GetNode<Node3D>("PersonToSave").RotateObjectLocal(randomDirection, (float)delta);
 	}
 
 	public Texture2D passengerTexture = GD.Load<Texture2D>("res://icon.svg");
