@@ -125,11 +125,11 @@ size = Vector3(1.17, 0.65, 0.27)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vobda"]
 shader = ExtResource("4_xaeba")
-shader_parameter/effect_amount = -0.8389999211024999
+shader_parameter/effect_amount = -0.79999991925
 
 [sub_resource type="LabelSettings" id="LabelSettings_sm5ja"]
 font = ExtResource("5_p4c8t")
-font_size = 100
+font_size = 202
 font_color = Color(0.76862746, 1, 0.827451, 1)
 shadow_size = 27
 shadow_color = Color(0, 0.827451, 0, 0.62352943)
@@ -140,7 +140,7 @@ stacked_shadow_0/offset = Vector2(1, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_cf1d8"]
 font = ExtResource("6_bvfgm")
-font_size = 61
+font_size = 100
 font_color = Color(0.76862746, 1, 0.827451, 1)
 shadow_size = 14
 shadow_color = Color(0, 0.49411765, 0, 0.6392157)
@@ -219,10 +219,10 @@ scale = Vector2(1.77, 1.77)
 fit_margin = 100.0
 
 [node name="ReferenceRect" type="ReferenceRect" parent="CanvasLayer/HUD" unique_id=1436759103]
-offset_left = 374.61194
+offset_left = 400.56497
 offset_top = 200.0
-offset_right = 1850.4987
-offset_bottom = 990.9241
+offset_right = 2785.3242
+offset_bottom = 1539.0638
 scale = Vector2(0.4333072, 0.4333072)
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -243,10 +243,10 @@ label_settings = SubResource("LabelSettings_sm5ja")
 [node name="Transmission" type="Label" parent="CanvasLayer/HUD/ReferenceRect" unique_id=658839405]
 visible = false
 layout_mode = 0
-offset_left = 11.408783
-offset_top = 721.03436
-offset_right = 862.4088
-offset_bottom = 820.03436
+offset_left = 37.811928
+offset_top = 1204.7662
+offset_right = 2377.812
+offset_bottom = 1324.7662
 text = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 label_settings = SubResource("LabelSettings_cf1d8")
 
@@ -260,10 +260,10 @@ mix_target = 1
 
 [node name="Destinations" type="Label" parent="CanvasLayer/HUD/ReferenceRect" unique_id=1190448229]
 layout_mode = 0
-offset_left = 1131.668
+offset_left = 1691.1058
 offset_top = 9.127016
-offset_right = 2120.668
-offset_bottom = 197.12701
+offset_right = 3267.106
+offset_bottom = 252.12701
 scale = Vector2(0.43330723, 0.43330723)
 text = "Destinations:"
 label_settings = SubResource("LabelSettings_sm5ja")
@@ -271,30 +271,30 @@ label_settings = SubResource("LabelSettings_sm5ja")
 [node name="SpaceStationTheta" type="TextureRect" parent="CanvasLayer/HUD/ReferenceRect" unique_id=784828524]
 visible = false
 layout_mode = 1
-offset_left = 1358.5393
-offset_top = 56.06596
-offset_right = 1465.4558
-offset_bottom = 156.46315
+offset_left = 2110.9487
+offset_top = 119.955086
+offset_right = 2345.6436
+offset_bottom = 302.49542
 texture = ExtResource("8_bvfgm")
 expand_mode = 1
 
 [node name="SpaceStationDelta" type="TextureRect" parent="CanvasLayer/HUD/ReferenceRect" unique_id=1021848782]
 visible = false
 layout_mode = 0
-offset_left = 1239.8881
-offset_top = 56.06596
-offset_right = 1346.8046
-offset_bottom = 156.46315
+offset_left = 1636.3438
+offset_top = 118.651215
+offset_right = 1857.1191
+offset_bottom = 325.9649
 texture = ExtResource("9_nv2yn")
 expand_mode = 1
 
 [node name="SpaceStationOmega" type="TextureRect" parent="CanvasLayer/HUD/ReferenceRect" unique_id=1068959634]
 visible = false
 layout_mode = 0
-offset_left = 1118.6292
-offset_top = 56.06596
-offset_right = 1225.5457
-offset_bottom = 156.46315
+offset_left = 1880.1654
+offset_top = 108.220345
+offset_right = 2091.2212
+offset_bottom = 306.407
 texture = ExtResource("10_vobda")
 expand_mode = 1
 
@@ -303,10 +303,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 475.0
-offset_top = 225.0
-offset_right = -600.8867
-offset_bottom = -165.92401
+offset_left = 646.71436
+offset_top = 99.09333
+offset_right = -544.0222
+offset_bottom = -102.43713
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
@@ -315,9 +315,9 @@ texture = ExtResource("9_bvfgm")
 [node name="Time" type="Label" parent="CanvasLayer/HUD/ReferenceRect" unique_id=292836151]
 layout_mode = 0
 offset_left = 32.270523
-offset_top = 69.10455
-offset_right = 1021.2705
-offset_bottom = 257.10455
+offset_top = 121.258934
+offset_right = 1486.2705
+offset_bottom = 364.25894
 scale = Vector2(0.43330723, 0.43330723)
 text = "Time: 50.5 s"
 label_settings = SubResource("LabelSettings_sm5ja")
@@ -333,11 +333,11 @@ self_modulate = Color(1, 0.52149004, 0.555811, 1)
 z_index = 1
 material = SubResource("ShaderMaterial_sm5ja")
 layout_mode = 0
-offset_left = 440.62225
-offset_top = 323.35715
-offset_right = 920.6223
-offset_bottom = 502.35718
-theme_override_font_sizes/font_size = 125
+offset_left = 474.60486
+offset_top = 505.8975
+offset_right = 1802.6049
+offset_bottom = 990.89746
+theme_override_font_sizes/font_size = 349
 placeholder_text = "XXX"
 alignment = 1
 max_length = 3
@@ -347,10 +347,10 @@ caret_blink = true
 
 [node name="Score" type="Label" parent="CanvasLayer/HUD/ReferenceRect" unique_id=1327828347]
 layout_mode = 0
-offset_left = 32.270523
-offset_top = 123.86665
-offset_right = 1021.2705
-offset_bottom = 311.86664
+offset_left = 33.90035
+offset_top = 217.74454
+offset_right = 1022.9003
+offset_bottom = 460.74454
 scale = Vector2(0.43330723, 0.43330723)
 text = "Score: 1"
 label_settings = SubResource("LabelSettings_sm5ja")

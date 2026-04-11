@@ -16,7 +16,7 @@ shader_parameter/effect_amount = -1.909999971975
 
 [sub_resource type="LabelSettings" id="LabelSettings_mtuoh"]
 font = ExtResource("4_htcer")
-font_size = 100
+font_size = 178
 font_color = Color(0.76862746, 1, 0.827451, 1)
 shadow_size = 27
 shadow_color = Color(0, 0.827451, 0, 0.62352943)
@@ -24,7 +24,7 @@ shadow_offset = Vector2(0.665, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_0u5uq"]
 font = ExtResource("5_dd0ac")
-font_size = 61
+font_size = 124
 font_color = Color(0.76862746, 1, 0.827451, 1)
 shadow_size = 14
 shadow_color = Color(0, 0.49411765, 0, 0.6392157)
@@ -57,10 +57,10 @@ scale = Vector2(1.77, 1.77)
 fit_margin = 100.0
 
 [node name="ReferenceRect" type="ReferenceRect" parent="CanvasLayer/HUD" unique_id=1115724572]
-offset_left = 525.0
-offset_top = 200.0
-offset_right = 1325.0001
-offset_bottom = 999.9996
+offset_left = 595.4803
+offset_top = 215.25424
+offset_right = 2055.4802
+offset_bottom = 1521.7767
 scale = Vector2(0.4333072, 0.4333072)
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -82,9 +82,9 @@ label_settings = SubResource("LabelSettings_mtuoh")
 visible = false
 layout_mode = 0
 offset_left = 11.408783
-offset_top = 721.03436
-offset_right = 862.4088
-offset_bottom = 820.03436
+offset_top = 1157.8274
+offset_right = 1350.4088
+offset_bottom = 1307.8274
 text = "xxxxxxxxxxxxxxxxxx"
 label_settings = SubResource("LabelSettings_0u5uq")
 
