@@ -57,8 +57,6 @@ public partial class Passenger : Node3D
 		else{
 			tween.TweenProperty(Notifer, "scale", new Vector3(1,1,1), timerScale.WaitTime);
 		}
-		// Slide to position and match rotation
-		// tween.TweenProperty(this, "global_rotation", 1, 3.0f);
 	}
 
 	public int getPoints(Vector3 currentPosition){
@@ -88,5 +86,6 @@ public partial class Passenger : Node3D
 		rigidBody3D.GetNode<Area3D>("Area3D").SetDeferred("monitoring", false);
 		// rigidBody3D.GetNode<CollisionShape3D>("CollisionShape3D").SetDeferred("disabled", true);
 		rigidBody3D.GetNode<MeshInstance3D>("MeshInstance3D2").SetDeferred("visible", false);
+		Visible = false;
 	}
 }

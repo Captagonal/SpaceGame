@@ -96,6 +96,28 @@ auto_exposure_scale = 0.3
 auto_exposure_speed = 1.61
 auto_exposure_min_sensitivity = 70.9
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jxmt7"]
+render_priority = 1
+transparency = 1
+shading_mode = 0
+grow = true
+grow_amount = 0.001
+stencil_mode = 3
+stencil_flags = 1
+stencil_compare = 5
+metadata/_stencil_owned = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yviej"]
+next_pass = SubResource("StandardMaterial3D_jxmt7")
+diffuse_mode = 3
+specular_mode = 1
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+stencil_mode = 1
+stencil_flags = 2
+stencil_color = Color(1, 1, 1, 1)
+stencil_outline_thickness = 0.001
+
 [sub_resource type="ImmediateMesh" id="ImmediateMesh_3xiha"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_wrieg"]
@@ -122,6 +144,8 @@ font_size = 61
 font_color = Color(0.76862746, 1, 0.827451, 1)
 shadow_size = 14
 shadow_color = Color(0, 0.49411765, 0, 0.6392157)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sm5ja"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xaeba"]
 size = Vector3(4.27063, 5.5080566, 6.0117188)
@@ -172,6 +196,7 @@ far = 8000.0
 wait_time = 3.0
 
 [node name="Rope" type="MeshInstance3D" parent="." unique_id=529138224]
+material_override = SubResource("StandardMaterial3D_yviej")
 mesh = SubResource("ImmediateMesh_3xiha")
 
 [node name="TetherPoint" type="MeshInstance3D" parent="." unique_id=338196495]
@@ -180,10 +205,11 @@ mesh = SubResource("BoxMesh_wrieg")
 surface_material_override/0 = SubResource("StandardMaterial3D_mftdl")
 
 [node name="Player" parent="." unique_id=540873997 instance=ExtResource("3_wrieg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.2653613)
+transform = Transform3D(0.16842052, 0, -0.9857152, 0, 1, 0, 0.9857152, 0, 0.16842052, 0, 1.0081825, -1.3247819)
 visible = false
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1305041848]
+process_mode = 3
 follow_viewport_scale = 121.37
 
 [node name="HUD" type="CanvasGroup" parent="CanvasLayer" unique_id=912072874]
@@ -297,8 +323,27 @@ text = "Time: 50.5 s"
 label_settings = SubResource("LabelSettings_sm5ja")
 
 [node name="TimeTrial" type="Timer" parent="CanvasLayer/HUD/ReferenceRect/Time" unique_id=1885258206]
-wait_time = 50.0
+wait_time = 25.0
 autostart = true
+
+[node name="Name" type="LineEdit" parent="CanvasLayer/HUD/ReferenceRect" unique_id=405776553]
+process_mode = 3
+visible = false
+self_modulate = Color(1, 0.52149004, 0.555811, 1)
+z_index = 1
+material = SubResource("ShaderMaterial_sm5ja")
+layout_mode = 0
+offset_left = 440.62225
+offset_top = 323.35715
+offset_right = 920.6223
+offset_bottom = 502.35718
+theme_override_font_sizes/font_size = 125
+placeholder_text = "XXX"
+alignment = 1
+max_length = 3
+keep_editing_on_text_submit = true
+emoji_menu_enabled = false
+caret_blink = true
 
 [node name="Score" type="Label" parent="CanvasLayer/HUD/ReferenceRect" unique_id=1327828347]
 layout_mode = 0
@@ -321,13 +366,18 @@ shape = SubResource("BoxShape3D_xaeba")
 [node name="Passenger" type="Area3D" parent="." unique_id=857157451]
 collision_layer = 0
 collision_mask = 0
+monitoring = false
+monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Passenger" unique_id=14410073]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.352295, 0, 0)
 shape = SubResource("BoxShape3D_bvfgm")
 
-[node name="Generic6DOFJoint3D" type="Generic6DOFJoint3D" parent="." unique_id=1691199741]
+[node name="Joints" type="Node3D" parent="." unique_id=658974031]
+
+[node name="Generic6DOFJoint3D" type="Generic6DOFJoint3D" parent="Joints" unique_id=1691199741]
 transform = Transform3D(0.99670285, 0, 0.08113833, 0, 1, 0, -0.08113833, 0, 0.99670285, -15.355203, 0, -4.134819)
+visible = false
 node_b = NodePath("RigidBody3D")
 linear_limit_x/upper_distance = 6.265
 linear_limit_x/lower_distance = -1.75
@@ -354,13 +404,16 @@ angular_spring_y/stiffness = 25.69
 angular_spring_z/enabled = true
 angular_spring_z/stiffness = 23.595
 
-[node name="RigidBody3D" type="StaticBody3D" parent="Generic6DOFJoint3D" unique_id=652822002]
+[node name="RigidBody3D" type="StaticBody3D" parent="Joints/Generic6DOFJoint3D" unique_id=652822002]
+visible = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Generic6DOFJoint3D/RigidBody3D" unique_id=1574061463]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Joints/Generic6DOFJoint3D/RigidBody3D" unique_id=1574061463]
+visible = false
 shape = SubResource("SphereShape3D_vobda")
 
-[node name="Generic6DOFJoint3D2" type="Generic6DOFJoint3D" parent="." unique_id=179619077]
+[node name="Generic6DOFJoint3D2" type="Generic6DOFJoint3D" parent="Joints" unique_id=179619077]
 transform = Transform3D(0.99670285, 0, 0.08113833, 0, 1, 0, -0.08113833, 0, 0.99670285, -15.355203, 0, 4.194147)
+visible = false
 node_a = NodePath("RigidBody3D")
 linear_limit_x/enabled = false
 linear_limit_y/enabled = false
@@ -381,25 +434,28 @@ angular_spring_y/stiffness = 25.69
 angular_spring_z/enabled = true
 angular_spring_z/stiffness = 23.595
 
-[node name="RigidBody3D" type="StaticBody3D" parent="Generic6DOFJoint3D2" unique_id=1599105341]
+[node name="RigidBody3D" type="StaticBody3D" parent="Joints/Generic6DOFJoint3D2" unique_id=1599105341]
+visible = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Generic6DOFJoint3D2/RigidBody3D" unique_id=1008080627]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Joints/Generic6DOFJoint3D2/RigidBody3D" unique_id=1008080627]
+visible = false
 shape = SubResource("SphereShape3D_vobda")
 
-[node name="Generic6DOFJoint3D3" type="Generic6DOFJoint3D" parent="." unique_id=2097591990]
+[node name="Generic6DOFJoint3D3" type="Generic6DOFJoint3D" parent="Joints" unique_id=2097591990]
 transform = Transform3D(0.99670285, 0, 0.08113833, 0, 1, 0, -0.08113833, 0, 0.99670285, -15.355203, 0, -1.6448779)
+visible = false
 node_a = NodePath("RigidBody3D")
 linear_limit_x/enabled = false
 linear_limit_y/enabled = false
 linear_limit_z/enabled = false
 linear_spring_x/enabled = true
-linear_spring_x/stiffness = 129.32
+linear_spring_x/stiffness = 5000.0
 linear_spring_x/damping = 50.0
 linear_spring_y/enabled = true
-linear_spring_y/stiffness = 100.0
+linear_spring_y/stiffness = 5000.0
 linear_spring_y/damping = 50.0
 linear_spring_z/enabled = true
-linear_spring_z/stiffness = 100.0
+linear_spring_z/stiffness = 5000.0
 linear_spring_z/damping = 500.0
 angular_spring_x/enabled = true
 angular_spring_x/stiffness = 26.765
@@ -408,13 +464,16 @@ angular_spring_y/stiffness = 25.69
 angular_spring_z/enabled = true
 angular_spring_z/stiffness = 23.595
 
-[node name="RigidBody3D" type="StaticBody3D" parent="Generic6DOFJoint3D3" unique_id=1972174815]
+[node name="RigidBody3D" type="StaticBody3D" parent="Joints/Generic6DOFJoint3D3" unique_id=1972174815]
+visible = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Generic6DOFJoint3D3/RigidBody3D" unique_id=1023226745]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Joints/Generic6DOFJoint3D3/RigidBody3D" unique_id=1023226745]
+visible = false
 shape = SubResource("SphereShape3D_vobda")
 
-[node name="Generic6DOFJoint3D4" type="Generic6DOFJoint3D" parent="." unique_id=872434937]
+[node name="Generic6DOFJoint3D4" type="Generic6DOFJoint3D" parent="Joints" unique_id=872434937]
 transform = Transform3D(0.99670285, 0, 0.08113833, 0, 1, 0, -0.08113833, 0, 0.99670285, -15.355203, 0, 1.533494)
+visible = false
 node_a = NodePath("RigidBody3D")
 linear_limit_x/enabled = false
 linear_limit_y/enabled = false
@@ -435,13 +494,16 @@ angular_spring_y/stiffness = 25.69
 angular_spring_z/enabled = true
 angular_spring_z/stiffness = 23.595
 
-[node name="RigidBody3D" type="StaticBody3D" parent="Generic6DOFJoint3D4" unique_id=1620403746]
+[node name="RigidBody3D" type="StaticBody3D" parent="Joints/Generic6DOFJoint3D4" unique_id=1620403746]
+visible = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Generic6DOFJoint3D4/RigidBody3D" unique_id=1396473067]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Joints/Generic6DOFJoint3D4/RigidBody3D" unique_id=1396473067]
+visible = false
 shape = SubResource("SphereShape3D_vobda")
 
 [connection signal="timeout" from="ShipTimer" to="." method="ExitShip"]
 [connection signal="passengerColected" from="Player" to="." method="PickUpPassenger2"]
+[connection signal="text_submitted" from="CanvasLayer/HUD/ReferenceRect/Name" to="." method="saveScore"]
 [connection signal="area_entered" from="Docking" to="." method="Docking"]
 [connection signal="area_entered" from="Passenger" to="." method="passenger"]
 

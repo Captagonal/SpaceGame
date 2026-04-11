@@ -15,6 +15,10 @@ run/main_scene="uid://3tk15t1tkoco"
 config/features=PackedStringArray("4.6", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+MusicPlayer="*uid://w5w2jx0ogs4h"
+
 [dotnet]
 
 project/assembly_name="SpaceGame"

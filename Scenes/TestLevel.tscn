@@ -54,7 +54,6 @@ transform = Transform3D(0.91457033, 0, -0.11364019, 0, 0.9216035, 0, 0.11364019,
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1777402830]
 stream = SubResource("AudioStreamWAV_5ms4e")
-autoplay = true
 
 [node name="SpaceStationTheta" parent="." unique_id=1795427457 instance=ExtResource("3_shgkq")]
 transform = Transform3D(0.5311176, 0, -0.8472981, 0, 1, 0, 0.8472981, 0, 0.5311176, -1135.7432, 1105.0027, 259.76608)

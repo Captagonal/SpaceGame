@@ -36,6 +36,7 @@ public partial class Player : CharacterBody3D
 		transmissionTimer = transmissionLabel.GetNode<Timer>("TransmissionTimer");
 		transmissionSound = transmissionLabel.GetNode<AudioStreamPlayer>("TransmissionSound");
 		transmissionTimer.Timeout += MakeMessage;
+		
 	}
 	public override void _PhysicsProcess(double delta)
 	{
@@ -74,6 +75,7 @@ public partial class Player : CharacterBody3D
 		}
 
 		ropeMesh.ClearSurfaces();
+		
 		ropeMesh.SurfaceBegin(Mesh.PrimitiveType.Lines);
 		ropeMesh.SurfaceSetNormal(Vector3.Up);
 		ropeMesh.SurfaceSetUV(Vector2.Zero);

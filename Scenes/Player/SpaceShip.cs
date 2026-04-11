@@ -1,4 +1,5 @@
 using Godot;
+using Godot.Collections;
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
@@ -74,6 +75,12 @@ public partial class SpaceShip : CharacterBody3D
 		timer.Visible = true;
 		Timer time = timer.GetNode<Timer>("TimeTrial");
 		time.Stop();
+		// saveScore();
+		// GetTree().CreateTimer(3.0f).Timeout += () => GetTree().ChangeSceneToFile("res://Scenes/MainMenu.tscn");
+		Input.MouseMode = Input.MouseModeEnum.Visible;
+		GetTree().Paused = true;
+		HUD.GetNode<Control>("ReferenceRect").GetNode<LineEdit>("Name").Visible = true;
+		// GetParent().GetNode<Control>("Settings").Visible = true;
 	}
 	float time = 0;
 	public override void _PhysicsProcess(double delta)
@@ -136,7 +143,7 @@ public partial class SpaceShip : CharacterBody3D
 		int SpaceStationDeltaCount = 0;
 		int SpaceStationOmegaCount = 0;
 		//----Passenger HUD
-		GD.Print(passengers.Count);
+		// GD.Print(passengers.Count);
 		foreach (Passenger passenger in passengers)
 		{
 			switch (passenger.destination)
@@ -250,8 +257,10 @@ public partial class SpaceShip : CharacterBody3D
 		{
 			inShip = false;
 			// GD.Print("Exiting Ship");
-			player.Position = new Vector3(0, 0, -2.265f);
+			player.Position = new Vector3(0, 1.008f, -1.325f);
+			player.RotationDegrees = new Vector3(0, -80.3f, 0);
 			player.Visible = true;
+			player.GetNode<Area3D>("Area3D").Monitoring = true;
 			player.GetNode<CanvasLayer>("CanvasLayer").Visible = true;
 			player.SetPhysicsProcess(true);
 			player.GetNode<Camera3D>("Camera3D").Current = true;
@@ -271,6 +280,7 @@ public partial class SpaceShip : CharacterBody3D
 			player.Visible = false;
 			player.SetPhysicsProcess(false);
 			player.GetNode<CanvasLayer>("CanvasLayer").Visible = false;
+			player.GetNode<Area3D>("Area3D").Monitoring = false;
 			GetNode<CanvasLayer>("CanvasLayer").Visible = true;
 			_camera.Current = true;
 			SetPhysicsProcess(true);
@@ -286,6 +296,7 @@ public partial class SpaceShip : CharacterBody3D
 	int score;
 	public void DisplayTransmission(String message)
 	{
+		player.DisplayTransmission(message);
 		transmissionSound.Play();
 		transmissionLabel.Text = "Receiving Data...";
 		transmissionLabel.Show();
@@ -293,15 +304,10 @@ public partial class SpaceShip : CharacterBody3D
 		transmissionTimer.Start();
 		messageChars = message.ToCharArray();
 		messageIndex = 0;
-
-
 	}
 
 	public void MakeMessage()
 	{
-		// GD.Print("Transmission Timer Tick");
-		// GD.Print("Current Transmission Text: " + transmissionLabel.Text);
-		// GD.Print("Message Index: " + messageIndex);
 		if (messageIndex < messageChars.Length)
 		{
 			messageIndex++;
@@ -315,7 +321,6 @@ public partial class SpaceShip : CharacterBody3D
 		{
 			transmissionTimer.Stop();
 			GetTree().CreateTimer(2.0f).Timeout += () => transmissionLabel.Hide();
-
 		}
 	}
 
@@ -369,32 +374,11 @@ public partial class SpaceShip : CharacterBody3D
 				icon.Visible = false;
 			}
 		}
-
 		if (passengers.Count == 0)
 		{
 			currentObjective = Objectives.RescueStrandedPerson;
 		}
-
-
 	}
-
-	public void pickUpPassenger(Passenger passenger)
-	{
-		passengers.Add(passenger);
-		passenger.Visible = false;
-		passenger.GetNode<RigidBody3D>("Person").GetNode<Area3D>("Area3D").SetDeferred("monitorable", false);
-		// passenger.GetParent().RemoveChild(passenger);
-		// AddChild(passenger);
-		currentObjective = Objectives.DeliverToStation;
-		Label timer = HUD.GetNode<Control>("ReferenceRect").GetNode<Label>("Time");
-		timer.Visible = true;
-		Timer timeTrial = timer.GetNode<Timer>("TimeTrial");
-
-		timeTrial.WaitTime = timeTrial.TimeLeft + 20 - .15 * time;
-		timeTrial.Start();
-		DisplayTransmission(passenger.message);
-	}
-
 
 	public void PickUpPassenger2(Passenger passenger)
 	{
@@ -408,18 +392,19 @@ public partial class SpaceShip : CharacterBody3D
 		passengers.Add(passenger);
 		DisplayTransmission(passenger.message);
 		// passenger.GetNode<RigidBody3D>("Person").Freeze = false;
-		switch (passengers.Count){
+		switch (passengers.Count)
+		{
 			case 1:
-				GetNode<Generic6DofJoint3D>("Generic6DOFJoint3D3").NodeB = passenger.GetNode<RigidBody3D>("Person").GetPath();
+
 				break;
 			case 2:
-				score += 250;
+
 				break;
 			case 3:
-				score += 500;
+
 				break;
 			case 4:
-				score += 1000;
+
 				break;
 		}
 
@@ -439,18 +424,40 @@ public partial class SpaceShip : CharacterBody3D
 	{
 		RescueStrandedPerson,
 		DeliverToStation,
-
 	}
 
-	private Objectives currentObjective = Objectives.DeliverToStation;
+	private Objectives currentObjective = Objectives.RescueStrandedPerson;
 
 	public void passenger(Area3D passengerArea)
 	{
-		// GD.Print("Passenger Area Triggered");
-		if (passengerArea.GetParent().GetParent() is Passenger passenger && passengers.Count < MaxPassengers)
+		PickUpPassenger2(passengerArea.GetParent().GetParent() as Passenger);
+	}
+
+	public void saveScore(String playerName = "You")
+	{
+		var saveData = new Dictionary();
+
+		if (FileAccess.FileExists(("user://scores.save")))
 		{
-			pickUpPassenger(passenger);
+			saveData = (Dictionary)FileAccess.Open("user://scores.save", FileAccess.ModeFlags.Read).GetVar();
 		}
 
+		var newEntry = new Godot.Collections.Dictionary()
+		{
+			{ "name", playerName.ToUpper() },
+			{ "score", score }
+		};
+		var scoreList = new Godot.Collections.Array();
+		if (saveData.ContainsKey("scores"))
+		{
+			scoreList = (Godot.Collections.Array)saveData["scores"];
+		}
+		scoreList.Add(newEntry);
+		saveData["scores"] = scoreList;
+		saveData["scores"] = scoreList;
+		using var writeFile = FileAccess.Open("user://scores.save", FileAccess.ModeFlags.Write);
+		writeFile.StoreVar(saveData);
+		GetTree().Paused = false;
+		GetTree().ChangeSceneToFile("res://Scenes/MainMenu.tscn");
 	}
 }
