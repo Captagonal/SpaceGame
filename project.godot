@@ -10,10 +10,14 @@ config_version=5
 
 [application]
 
-config/name="SpaceGame"
+config/name="SpaceGuard"
+config/description="Welcome guardian to the next frontier. "
+config/version="1.0"
 run/main_scene="uid://3tk15t1tkoco"
 config/features=PackedStringArray("4.6", "C#", "Forward Plus")
-config/icon="res://icon.svg"
+boot_splash/bg_color=Color(0.020759216, 0.015055684, 0.089529224, 1)
+boot_splash/show_image=false
+config/icon="uid://d32wnk26c150"
 
 [autoload]
 

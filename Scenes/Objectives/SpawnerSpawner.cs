@@ -15,6 +15,7 @@ public partial class SpawnerSpawner : Node3D
 
 	public override void _Ready()
 	{
+		
 		for (int i = 0; i < NumSpawners; i++)
 		{
 			Spawner spawner = spawnerScene.Instantiate<Spawner>();
