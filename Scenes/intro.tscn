@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://c17pon7pb0pv4"]
+
+[ext_resource type="Script" uid="uid://d4mfr8fc7h6m5" path="res://Intro.cs" id="1_b226h"]
+[ext_resource type="VideoStream" uid="uid://b0w1dredss1w4" path="res://Assets/MOV02191.ogv" id="2_duh1u"]
+[ext_resource type="FontFile" uid="uid://ct2qfl48dxle4" path="res://Assets/Bitcount_Grid_Double/static/BitcountGridDouble_Cursive-Regular.ttf" id="3_alxvg"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_geirw"]
+font = ExtResource("3_alxvg")
+font_size = 100
+outline_size = 20
+outline_color = Color(0.098308094, 0.41366392, 0.4115767, 1)
+
+[node name="Intro" type="Control" unique_id=33831410]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_b226h")
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="." unique_id=954090455]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+stream = ExtResource("2_duh1u")
+autoplay = true
+expand = true
+
+[node name="Back" type="Button" parent="." unique_id=1732244828]
+layout_mode = 0
+offset_left = 1333.0
+offset_top = 878.0
+offset_right = 1874.0
+offset_bottom = 1016.0
+
+[node name="Label" type="Label" parent="Back" unique_id=1417780110]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 17.0
+offset_right = 346.0
+offset_bottom = 137.0
+text = "Skip"
+label_settings = SubResource("LabelSettings_geirw")
+
+[connection signal="finished" from="VideoStreamPlayer" to="." method="introFinished"]
+[connection signal="pressed" from="Back" to="." method="skipIntro"]

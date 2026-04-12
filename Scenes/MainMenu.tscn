@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://c83am78jb85q0" path="res://Scenes/MainMenu.cs" id="1_tt5f1"]
 [ext_resource type="Texture2D" uid="uid://cfhsrlnoq8p0o" path="res://Assets/Textures/SpaceStationDelta.png" id="2_853f1"]
+[ext_resource type="FontFile" uid="uid://ct2qfl48dxle4" path="res://Assets/Bitcount_Grid_Double/static/BitcountGridDouble_Cursive-Regular.ttf" id="3_ghw46"]
+[ext_resource type="FontFile" uid="uid://dlr8qw0hrkqxl" path="res://Assets/Bitcount_Grid_Double/static/BitcountGridDouble-Regular.ttf" id="4_df05h"]
 
 [sub_resource type="Gradient" id="Gradient_853f1"]
 offsets = PackedFloat32Array(0.9, 1)
@@ -23,11 +25,13 @@ color_ramp = SubResource("Gradient_853f1")
 in_3d_space = true
 
 [sub_resource type="LabelSettings" id="LabelSettings_853f1"]
+font = ExtResource("3_ghw46")
 font_size = 118
 outline_size = 18
 outline_color = Color(0.14110157, 0.4220082, 0.3912977, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_8saeu"]
+font = ExtResource("4_df05h")
 font_size = 100
 outline_size = 20
 outline_color = Color(0.098308094, 0.41366392, 0.4115767, 1)
@@ -48,10 +52,10 @@ script = ExtResource("1_tt5f1")
 
 [node name="TextureRect2" type="TextureRect" parent="." unique_id=573866347]
 layout_mode = 0
-offset_left = -138.0
-offset_top = -7.0
-offset_right = 2441.0
-offset_bottom = 1834.0
+offset_left = -263.0
+offset_top = -136.0
+offset_right = 2316.0
+offset_bottom = 1705.0
 texture = SubResource("NoiseTexture2D_ghw46")
 
 [node name="Background" type="TextureRect" parent="." unique_id=919779188]
@@ -76,15 +80,15 @@ label_settings = SubResource("LabelSettings_853f1")
 layout_mode = 0
 offset_left = 95.0
 offset_top = 265.0
-offset_right = 646.0
+offset_right = 715.0
 offset_bottom = 398.0
 
 [node name="Label" type="Label" parent="Start" unique_id=1307946897]
 layout_mode = 0
 offset_left = 12.0
-offset_top = -2.0
-offset_right = 314.0
-offset_bottom = 67.0
+offset_top = 16.0
+offset_right = 612.0
+offset_bottom = 136.0
 text = "Time Trial"
 label_settings = SubResource("LabelSettings_8saeu")
 
@@ -92,14 +96,15 @@ label_settings = SubResource("LabelSettings_8saeu")
 layout_mode = 0
 offset_left = 95.0
 offset_top = 461.0
-offset_right = 644.0
+offset_right = 715.0
 offset_bottom = 607.0
 
 [node name="Label" type="Label" parent="Settings" unique_id=985048620]
 layout_mode = 0
 offset_left = 12.0
-offset_right = 365.0
-offset_bottom = 69.0
+offset_top = 18.0
+offset_right = 492.0
+offset_bottom = 138.0
 text = "Settings"
 label_settings = SubResource("LabelSettings_8saeu")
 
@@ -107,14 +112,15 @@ label_settings = SubResource("LabelSettings_8saeu")
 layout_mode = 0
 offset_left = 79.0
 offset_top = 878.0
-offset_right = 620.0
+offset_right = 717.0
 offset_bottom = 1016.0
 
 [node name="Label" type="Label" parent="Quit" unique_id=1074170604]
 layout_mode = 0
-offset_left = 12.0
-offset_right = 342.0
-offset_bottom = 69.0
+offset_left = 28.0
+offset_top = 14.0
+offset_right = 358.0
+offset_bottom = 134.0
 text = "Quit"
 label_settings = SubResource("LabelSettings_8saeu")
 
@@ -125,7 +131,7 @@ offset_top = 38.0
 offset_right = 2011.0
 offset_bottom = 1169.0
 text = "Top Scores
-1: Sawyer - 1102
+1: SAW - 1102
 2: You - 223
 3: You - 234
 4:

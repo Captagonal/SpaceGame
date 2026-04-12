@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://dow3s2uqr6nt3"]
 
 [ext_resource type="Script" uid="uid://c2oejrey45wvn" path="res://Scenes/Settings.cs" id="1_4hxq3"]
+[ext_resource type="FontFile" uid="uid://ct2qfl48dxle4" path="res://Assets/Bitcount_Grid_Double/static/BitcountGridDouble_Cursive-Regular.ttf" id="2_flfri"]
 
 [sub_resource type="Gradient" id="Gradient_853f1"]
 offsets = PackedFloat32Array(0.9, 1)
@@ -25,6 +26,7 @@ in_3d_space = true
 font_size = 70
 
 [sub_resource type="LabelSettings" id="LabelSettings_flfri"]
+font = ExtResource("2_flfri")
 font_size = 100
 outline_size = 18
 outline_color = Color(0.14110157, 0.4220082, 0.3912977, 1)
@@ -38,6 +40,7 @@ mix_rate = 48000
 stereo = true
 
 [sub_resource type="LabelSettings" id="LabelSettings_4hxq3"]
+font = ExtResource("2_flfri")
 font_size = 100
 outline_size = 20
 outline_color = Color(0.098308094, 0.41366392, 0.4115767, 1)
@@ -79,19 +82,19 @@ label_settings = SubResource("LabelSettings_flfri")
 
 [node name="Volume" type="Label" parent="." unique_id=2123121115]
 layout_mode = 0
-offset_left = 57.0
+offset_left = 74.0
 offset_top = 219.0
-offset_right = 425.0
+offset_right = 442.0
 offset_bottom = 356.0
 text = "Volume"
 label_settings = SubResource("LabelSettings_flfri")
 
 [node name="HSlider" type="HSlider" parent="Volume" unique_id=843824101]
 layout_mode = 0
-offset_left = 401.0
-offset_top = 55.0
-offset_right = 1040.0
-offset_bottom = 104.0
+offset_left = 389.0
+offset_top = 39.0
+offset_right = 1028.0
+offset_bottom = 88.0
 scale = Vector2(0.98, 0.98)
 theme_override_constants/center_grabber = 0
 max_value = 1.0
@@ -119,9 +122,10 @@ offset_bottom = 1016.0
 
 [node name="Label" type="Label" parent="Back" unique_id=1189444838]
 layout_mode = 0
-offset_left = 12.0
-offset_right = 342.0
-offset_bottom = 69.0
+offset_left = 16.0
+offset_top = 17.0
+offset_right = 346.0
+offset_bottom = 137.0
 text = "Back"
 label_settings = SubResource("LabelSettings_4hxq3")
 
