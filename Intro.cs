@@ -104,4 +104,17 @@ public partial class Intro : Control
 	}
 	textIndex++;
 	}
+
+	public void StepTimer(){
+		GetNode<AudioStreamPlayer>("Step").Play();
+	}
+	int notifIndex = 0;
+	public void notifTimer(){
+		notifIndex++;
+		if (notifIndex > 8){
+			return;
+		}
+		GetNode<AudioStreamPlayer>("Notif").Play();
+		GetTree().CreateTimer(.2f).Timeout += notifTimer;
+	}
 }

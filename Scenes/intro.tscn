@@ -5,6 +5,8 @@
 [ext_resource type="FontFile" uid="uid://ct2qfl48dxle4" path="res://Assets/Bitcount_Grid_Double/static/BitcountGridDouble_Cursive-Regular.ttf" id="3_alxvg"]
 [ext_resource type="VideoStream" uid="uid://df373ol8s28ue" path="res://Assets/2.ogv" id="3_hwjxs"]
 [ext_resource type="AudioStream" uid="uid://d3nexvpc061bg" path="res://Assets/Sounds/Incoming.wav" id="5_hwjxs"]
+[ext_resource type="AudioStream" uid="uid://cmiv5h3gb3iqj" path="res://Assets/Sounds/footstep.mp3" id="6_rsiac"]
+[ext_resource type="AudioStream" uid="uid://bf3m4rtf3wwbg" path="res://Assets/Sounds/Notif.mp3" id="7_3bmuq"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_geirw"]
 font = ExtResource("3_alxvg")
@@ -76,14 +78,36 @@ wait_time = 0.07
 
 [node name="TransmissionSound" type="AudioStreamPlayer" parent="Transmission" unique_id=1311295360]
 stream = ExtResource("5_hwjxs")
-pitch_scale = 1.26
+volume_db = -31.154
+pitch_scale = 1.89
 mix_target = 1
 
 [node name="Text" type="Timer" parent="." unique_id=370325433]
 wait_time = 6.0
 autostart = true
 
+[node name="Step" type="AudioStreamPlayer" parent="." unique_id=460247221]
+stream = ExtResource("6_rsiac")
+
+[node name="StepTimer" type="Timer" parent="Step" unique_id=507434498]
+wait_time = 6.0
+one_shot = true
+autostart = true
+
+[node name="Notif" type="AudioStreamPlayer" parent="." unique_id=361796538]
+stream = ExtResource("7_3bmuq")
+volume_db = -1.825
+pitch_scale = 1.77
+max_polyphony = 8
+
+[node name="NotifTimer" type="Timer" parent="Notif" unique_id=252657329]
+wait_time = 12.0
+one_shot = true
+autostart = true
+
 [connection signal="finished" from="1" to="." method="part1Done"]
 [connection signal="finished" from="2" to="." method="introFinished"]
 [connection signal="pressed" from="Back" to="." method="skipIntro"]
 [connection signal="timeout" from="Text" to="." method="nextText"]
+[connection signal="timeout" from="Step/StepTimer" to="." method="StepTimer"]
+[connection signal="timeout" from="Notif/NotifTimer" to="." method="notifTimer"]
