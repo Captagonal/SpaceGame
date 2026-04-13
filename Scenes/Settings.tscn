@@ -127,6 +127,7 @@ offset_left = 79.0
 offset_top = -202.0
 offset_right = 620.0
 offset_bottom = -64.0
+grow_vertical = 0
 
 [node name="Label" type="Label" parent="Back" unique_id=1189444838]
 layout_mode = 0
@@ -137,7 +138,7 @@ offset_bottom = 137.0
 text = "Back"
 label_settings = SubResource("LabelSettings_4hxq3")
 
-[node name="Volume2" type="Label" parent="." unique_id=1153749304]
+[node name="Horse" type="Label" parent="." unique_id=1153749304]
 layout_mode = 0
 offset_left = 74.0
 offset_top = 381.0
@@ -146,7 +147,7 @@ offset_bottom = 518.0
 text = "Horse Mode"
 label_settings = SubResource("LabelSettings_flfri")
 
-[node name="percent" type="Label" parent="Volume2" unique_id=1724750044]
+[node name="percent" type="Label" parent="Horse" unique_id=1724750044]
 layout_mode = 0
 offset_left = 1035.0
 offset_top = 2.0
@@ -155,7 +156,7 @@ offset_bottom = 139.0
 text = "100%"
 label_settings = SubResource("LabelSettings_flfri")
 
-[node name="CheckBox" type="CheckBox" parent="Volume2" unique_id=1186072793]
+[node name="CheckBox" type="CheckBox" parent="Horse" unique_id=1186072793]
 modulate = Color(8.9298024e-05, 2.3748684, 1.9674585, 1)
 self_modulate = Color(0.00080003444, 6.8335176, 3.6957197, 1)
 layout_mode = 0
@@ -167,4 +168,4 @@ scale = Vector2(10, 10)
 
 [connection signal="value_changed" from="Volume/HSlider" to="." method="_on_h_slider_value_changed"]
 [connection signal="pressed" from="Back" to="." method="back"]
-[connection signal="toggled" from="Volume2/CheckBox" to="." method="horseMode"]
+[connection signal="toggled" from="Horse/CheckBox" to="." method="horseMode"]

@@ -13,7 +13,18 @@ public partial class Settings : Control
 		HSlider slider = volumeLabel.GetNode<HSlider>("HSlider");
 		slider.Value = Mathf.DbToLinear(AudioServer.GetBusVolumeDb(AudioServer.GetBusIndex("Master")));
 		volumeLabel.GetNode<Label>("percent").Text = $"{(int)(slider.Value * 100)}%";
+		var config = new ConfigFile();
 
+		// Load data from a file.
+		Error err = config.Load("user://config.cfg");
+
+		// If the file didn't load, ignore it.
+		if (err != Error.Ok)
+		{
+			return;
+		}
+		horseModeEnabled = (bool)config.GetValue("Gameplay", "HorseMode", false);
+		GetNode<Label>("Horse").GetNode<CheckBox>("CheckBox").ButtonPressed = horseModeEnabled;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
