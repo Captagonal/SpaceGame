@@ -45,6 +45,6 @@ transform = Transform3D(0.5311176, 0, -0.8472981, 0, 1, 0, 0.8472981, 0, 0.53111
 transform = Transform3D(0.35875902, 0, 0.9334302, 0, 1, 0, -0.9334302, 0, 0.35875902, 956.24976, 357.95258, 713.1399)
 
 [node name="SpaceStationOmega" parent="." unique_id=1302074139 instance=ExtResource("6_sa0i8")]
-transform = Transform3D(-0.28809598, 0, -0.95760155, 0, 1, 0, 0.95760155, 0, -0.28809598, 1190.4619, -510.02408, -1893.739)
+transform = Transform3D(-0.42299783, 0, -0.9061307, 0, 1, 0, 0.9061307, 0, -0.42299783, 1190.4619, -510.02408, -1893.739)
 
 [node name="SpawnerSpawner" parent="." unique_id=924300857 instance=ExtResource("6_rdb2v")]

@@ -21,6 +21,7 @@ public partial class MainMenu : Control
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		
 		GD.Randomize();
 		title = GetNode<Label>("Title");
 		scoreBoard = GetNode<Label>("ScoreBoard");
@@ -45,6 +46,11 @@ public partial class MainMenu : Control
 		var audioBus = AudioServer.GetBusIndex("Master");
 
 		AudioServer.SetBusVolumeDb(audioBus, Mathf.LinearToDb((float)config.GetValue("Audio", "Volume", 1f)));
+		
+		bool horseModeEnabled = (bool)config.GetValue("Gameplay", "HorseMode", false);
+
+		GetTree().Root.GetNode<AudioStreamPlayer>("MusicPlayer").GetNode<AudioStreamPlayer>("HorseMode").VolumeLinear = horseModeEnabled ? 1f : 0f;
+		GetTree().Root.GetNode<AudioStreamPlayer>("MusicPlayer").VolumeLinear = horseModeEnabled ? 0f : 1f;
 
 	}
 
