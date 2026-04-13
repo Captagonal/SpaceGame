@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c2oejrey45wvn" path="res://Scenes/Settings.cs" id="1_4hxq3"]
 [ext_resource type="FontFile" uid="uid://ct2qfl48dxle4" path="res://Assets/Bitcount_Grid_Double/static/BitcountGridDouble_Cursive-Regular.ttf" id="2_flfri"]
+[ext_resource type="AudioStream" uid="uid://8txgiw326jl1" path="res://Assets/Sounds/dragon-studio-horse-neigh-515279.mp3" id="3_yrknh"]
 
 [sub_resource type="Gradient" id="Gradient_853f1"]
 offsets = PackedFloat32Array(0.9, 1)
@@ -154,6 +155,11 @@ offset_top = -70.0
 offset_right = 692.0
 offset_bottom = -46.0
 scale = Vector2(10, 10)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Horse" unique_id=1793083176]
+stream = ExtResource("3_yrknh")
+volume_db = -12.852
+parameters/looping = false
 
 [connection signal="value_changed" from="Volume/HSlider" to="." method="_on_h_slider_value_changed"]
 [connection signal="pressed" from="Back" to="." method="back"]

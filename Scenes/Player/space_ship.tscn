@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bixd4b6guwuqi" path="res://Scenes/Player/player.tscn" id="3_wrieg"]
 [ext_resource type="Texture2D" uid="uid://bg41ewqtrghmc" path="res://Assets/Blender Assets/Image Bake.png" id="4_gdpqp"]
 [ext_resource type="Shader" uid="uid://dlqgjlks6fxdm" path="res://Scenes/Player/player.gdshader" id="4_xaeba"]
+[ext_resource type="AudioStream" uid="uid://bsr8lol48q8am" path="res://Assets/Sounds/dragon-studio-horse-galloping-339737.mp3" id="5_gdpqp"]
 [ext_resource type="FontFile" uid="uid://cbiyddf4eyjv5" path="res://Assets/Bitcount_Grid_Double/static/BitcountGridDouble_Roman-Medium.ttf" id="5_p4c8t"]
 [ext_resource type="FontFile" uid="uid://ct2qfl48dxle4" path="res://Assets/Bitcount_Grid_Double/static/BitcountGridDouble_Cursive-Regular.ttf" id="6_bvfgm"]
 [ext_resource type="AudioStream" uid="uid://d3nexvpc061bg" path="res://Assets/Sounds/Incoming.wav" id="7_nv2yn"]
@@ -102,6 +103,7 @@ grow_amount = 0.055
 stencil_mode = 3
 stencil_flags = 1
 stencil_compare = 5
+stencil_reference = 7
 metadata/_stencil_owned = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lytod"]
@@ -118,6 +120,7 @@ texture_repeat = false
 grow_amount = 1.643
 stencil_mode = 1
 stencil_flags = 2
+stencil_reference = 7
 stencil_color = Color(0.9779369, 0.97793704, 0.9779369, 1)
 stencil_outline_thickness = 0.055
 
@@ -130,6 +133,7 @@ grow_amount = 0.12
 stencil_mode = 3
 stencil_flags = 1
 stencil_compare = 5
+stencil_reference = 7
 metadata/_stencil_owned = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bmyet"]
@@ -143,6 +147,7 @@ metallic = 0.11818182
 roughness = 0.0
 stencil_mode = 1
 stencil_flags = 2
+stencil_reference = 7
 stencil_color = Color(1, 1, 1, 1)
 stencil_outline_thickness = 0.12
 
@@ -302,6 +307,11 @@ visible = false
 [node name="Cylinder" parent="SpaceHorse" index="0" unique_id=978227695]
 transform = Transform3D(0.5939539, 0, -1.8626451e-09, 0, 0.5845514, -0.46479356, -1.8626451e-09, 0.46479365, 0.5845514, 0.002414912, 0.37133664, 0.6300016)
 mesh = SubResource("ArrayMesh_5gop8")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="SpaceHorse" unique_id=962667655]
+stream = ExtResource("5_gdpqp")
+volume_db = -4.85
+parameters/looping = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1361676329]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 4.257211, -0.025455669, -4.7683716e-07)

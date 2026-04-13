@@ -53,7 +53,12 @@ public partial class Settings : Control
 	}
 
 	public void horseMode(bool horseMode){
+		if (horseMode && !horseModeEnabled){
+			GetNode<Label>("Horse").GetNode<AudioStreamPlayer>("AudioStreamPlayer").Play();
+		}
 		horseModeEnabled = horseMode;
+		
+		
 		
 		GetTree().Root.GetNode<AudioStreamPlayer>("MusicPlayer").GetNode<AudioStreamPlayer>("HorseMode").VolumeLinear = horseModeEnabled ? 1f : 0f;
 		GetTree().Root.GetNode<AudioStreamPlayer>("MusicPlayer").VolumeLinear = horseModeEnabled ? 0f : 1f;

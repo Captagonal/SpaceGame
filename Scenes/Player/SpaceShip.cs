@@ -143,6 +143,23 @@ public partial class SpaceShip : CharacterBody3D
 			Velocity = Velocity.Lerp(Vector3.Zero, Friction * d);
 		}
 		speed = Velocity.Dot(GlobalTransform.Basis.X.Normalized());
+		
+		if (Velocity.Length() > 0.1f && horseModeEnabled){
+			//moving animation
+			_camera.Position = new Vector3(_camera.Position.X, _camera.Position.Y + Mathf.Sin(time * 11) * 0.04f, _camera.Position.Z);
+			if (horse.GetNode<AudioStreamPlayer>("AudioStreamPlayer").Playing == false)
+				horse.GetNode<AudioStreamPlayer>("AudioStreamPlayer").Play();{
+			}
+		} else {
+			//idle animation
+			Tween tween = GetTree().CreateTween().SetParallel(true);
+			tween.SetTrans(Tween.TransitionType.Linear);
+			tween.SetEase(Tween.EaseType.InOut);
+			tween.TweenProperty(_camera, "position", new Vector3(-0.268f,0,0), .1);
+			if (horse.GetNode<AudioStreamPlayer>("AudioStreamPlayer").Playing == true)
+				horse.GetNode<AudioStreamPlayer>("AudioStreamPlayer").Stop();{
+			}
+		}
 		MoveAndSlide();
 		_camera.Fov = Mathf.Lerp(_camera.Fov, 70 + speed * 0.3f, 0.1f);
 		HUD.GetNode<Control>("ReferenceRect").GetNode<Label>("Speed").Text = "Current Speed: " + speed.ToString("F2") + " m/s";
