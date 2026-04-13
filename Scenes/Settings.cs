@@ -5,6 +5,7 @@ public partial class Settings : Control
 {
 	// Called when the node enters the scene tree for the first time.
 	private Label volumeLabel;
+	private bool horseModeEnabled = false;
 	public override void _Ready()
 	{
 
@@ -25,6 +26,7 @@ public partial class Settings : Control
 		HSlider slider = volumeLabel.GetNode<HSlider>("HSlider");
 		// Store some values.
 		config.SetValue("Audio", "Volume", slider.Value);
+		config.SetValue("Gameplay", "HorseMode", horseModeEnabled);
 
 		// Save it to a file (overwrite if already exists).
 		config.Save("user://config.cfg");
@@ -37,5 +39,9 @@ public partial class Settings : Control
 		AudioServer.SetBusVolumeDb(audioBus, Mathf.LinearToDb(value));
 		volumeLabel.GetNode<Label>("percent").Text = $"{(int)(value * 100)}%";
 
+	}
+
+	public void horseMode(bool horseMode){
+		horseModeEnabled = horseMode;
 	}
 }

@@ -21,7 +21,7 @@ public partial class MainMenu : Control
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		
+		GD.Randomize();
 		title = GetNode<Label>("Title");
 		scoreBoard = GetNode<Label>("ScoreBoard");
 		scoreBoard.Text = "";
@@ -29,8 +29,8 @@ public partial class MainMenu : Control
 		loadScores();
 
 		var backgroundSprite = GetNode<TextureRect>("Background");
-		backgroundSprite.Texture = backgrounds[GD.Randi() % backgrounds.Length];
-
+		backgroundSprite.Texture = backgrounds[GD.Randf() < 0.5f ? 0 : 1];
+		GD.Print("Background: " + backgroundSprite.Texture.ResourcePath);
 		var config = new ConfigFile();
 
 		// Load data from a file.

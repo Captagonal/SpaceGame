@@ -63,11 +63,16 @@ offset_bottom = 1605.0
 texture = SubResource("NoiseTexture2D_4hxq3")
 
 [node name="Label" type="Label" parent="." unique_id=1757560744]
-layout_mode = 0
-offset_left = 204.0
-offset_top = 1306.0
-offset_right = 893.0
-offset_bottom = 1402.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.079
+anchor_top = 1.164
+anchor_right = 0.079
+anchor_bottom = 1.164
+offset_left = 83.31999
+offset_top = 83.880005
+offset_right = 772.32
+offset_bottom = 179.88
 text = "Straight up setting it"
 label_settings = SubResource("LabelSettings_fv8yg")
 
@@ -114,11 +119,14 @@ label_settings = SubResource("LabelSettings_flfri")
 stream = SubResource("AudioStreamWAV_4hxq3")
 
 [node name="Back" type="Button" parent="." unique_id=942364139]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
 offset_left = 79.0
-offset_top = 878.0
+offset_top = -202.0
 offset_right = 620.0
-offset_bottom = 1016.0
+offset_bottom = -64.0
 
 [node name="Label" type="Label" parent="Back" unique_id=1189444838]
 layout_mode = 0
@@ -129,5 +137,34 @@ offset_bottom = 137.0
 text = "Back"
 label_settings = SubResource("LabelSettings_4hxq3")
 
+[node name="Volume2" type="Label" parent="." unique_id=1153749304]
+layout_mode = 0
+offset_left = 74.0
+offset_top = 381.0
+offset_right = 442.0
+offset_bottom = 518.0
+text = "Horse Mode"
+label_settings = SubResource("LabelSettings_flfri")
+
+[node name="percent" type="Label" parent="Volume2" unique_id=1724750044]
+layout_mode = 0
+offset_left = 1035.0
+offset_top = 2.0
+offset_right = 1293.0
+offset_bottom = 139.0
+text = "100%"
+label_settings = SubResource("LabelSettings_flfri")
+
+[node name="CheckBox" type="CheckBox" parent="Volume2" unique_id=1186072793]
+modulate = Color(8.9298024e-05, 2.3748684, 1.9674585, 1)
+self_modulate = Color(0.00080003444, 6.8335176, 3.6957197, 1)
+layout_mode = 0
+offset_left = 665.00006
+offset_top = -59.0
+offset_right = 689.00006
+offset_bottom = -35.0
+scale = Vector2(10, 10)
+
 [connection signal="value_changed" from="Volume/HSlider" to="." method="_on_h_slider_value_changed"]
 [connection signal="pressed" from="Back" to="." method="back"]
+[connection signal="toggled" from="Volume2/CheckBox" to="." method="horseMode"]

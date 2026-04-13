@@ -13,7 +13,7 @@ public partial class SpaceShip : CharacterBody3D
 	[Export] public float TurnSpeed { get; set; } = 1.5f;
 
 	private float speed = 0;
-	private Node3D _head;
+	private Node3D _head, ship, horse;
 	private Camera3D _camera;
 	private Timer shipTimer;
 
@@ -34,8 +34,30 @@ public partial class SpaceShip : CharacterBody3D
 	{
 		timeTrial
 	}
+	bool horseModeEnabled = false;
 	public override void _Ready()
 	{
+		var config = new ConfigFile();
+
+		// Load data from a file.
+		Error err = config.Load("user://config.cfg");
+
+		// If the file didn't load, ignore it.
+		if (err != Error.Ok)
+		{
+			return;
+		}
+		horseModeEnabled = (bool)config.GetValue("Gameplay", "HorseMode", false);
+		ship = GetNode<Node3D>("SpaceShip");
+		horse = GetNode<Node3D>("SpaceHorse");
+		if (horseModeEnabled)
+		{
+			ship.Visible = false;
+			horse.Visible = true;
+		}	
+
+
+
 		_head = GetNode<Node3D>("Head");
 		shipTimer = GetNode<Timer>("ShipTimer");
 		_camera = _head.GetNode<Camera3D>("Camera");
