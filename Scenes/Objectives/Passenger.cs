@@ -89,6 +89,21 @@ public partial class Passenger : Node3D
 		rigidBody3D.GetNode<Area3D>("Area3D").SetDeferred("monitoring", false);
 		// rigidBody3D.GetNode<CollisionShape3D>("CollisionShape3D").SetDeferred("disabled", true);
 		rigidBody3D.GetNode<MeshInstance3D>("MeshInstance3D2").SetDeferred("visible", false);
-		Visible = false;
+		rigidBody3D.Freeze = true;
+		Tween tween = GetTree().CreateTween().SetParallel(true);
+		tween.SetTrans(Tween.TransitionType.Linear);
+		tween.SetEase(Tween.EaseType.InOut);
+		tween.TweenProperty(this, "scale", new Vector3(.1f,.1f,.1f), 3);
+		Tween tween2 = GetTree().CreateTween().SetParallel(true);
+		tween2.SetTrans(Tween.TransitionType.Linear);
+		tween2.SetEase(Tween.EaseType.InOut);
+		tween2.TweenProperty(this, "rotation", new Vector3(20,0,0), 3);
+		Tween tween3 = GetTree().CreateTween().SetParallel(true);
+		tween3.SetTrans(Tween.TransitionType.Linear);
+		tween3.SetEase(Tween.EaseType.InOut);
+		tween3.TweenProperty(this, "position", new Vector3(0,1,0), 3);
+		GetTree().CreateTimer(3).Timeout += () => {
+			Visible = false;
+		};
 	}
 }

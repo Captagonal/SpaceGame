@@ -108,10 +108,14 @@ metadata/_stencil_owned = true
 resource_name = "Material.001"
 next_pass = SubResource("StandardMaterial3D_ciety")
 cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
 albedo_texture = ExtResource("4_gdpqp")
-roughness = 0.75
+metallic_specular = 0.0
+roughness = 0.3
 texture_filter = 2
 texture_repeat = false
+grow_amount = 1.643
 stencil_mode = 1
 stencil_flags = 2
 stencil_color = Color(0.9779369, 0.97793704, 0.9779369, 1)
@@ -132,8 +136,11 @@ metadata/_stencil_owned = true
 resource_name = "Material.002"
 next_pass = SubResource("StandardMaterial3D_cnjg5")
 cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
 albedo_color = Color(0.3881075, 0.26929575, 0.17629199, 1)
 metallic = 0.11818182
+roughness = 0.0
 stencil_mode = 1
 stencil_flags = 2
 stencil_color = Color(1, 1, 1, 1)
@@ -292,7 +299,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_mftdl")
 transform = Transform3D(-0.04117592, 0, 1.4994347, 0, 1.5, 0, -1.4994347, 0, -0.04117592, -2.2332807, -0.20816511, 0)
 visible = false
 
-[node name="Cylinder" parent="SpaceHorse" index="0" unique_id=1548939911]
+[node name="Cylinder" parent="SpaceHorse" index="0" unique_id=978227695]
 transform = Transform3D(0.5939539, 0, -1.8626451e-09, 0, 0.5845514, -0.46479356, -1.8626451e-09, 0.46479365, 0.5845514, 0.002414912, 0.37133664, 0.6300016)
 mesh = SubResource("ArrayMesh_5gop8")
 
@@ -436,7 +443,7 @@ text = "Time: 50.5 s"
 label_settings = SubResource("LabelSettings_sm5ja")
 
 [node name="TimeTrial" type="Timer" parent="CanvasLayer/HUD/ReferenceRect/Time" unique_id=1885258206]
-wait_time = 25.0
+wait_time = 40.0
 autostart = true
 
 [node name="Name" type="LineEdit" parent="CanvasLayer/HUD/ReferenceRect" unique_id=405776553]
