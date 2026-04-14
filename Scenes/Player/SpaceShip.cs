@@ -54,7 +54,7 @@ public partial class SpaceShip : CharacterBody3D
 		{
 			ship.Visible = false;
 			horse.Visible = true;
-		}	
+		}
 
 
 
@@ -92,6 +92,7 @@ public partial class SpaceShip : CharacterBody3D
 
 	public void timeTrialEnd()
 	{
+
 		GD.Print("Time Trial Ended! Final Score: " + score);
 		Label timer = HUD.GetNode<Control>("ReferenceRect").GetNode<Label>("Time");
 		timer.Visible = true;
@@ -101,7 +102,15 @@ public partial class SpaceShip : CharacterBody3D
 		// GetTree().CreateTimer(3.0f).Timeout += () => GetTree().ChangeSceneToFile("res://Scenes/MainMenu.tscn");
 		Input.MouseMode = Input.MouseModeEnum.Visible;
 		GetTree().Paused = true;
-		HUD.GetNode<Control>("ReferenceRect").GetNode<LineEdit>("Name").Visible = true;
+		if (inShip)
+		{
+			HUD.GetNode<ReferenceRect>("ReferenceRect").GetNode<LineEdit>("Name").Visible = true;
+
+		}
+		else
+		{
+			player.GetNode<LineEdit>("CanvasLayer/HUD/ReferenceRect/Name").Visible = true;
+		}
 		// GetParent().GetNode<Control>("Settings").Visible = true;
 	}
 	float time = 0;
@@ -143,21 +152,27 @@ public partial class SpaceShip : CharacterBody3D
 			Velocity = Velocity.Lerp(Vector3.Zero, Friction * d);
 		}
 		speed = Velocity.Dot(GlobalTransform.Basis.X.Normalized());
-		
-		if (Velocity.Length() > 0.1f && horseModeEnabled){
+
+		if (Velocity.Length() > 0.1f && horseModeEnabled)
+		{
 			//moving animation
 			_camera.Position = new Vector3(_camera.Position.X, _camera.Position.Y + Mathf.Sin(time * 11) * 0.04f, _camera.Position.Z);
 			if (horse.GetNode<AudioStreamPlayer>("AudioStreamPlayer").Playing == false)
-				horse.GetNode<AudioStreamPlayer>("AudioStreamPlayer").Play();{
+				
+			{
+				horse.GetNode<AudioStreamPlayer>("AudioStreamPlayer").Play();
 			}
-		} else {
+		}
+		else
+		{
 			//idle animation
 			Tween tween = GetTree().CreateTween().SetParallel(true);
 			tween.SetTrans(Tween.TransitionType.Linear);
 			tween.SetEase(Tween.EaseType.InOut);
-			tween.TweenProperty(_camera, "position", new Vector3(-0.268f,0,0), .1);
+			tween.TweenProperty(_camera, "position", new Vector3(-0.268f, 0, 0), .1);
 			if (horse.GetNode<AudioStreamPlayer>("AudioStreamPlayer").Playing == true)
-				horse.GetNode<AudioStreamPlayer>("AudioStreamPlayer").Stop();{
+				horse.GetNode<AudioStreamPlayer>("AudioStreamPlayer").Stop();
+			{
 			}
 		}
 		MoveAndSlide();
@@ -172,67 +187,7 @@ public partial class SpaceShip : CharacterBody3D
 		{
 			shipTimer.Stop();
 		}
-		Control thetaIcon = HUD.GetNode<Control>("ReferenceRect").GetNode<Control>("SpaceStationTheta");
-		thetaIcon.GetChildren().Clear();
-		Control deltaIcon = HUD.GetNode<Control>("ReferenceRect").GetNode<Control>("SpaceStationDelta");
-		deltaIcon.GetChildren().Clear();
-		Control omegaIcon = HUD.GetNode<Control>("ReferenceRect").GetNode<Control>("SpaceStationOmega");
-		omegaIcon.GetChildren().Clear();
-		int SpaceStationThetaCount = 0;
-		int SpaceStationDeltaCount = 0;
-		int SpaceStationOmegaCount = 0;
-		//----Passenger HUD
-		// GD.Print(passengers.Count);
-		foreach (Passenger passenger in passengers)
-		{
-			switch (passenger.destination)
-			{
-				case Passenger.Destinations.SpaceStationTheta:
-					thetaIcon = HUD.GetNode<Control>("ReferenceRect").GetNode<Control>("SpaceStationTheta");
-					thetaIcon.Visible = true;
-					SpaceStationThetaCount++;
-					TextureRect thetaTexture = new TextureRect();
-					thetaTexture.Texture = passenger.passengerTexture;
-					thetaIcon.AddChild(thetaTexture);
-					thetaTexture.Position = new Vector2(0, (SpaceStationThetaCount) * 125);
-					thetaTexture.ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize;
-					thetaTexture.Size = new Vector2(100, 100);
-					break;
-				case Passenger.Destinations.SpaceStationDelta:
-					deltaIcon = HUD.GetNode<Control>("ReferenceRect").GetNode<Control>("SpaceStationDelta");
-					deltaIcon.Visible = true;
-					SpaceStationDeltaCount++;
-					TextureRect deltaTexture = new TextureRect();
-					deltaTexture.Texture = passenger.passengerTexture;
-					deltaIcon.AddChild(deltaTexture);
-					deltaTexture.Position = new Vector2(0, (SpaceStationDeltaCount) * 125);
-					deltaTexture.ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize;
-					deltaTexture.Size = new Vector2(100, 100);
-					break;
-				case Passenger.Destinations.SpaceStationOmega:
-					omegaIcon = HUD.GetNode<Control>("ReferenceRect").GetNode<Control>("SpaceStationOmega");
-					omegaIcon.Visible = true;
-					SpaceStationOmegaCount++;
-					TextureRect omegaTexture = new TextureRect();
-					omegaTexture.Texture = passenger.passengerTexture;
-					omegaIcon.AddChild(omegaTexture);
-					omegaTexture.Position = new Vector2(0, (SpaceStationOmegaCount) * 125);
-					omegaTexture.ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize;
-					omegaTexture.Size = new Vector2(100, 100);
 
-					break;
-				// case Passenger.Destinations.Planet:
-
-				// 	break;
-				// case Passenger.Destinations.SpaceShip:
-
-				// 	break;
-				default:
-
-					break;
-			}
-
-		}
 
 		if (currentObjective == Objectives.DeliverToStation && passengers.Count > 0)
 		{
@@ -255,7 +210,9 @@ public partial class SpaceShip : CharacterBody3D
 			scoreDisplay.Text = "Score: " + score.ToString();
 
 		}
+
 	}
+
 	GameMode currentGameMode = GameMode.timeTrial;
 	public override void _Input(InputEvent @event)
 	{
@@ -281,9 +238,6 @@ public partial class SpaceShip : CharacterBody3D
 		{
 
 
-			Input.MouseMode = Input.MouseModeEnum.Visible;
-			// GetParent().GetNode<Control>("Settings").Visible = true;
-			GetTree().Paused = true;
 
 		}
 	}
@@ -455,6 +409,67 @@ public partial class SpaceShip : CharacterBody3D
 			Timer timeTrial = timer.GetNode<Timer>("TimeTrial");
 			timeTrial.WaitTime = timeTrial.TimeLeft + 20 - .15f * time;
 			timeTrial.Start();
+		}
+		Control thetaIcon = HUD.GetNode<Control>("ReferenceRect").GetNode<Control>("SpaceStationTheta");
+		thetaIcon.GetChildren().Clear();
+		Control deltaIcon = HUD.GetNode<Control>("ReferenceRect").GetNode<Control>("SpaceStationDelta");
+		deltaIcon.GetChildren().Clear();
+		Control omegaIcon = HUD.GetNode<Control>("ReferenceRect").GetNode<Control>("SpaceStationOmega");
+		omegaIcon.GetChildren().Clear();
+		int SpaceStationThetaCount = 0;
+		int SpaceStationDeltaCount = 0;
+		int SpaceStationOmegaCount = 0;
+		//----Passenger HUD
+		// GD.Print(passengers.Count);
+		foreach (Passenger passenger2 in passengers)
+		{
+			switch (passenger2.destination)
+			{
+				case Passenger.Destinations.SpaceStationTheta:
+					thetaIcon = HUD.GetNode<Control>("ReferenceRect").GetNode<Control>("SpaceStationTheta");
+					thetaIcon.Visible = true;
+					SpaceStationThetaCount++;
+					TextureRect thetaTexture = new TextureRect();
+					thetaTexture.Texture = passenger2.passengerTexture;
+					thetaIcon.AddChild(thetaTexture);
+					thetaTexture.Position = new Vector2(0, (SpaceStationThetaCount) * 125);
+					thetaTexture.ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize;
+					thetaTexture.Size = new Vector2(100, 100);
+					break;
+				case Passenger.Destinations.SpaceStationDelta:
+					deltaIcon = HUD.GetNode<Control>("ReferenceRect").GetNode<Control>("SpaceStationDelta");
+					deltaIcon.Visible = true;
+					SpaceStationDeltaCount++;
+					TextureRect deltaTexture = new TextureRect();
+					deltaTexture.Texture = passenger2.passengerTexture;
+					deltaIcon.AddChild(deltaTexture);
+					deltaTexture.Position = new Vector2(0, (SpaceStationDeltaCount) * 125);
+					deltaTexture.ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize;
+					deltaTexture.Size = new Vector2(100, 100);
+					break;
+				case Passenger.Destinations.SpaceStationOmega:
+					omegaIcon = HUD.GetNode<Control>("ReferenceRect").GetNode<Control>("SpaceStationOmega");
+					omegaIcon.Visible = true;
+					SpaceStationOmegaCount++;
+					TextureRect omegaTexture = new TextureRect();
+					omegaTexture.Texture = passenger2.passengerTexture;
+					omegaIcon.AddChild(omegaTexture);
+					omegaTexture.Position = new Vector2(0, (SpaceStationOmegaCount) * 125);
+					omegaTexture.ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize;
+					omegaTexture.Size = new Vector2(100, 100);
+
+					break;
+				// case Passenger.Destinations.Planet:
+
+				// 	break;
+				// case Passenger.Destinations.SpaceShip:
+
+				// 	break;
+				default:
+
+					break;
+			}
+
 		}
 
 	}

@@ -6,6 +6,8 @@
 [ext_resource type="FontFile" uid="uid://cbiyddf4eyjv5" path="res://Assets/Bitcount_Grid_Double/static/BitcountGridDouble_Roman-Medium.ttf" id="4_htcer"]
 [ext_resource type="FontFile" uid="uid://ct2qfl48dxle4" path="res://Assets/Bitcount_Grid_Double/static/BitcountGridDouble_Cursive-Regular.ttf" id="5_dd0ac"]
 [ext_resource type="AudioStream" uid="uid://d3nexvpc061bg" path="res://Assets/Sounds/Incoming.wav" id="6_dd0ac"]
+[ext_resource type="FontFile" uid="uid://xkhqve63u01t" path="res://Assets/Bitcount_Grid_Double/static/BitcountGridDouble_Roman-Regular.ttf" id="7_jlvik"]
+[ext_resource type="Script" uid="uid://cd4i8im7y5w2t" path="res://Scenes/Player/paused.cs" id="8_gk6dx"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xpcdj"]
 height = 2.253662
@@ -29,6 +31,23 @@ font_color = Color(0.76862746, 1, 0.827451, 1)
 shadow_size = 14
 shadow_color = Color(0, 0.49411765, 0, 0.6392157)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dd0ac"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_jlvik"]
+font = ExtResource("7_jlvik")
+font_size = 279
+font_color = Color(0.99037, 0.68556124, 0.65142465, 1)
+outline_size = 45
+outline_color = Color(0.39832106, 0.073982514, 0.014275653, 1)
+shadow_color = Color(1, 0.039215688, 0.023529412, 0.5294118)
+
+[sub_resource type="LabelSettings" id="LabelSettings_gk6dx"]
+font = ExtResource("5_dd0ac")
+font_size = 144
+font_color = Color(0.9999998, 0.7105196, 0.7008488, 1)
+outline_size = 20
+outline_color = Color(0.6427495, 0.13585058, 0.22788921, 1)
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_dd0ac"]
 radius = 1.298497
 
@@ -47,7 +66,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.04332462, -0.44728875)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.6480742, 0)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=755582409]
-visible = false
 follow_viewport_scale = 121.37
 
 [node name="HUD" type="CanvasGroup" parent="CanvasLayer" unique_id=2147058611]
@@ -95,6 +113,56 @@ wait_time = 0.2
 stream = ExtResource("6_dd0ac")
 pitch_scale = 1.66
 mix_target = 1
+
+[node name="Name" type="LineEdit" parent="CanvasLayer/HUD/ReferenceRect" unique_id=285047931]
+process_mode = 3
+visible = false
+self_modulate = Color(1, 0.52149004, 0.555811, 1)
+z_index = 3
+material = SubResource("ShaderMaterial_dd0ac")
+layout_mode = 0
+offset_left = 271.2026
+offset_top = 530.6709
+offset_right = 1239.2026
+offset_bottom = 885.6709
+theme_override_font_sizes/font_size = 254
+placeholder_text = "XXX"
+alignment = 1
+max_length = 3
+keep_editing_on_text_submit = true
+emoji_menu_enabled = false
+caret_blink = true
+
+[node name="Pause" type="Label" parent="CanvasLayer/HUD/ReferenceRect" unique_id=341639394]
+process_mode = 3
+layout_mode = 0
+offset_left = 200.7942
+offset_top = 530.67084
+offset_right = 1204.7942
+offset_bottom = 866.67084
+text = "PAUSED"
+label_settings = SubResource("LabelSettings_jlvik")
+script = ExtResource("8_gk6dx")
+
+[node name="Back" type="Button" parent="CanvasLayer/HUD/ReferenceRect/Pause" unique_id=1210700985]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 264.68347
+offset_top = -68.70883
+offset_right = 769.27716
+offset_bottom = 104.7045
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="CanvasLayer/HUD/ReferenceRect/Pause/Back" unique_id=492140174]
+layout_mode = 0
+offset_left = 95.18178
+offset_top = 3.9115863
+offset_right = 441.18176
+offset_bottom = 176.91159
+text = "QUIT"
+label_settings = SubResource("LabelSettings_gk6dx")
 
 [node name="Area3D" type="Area3D" parent="." unique_id=1622795480]
 collision_layer = 4

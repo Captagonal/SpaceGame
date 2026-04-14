@@ -120,9 +120,9 @@ public partial class Player : CharacterBody3D
 		{
 
 
-			Input.MouseMode = Input.MouseModeEnum.Visible;
-			// GetParent().GetNode<Control>("Settings").Visible = true;
-			GetTree().Paused = true;
+			// Input.MouseMode = Input.MouseModeEnum.Visible;
+			// // GetParent().GetNode<Control>("Settings").Visible = true;
+			// GetTree().Paused = true;
 
 		}
 	}
