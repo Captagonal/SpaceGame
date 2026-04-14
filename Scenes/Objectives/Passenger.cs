@@ -30,8 +30,8 @@ public partial class Passenger : Node3D
 		GetNode<Node3D>("Person").GetNode<Node3D>("PersonToSave").RotateObjectLocal(randomDirection, (float)delta);
 	}
 
-	public Texture2D passengerTexture = GD.Load<Texture2D>("res://icon.svg");
-	public Destinations destination = Destinations.SpaceStationTheta;
+	public Texture2D passengerTexture = GD.Load<Texture2D>("res://Assets/Textures/Bloblin.png");
+	public Destinations destination = Destinations.SpaceStationDelta;
 	public String message = "Hello :3";
 
 	public Vector3 startPosition = new Vector3(0, 0, 0);

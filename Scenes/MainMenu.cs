@@ -64,6 +64,9 @@ public partial class MainMenu : Control
 	{
 		GetTree().ChangeSceneToFile("res://Scenes/TestLevel.tscn");
 	}
+	public void Tutorial(){
+		GetTree().ChangeSceneToFile("res://Scenes/Tutorial.tscn");
+	}
 
 	public void quit()
 	{

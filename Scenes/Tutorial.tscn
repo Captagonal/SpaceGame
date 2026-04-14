@@ -1,0 +1,137 @@
+[gd_scene format=3 uid="uid://j02eeudpsxg5"]
+
+[ext_resource type="Shader" uid="uid://c25sukks4rqrl" path="res://Scenes/Space.gdshader" id="1_2o727"]
+[ext_resource type="Script" uid="uid://cohldabgycuvo" path="res://Scenes/Tutorial.cs" id="1_3j26a"]
+[ext_resource type="PackedScene" uid="uid://dunugb2m1rtoc" path="res://Scenes/Player/space_ship.tscn" id="2_uo1fs"]
+[ext_resource type="FontFile" uid="uid://ct2qfl48dxle4" path="res://Assets/Bitcount_Grid_Double/static/BitcountGridDouble_Cursive-Regular.ttf" id="3_uo1fs"]
+[ext_resource type="PackedScene" uid="uid://c1upripwrk1wo" path="res://Scenes/Objectives/StrandedPerson.tscn" id="4_7bloo"]
+[ext_resource type="PackedScene" uid="uid://b1f3f0rvm88ot" path="res://Scenes/Objectives/space_station_delta.tscn" id="5_rlm2d"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7bloo"]
+shader = ExtResource("1_2o727")
+shader_parameter/space_color = Color(0.02, 0.01, 0.05, 1)
+shader_parameter/star_density = 0.1650000078375
+
+[sub_resource type="Sky" id="Sky_5ms4e"]
+sky_material = SubResource("ShaderMaterial_7bloo")
+
+[sub_resource type="Environment" id="Environment_rlm2d"]
+background_mode = 2
+sky = SubResource("Sky_5ms4e")
+ambient_light_source = 2
+ambient_light_color = Color(0.50928617, 0.50928617, 0.50928617, 1)
+ambient_light_energy = 0.4
+tonemap_exposure = 3.02
+glow_enabled = true
+glow_intensity = 0.1
+glow_bloom = 0.2
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_7bloo"]
+viewport_path = NodePath("Sprite3D/SubViewport")
+
+[sub_resource type="LabelSettings" id="LabelSettings_rlm2d"]
+font = ExtResource("3_uo1fs")
+font_size = 118
+outline_size = 46
+outline_color = Color(0.03767187, 0.17239481, 0.1574327, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_rlm2d"]
+viewport_path = NodePath("Sprite3D2/SubViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_3j26a"]
+viewport_path = NodePath("Sprite3D3/SubViewport")
+
+[node name="Tutorial" type="Node3D" unique_id=355439582]
+script = ExtResource("1_3j26a")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=292306447]
+environment = SubResource("Environment_rlm2d")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=878476021]
+transform = Transform3D(-0.9071657, -0.23107676, 0.35164467, -0.116345316, 0.940879, 0.31813595, -0.40436903, 0.24768986, -0.88041794, 0, 0, 0)
+shadow_enabled = true
+
+[node name="SpaceShip" parent="." unique_id=203800574 instance=ExtResource("2_uo1fs")]
+transform = Transform3D(0.92160356, 0, 0, 0, 0.9216035, 0, 0, 0, 0.92160356, 0, 0, 0)
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=31614556]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 8.847552, 3.9318347, 0)
+texture = SubResource("ViewportTexture_7bloo")
+
+[node name="SubViewport" type="SubViewport" parent="Sprite3D" unique_id=2141261809]
+transparent_bg = true
+size = Vector2i(1850, 546)
+
+[node name="Control" type="Control" parent="Sprite3D/SubViewport" unique_id=339286882]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Title" type="Label" parent="Sprite3D/SubViewport/Control" unique_id=1003828279]
+layout_mode = 0
+offset_left = 57.0
+offset_top = 38.0
+offset_right = 556.0
+offset_bottom = 135.0
+text = "Welcome to
+Space Guard
+you can move using WASD"
+label_settings = SubResource("LabelSettings_rlm2d")
+horizontal_alignment = 1
+
+[node name="Sprite3D2" type="Sprite3D" parent="." unique_id=1061337190]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 30.632027, 3.9318347, -0.08126354)
+texture = SubResource("ViewportTexture_rlm2d")
+
+[node name="SubViewport" type="SubViewport" parent="Sprite3D2" unique_id=1542162580]
+transparent_bg = true
+size = Vector2i(2072, 1181)
+
+[node name="Control" type="Control" parent="Sprite3D2/SubViewport" unique_id=538617894]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Title" type="Label" parent="Sprite3D2/SubViewport/Control" unique_id=1480816077]
+layout_mode = 0
+offset_left = 57.0
+offset_top = 38.0
+offset_right = 2057.0
+offset_bottom = 1495.0
+text = "You can get in or out of your ship by holding 'F'. Once your out of your ship your able to pick up passenger try to pick up this guy"
+label_settings = SubResource("LabelSettings_rlm2d")
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="SpaceStationDelta" parent="." unique_id=252804212 instance=ExtResource("5_rlm2d")]
+transform = Transform3D(0.0154630495, 0, 0.99988043, 0, 1, 0, -0.99988043, 0, 0.0154630495, 269.98865, 12.9667015, -8.93021)
+
+[node name="StrandedPerson" parent="." unique_id=1050291092 instance=ExtResource("4_7bloo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.593678, 2.951686, -10.637281)
+
+[node name="Sprite3D3" type="Sprite3D" parent="." unique_id=1569575442]
+transform = Transform3D(0.99999446, 0.0031419653, -0.0010918247, -0.003142544, 0.999995, -0.0005299154, 0.0010901574, 0.00053333695, 0.9999993, 18.499014, 3.9318328, -15.073631)
+texture = SubResource("ViewportTexture_3j26a")
+
+[node name="SubViewport" type="SubViewport" parent="Sprite3D3" unique_id=7958101]
+transparent_bg = true
+size = Vector2i(2152, 546)
+
+[node name="Control" type="Control" parent="Sprite3D3/SubViewport" unique_id=1362783656]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Title" type="Label" parent="Sprite3D3/SubViewport/Control" unique_id=620254838]
+layout_mode = 0
+offset_left = 57.0
+offset_top = 38.0
+offset_right = 2057.0
+offset_bottom = 1349.0
+text = "Now that you have him lets take him to that station over there"
+label_settings = SubResource("LabelSettings_rlm2d")
+horizontal_alignment = 1
+autowrap_mode = 3

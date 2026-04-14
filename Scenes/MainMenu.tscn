@@ -71,9 +71,9 @@ label_settings = SubResource("LabelSettings_853f1")
 [node name="Start" type="Button" parent="." unique_id=1737228467]
 layout_mode = 0
 offset_left = 95.0
-offset_top = 265.0
+offset_top = 201.0
 offset_right = 715.0
-offset_bottom = 398.0
+offset_bottom = 334.0
 
 [node name="Label" type="Label" parent="Start" unique_id=1307946897]
 layout_mode = 0
@@ -87,9 +87,9 @@ label_settings = SubResource("LabelSettings_8saeu")
 [node name="Settings" type="Button" parent="." unique_id=1061729881]
 layout_mode = 0
 offset_left = 95.0
-offset_top = 461.0
+offset_top = 397.0
 offset_right = 715.0
-offset_bottom = 607.0
+offset_bottom = 543.0
 
 [node name="Label" type="Label" parent="Settings" unique_id=985048620]
 layout_mode = 0
@@ -102,10 +102,10 @@ label_settings = SubResource("LabelSettings_8saeu")
 
 [node name="Quit" type="Button" parent="." unique_id=2032727059]
 layout_mode = 0
-offset_left = 79.0
-offset_top = 878.0
-offset_right = 717.0
-offset_bottom = 1016.0
+offset_left = 95.0
+offset_top = 874.0
+offset_right = 715.0
+offset_bottom = 1012.0
 
 [node name="Label" type="Label" parent="Quit" unique_id=1074170604]
 layout_mode = 0
@@ -130,6 +130,23 @@ text = "Top Scores
 5:"
 label_settings = SubResource("LabelSettings_853f1")
 
+[node name="Settings2" type="Button" parent="." unique_id=92863751]
+layout_mode = 0
+offset_left = 95.0
+offset_top = 599.0
+offset_right = 715.0
+offset_bottom = 745.0
+
+[node name="Label" type="Label" parent="Settings2" unique_id=485544265]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 18.0
+offset_right = 492.0
+offset_bottom = 138.0
+text = "Tutorial"
+label_settings = SubResource("LabelSettings_8saeu")
+
 [connection signal="pressed" from="Start" to="." method="start"]
 [connection signal="pressed" from="Settings" to="." method="settings"]
 [connection signal="pressed" from="Quit" to="." method="quit"]
+[connection signal="pressed" from="Settings2" to="." method="Tutorial"]

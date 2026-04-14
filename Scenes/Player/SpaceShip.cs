@@ -32,7 +32,8 @@ public partial class SpaceShip : CharacterBody3D
 
 	public enum GameMode
 	{
-		timeTrial
+		timeTrial,
+		Tutorial
 	}
 	bool horseModeEnabled = false;
 	public override void _Ready()
@@ -89,10 +90,29 @@ public partial class SpaceShip : CharacterBody3D
 			time.Timeout += () => timeTrialEnd();
 		}
 	}
+	public void setMode(GameMode mode){
+		currentGameMode = mode;
+		if (currentGameMode == GameMode.timeTrial)
+		{
+			Label timer = HUD.GetNode<Control>("ReferenceRect").GetNode<Label>("Time");
+			timer.Visible = true;
+			Timer time = timer.GetNode<Timer>("TimeTrial");
+			time.Timeout += () => timeTrialEnd();
+		} else if (currentGameMode == GameMode.Tutorial)
+		{
+			Label timer = HUD.GetNode<Control>("ReferenceRect").GetNode<Label>("Time");
+			timer.Visible = false;
+			Timer time = timer.GetNode<Timer>("TimeTrial");
+			// time.Timeout -= () => timeTrialEnd();
+		}
+	}
 
 	public void timeTrialEnd()
 	{
-
+		if (currentGameMode != GameMode.timeTrial)
+		{
+			return;
+		}
 		GD.Print("Time Trial Ended! Final Score: " + score);
 		Label timer = HUD.GetNode<Control>("ReferenceRect").GetNode<Label>("Time");
 		timer.Visible = true;
@@ -191,13 +211,13 @@ public partial class SpaceShip : CharacterBody3D
 
 		if (currentObjective == Objectives.DeliverToStation && passengers.Count > 0)
 		{
-			Control arrow = HUD.GetNode<Control>("ReferenceRect").GetNode<Control>("Arrow");
-			var station = GetParent().GetNode<Node3D>("SpaceStationTheta").GlobalPosition;
-			var shipPos = GlobalPosition;
-			station.Y = 0;
-			shipPos.Y = 0;
+			// Control arrow = HUD.GetNode<Control>("ReferenceRect").GetNode<Control>("Arrow");
+			// var station = GetParent().GetNode<Node3D>("SpaceStationTheta").GlobalPosition;
+			// var shipPos = GlobalPosition;
+			// station.Y = 0;
+			// shipPos.Y = 0;
 
-			arrow.Rotation = 0;
+			// arrow.Rotation = 0;
 		}
 		if (currentGameMode == GameMode.timeTrial)
 		{
@@ -205,15 +225,16 @@ public partial class SpaceShip : CharacterBody3D
 			timer.Visible = true;
 			Timer time = timer.GetNode<Timer>("TimeTrial");
 			timer.Text = "Time: " + time.TimeLeft.ToString("F2") + "s";
-			Label scoreDisplay = HUD.GetNode<Control>("ReferenceRect").GetNode<Label>("Score");
+			
+
+		}
+		Label scoreDisplay = HUD.GetNode<Control>("ReferenceRect").GetNode<Label>("Score");
 			scoreDisplay.Visible = true;
 			scoreDisplay.Text = "Score: " + score.ToString();
 
-		}
-
 	}
 
-	GameMode currentGameMode = GameMode.timeTrial;
+	public GameMode currentGameMode = GameMode.timeTrial;
 	public override void _Input(InputEvent @event)
 	{
 		// Vector2 inputCam = Input.GetVector("camera_left", "camera_right", "camera_up", "camera_down");
@@ -365,6 +386,11 @@ public partial class SpaceShip : CharacterBody3D
 				Control icon = HUD.GetNode<Control>("ReferenceRect").GetNode<Control>(destinations.ToString());
 				icon.GetChildren().Clear();
 				icon.Visible = false;
+				if (currentGameMode == GameMode.Tutorial){
+					DisplayTransmission("Great job! Now try playing time trial mode!!");
+					GetTree().CreateTimer(5.0f).Timeout += () => GetTree().ChangeSceneToFile("res://Scenes/MainMenu.tscn");
+					Input.MouseMode = Input.MouseModeEnum.Visible;
+				}
 			}
 		}
 		if (passengers.Count == 0)
