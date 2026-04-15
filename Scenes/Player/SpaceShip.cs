@@ -2,6 +2,7 @@ using Godot;
 using Godot.Collections;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
 
 public partial class SpaceShip : CharacterBody3D
@@ -198,14 +199,33 @@ public partial class SpaceShip : CharacterBody3D
 		MoveAndSlide();
 		_camera.Fov = Mathf.Lerp(_camera.Fov, 70 + speed * 0.3f, 0.1f);
 		HUD.GetNode<Control>("ReferenceRect").GetNode<Label>("Speed").Text = "Current Speed: " + speed.ToString("F2") + " m/s";
-
+		Label progressDisplay = HUD.GetNode<Control>("ReferenceRect").GetNode<Label>("ProgressBar");
 		if (Input.IsActionJustPressed("EnterShip"))
 		{
 			shipTimer.Start();
+			progressDisplay.Visible = true;
 		}
 		else if (Input.IsActionJustReleased("EnterShip"))
 		{
 			shipTimer.Stop();
+			progressDisplay.Visible = false;
+		}
+		if (Input.IsActionPressed("EnterShip"))
+		{
+			progressDisplay.Text = "[";
+			int progress = (int)((shipTimer.TimeLeft / shipTimer.WaitTime) * progressBarlength);
+			for (int i = 0; i < progressBarlength; i++)
+			{
+				if (i < progress)
+				{
+					progressDisplay.Text += " ";
+				}
+				else
+				{
+					progressDisplay.Text += "x";
+				}
+			}
+			progressDisplay.Text += "]";
 		}
 
 
@@ -263,6 +283,7 @@ public partial class SpaceShip : CharacterBody3D
 		}
 	}
 	bool inShip = true;
+	private int progressBarlength = 12;
 	public void ExitShip()
 	{
 		var ropeLength = (new Vector3(0, 0, -1.252f) - new Vector3(player.Position.X, player.Position.Y - .5f, player.Position.Z)).Length();

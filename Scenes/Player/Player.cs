@@ -4,10 +4,10 @@ using System;
 public partial class Player : CharacterBody3D
 {
 	[Export]
-	public float Acelleration { get; set; } = .5f;
+	public float Acelleration { get; set; } = .75f;
 	[Export]
-	public float VerticalAcelleration { get; set; } = .4f;
-	public float MaxSpeed { get; set; } = 3.5f;
+	public float VerticalAcelleration { get; set; } = .6f;
+	public float MaxSpeed { get; set; } = 4f;
 	public float CameraSensitivity { get; set; } = .006f;
 
 	public float currentSpeed = 0;
@@ -19,7 +19,7 @@ public partial class Player : CharacterBody3D
 	Label transmissionLabel;
 	Timer transmissionTimer;
 	AudioStreamPlayer transmissionSound;
-	private float MAXropeLength = 14;
+	private float MAXropeLength = 9;
 	private float ropeLength = 0;
 	private Node2D HUD;
 
@@ -38,6 +38,8 @@ public partial class Player : CharacterBody3D
 		transmissionTimer.Timeout += MakeMessage;
 		
 	}
+		private int progressBarlength = 12;
+
 	public override void _PhysicsProcess(double delta)
 	{
 		Vector3 velocity = Velocity;
@@ -57,6 +59,7 @@ public partial class Player : CharacterBody3D
 		Velocity = Velocity.Normalized() * Math.Min(Velocity.Length(), MaxSpeed);
 		currentSpeed = Velocity.Length();
 		MoveAndSlide();
+		Label progressDisplay = HUD.GetNode<Control>("ReferenceRect").GetNode<Label>("ProgressBar");
 
 		if (Input.IsActionPressed("Stop"))
 		{
@@ -68,10 +71,29 @@ public partial class Player : CharacterBody3D
 		{
 			DisplayTransmission("Entering Ship...");
 			shipTimer.Start();
+			progressDisplay.Visible = true;
 		}
 		else if (Input.IsActionJustReleased("EnterShip"))
 		{
 			shipTimer.Stop();
+			progressDisplay.Visible = false;
+		}
+		if (Input.IsActionPressed("EnterShip"))
+		{
+			progressDisplay.Text = "[";
+			int progress = (int)((shipTimer.TimeLeft / shipTimer.WaitTime) * progressBarlength);
+			for (int i = 0; i < progressBarlength; i++)
+			{
+				if (i < progress)
+				{
+					progressDisplay.Text += " ";
+				}
+				else
+				{
+					progressDisplay.Text += "x";
+				}
+			}
+			progressDisplay.Text += "]";
 		}
 
 		ropeMesh.ClearSurfaces();

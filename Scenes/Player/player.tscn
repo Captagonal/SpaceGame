@@ -48,6 +48,17 @@ font_color = Color(0.9999998, 0.7105196, 0.7008488, 1)
 outline_size = 20
 outline_color = Color(0.6427495, 0.13585058, 0.22788921, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_jhyir"]
+font = ExtResource("4_htcer")
+font_size = 202
+font_color = Color(0.76862746, 1, 0.827451, 1)
+shadow_size = 27
+shadow_color = Color(0, 0.827451, 0, 0.62352943)
+shadow_offset = Vector2(0.665, 1)
+stacked_outline_count = 1
+stacked_shadow_count = 1
+stacked_shadow_0/offset = Vector2(1, 1)
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_dd0ac"]
 radius = 1.298497
 
@@ -107,7 +118,7 @@ text = "xxxxxxxxxxxxxxxxxx"
 label_settings = SubResource("LabelSettings_0u5uq")
 
 [node name="TransmissionTimer" type="Timer" parent="CanvasLayer/HUD/ReferenceRect/Transmission" unique_id=324643082]
-wait_time = 0.2
+wait_time = 0.1
 
 [node name="TransmissionSound" type="AudioStreamPlayer" parent="CanvasLayer/HUD/ReferenceRect/Transmission" unique_id=2103609709]
 stream = ExtResource("6_dd0ac")
@@ -135,6 +146,7 @@ caret_blink = true
 
 [node name="Pause" type="Label" parent="CanvasLayer/HUD/ReferenceRect" unique_id=341639394]
 process_mode = 3
+visible = false
 layout_mode = 0
 offset_left = 200.7942
 offset_top = 530.67084
@@ -163,6 +175,19 @@ offset_right = 441.18176
 offset_bottom = 176.91159
 text = "QUIT"
 label_settings = SubResource("LabelSettings_gk6dx")
+
+[node name="ProgressBar" type="Label" parent="CanvasLayer/HUD/ReferenceRect" unique_id=663451030]
+visible = false
+layout_mode = 0
+offset_left = 739.28827
+offset_top = 187.75584
+offset_right = 2434.2886
+offset_bottom = 430.75586
+rotation = 3.1415927
+scale = Vector2(0.43330723, 0.43330723)
+text = "[xxxx        ]"
+label_settings = SubResource("LabelSettings_jhyir")
+uppercase = true
 
 [node name="Area3D" type="Area3D" parent="." unique_id=1622795480]
 collision_layer = 4

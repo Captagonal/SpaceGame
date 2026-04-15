@@ -68,7 +68,7 @@ material_overlay = SubResource("StandardMaterial3D_3j26a")
 texture = SubResource("ViewportTexture_7bloo")
 
 [node name="SubViewport" type="SubViewport" parent="Sprite3D" unique_id=2141261809]
-size = Vector2i(1850, 546)
+size = Vector2i(2063, 651)
 
 [node name="Control" type="Control" parent="Sprite3D/SubViewport" unique_id=339286882]
 layout_mode = 3
@@ -84,7 +84,8 @@ offset_right = 556.0
 offset_bottom = 135.0
 text = "Welcome to
 Space Guard
-you can move using WASD"
+you can move using WASD
+and Space/Shift for up/down"
 label_settings = SubResource("LabelSettings_rlm2d")
 horizontal_alignment = 1
 

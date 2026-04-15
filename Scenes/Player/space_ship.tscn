@@ -346,7 +346,6 @@ current = true
 far = 8000.0
 
 [node name="ShipTimer" type="Timer" parent="." unique_id=856729568]
-wait_time = 3.0
 
 [node name="Rope" type="MeshInstance3D" parent="." unique_id=529138224]
 material_override = SubResource("StandardMaterial3D_yviej")
@@ -541,6 +540,19 @@ offset_right = 441.18176
 offset_bottom = 176.91159
 text = "QUIT"
 label_settings = SubResource("LabelSettings_jxmt7")
+
+[node name="ProgressBar" type="Label" parent="CanvasLayer/HUD/ReferenceRect" unique_id=1131264927]
+visible = false
+layout_mode = 0
+offset_left = 741.89624
+offset_top = 400.28485
+offset_right = 2436.8965
+offset_bottom = 643.28485
+rotation = 3.1415927
+scale = Vector2(0.43330723, 0.43330723)
+text = "[xxxx        ]"
+label_settings = SubResource("LabelSettings_sm5ja")
+uppercase = true
 
 [node name="Docking" type="Area3D" parent="." unique_id=1385519226]
 collision_layer = 2
