@@ -8,6 +8,9 @@
 [ext_resource type="AudioStream" uid="uid://cmiv5h3gb3iqj" path="res://Assets/Sounds/footstep.mp3" id="6_rsiac"]
 [ext_resource type="AudioStream" uid="uid://bf3m4rtf3wwbg" path="res://Assets/Sounds/Notif.mp3" id="7_3bmuq"]
 
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_3bmuq"]
+size = Vector2(5000, 5000)
+
 [sub_resource type="LabelSettings" id="LabelSettings_geirw"]
 font = ExtResource("3_alxvg")
 font_size = 100
@@ -25,6 +28,12 @@ shadow_color = Color(0, 0.49411765, 0, 0.6392157)
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_b226h")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=134642128]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(885, 652)
+scale = Vector2(0.612, 0.462)
+texture = SubResource("PlaceholderTexture2D_3bmuq")
 
 [node name="1" type="VideoStreamPlayer" parent="." unique_id=954090455]
 layout_mode = 0

@@ -7,7 +7,14 @@ public partial class Intro : Control
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		transmissionLabel = GetNode<Label>("Transmission");
+		transmissionTimer = transmissionLabel.GetNode<Timer>("TransmissionTimer");
+		transmissionSound = transmissionLabel.GetNode<AudioStreamPlayer>("TransmissionSound");
+		transmissionTimer.Timeout += MakeMessage;
+		transmissionLabel.Text = "";
+		DisplayTransmission("Welcome to your new job");
 		videoPlayer2 = GetNode<VideoStreamPlayer>("2");
+		
 		var config = new ConfigFile();
 
 		// Load data from a file.
@@ -22,12 +29,7 @@ public partial class Intro : Control
 		var audioBus = AudioServer.GetBusIndex("Master");
 
 		AudioServer.SetBusVolumeDb(audioBus, Mathf.LinearToDb((float)config.GetValue("Audio", "Volume", 1f)));
-		transmissionLabel = GetNode<Label>("Transmission");
-		transmissionTimer = transmissionLabel.GetNode<Timer>("TransmissionTimer");
-		transmissionSound = transmissionLabel.GetNode<AudioStreamPlayer>("TransmissionSound");
-		transmissionTimer.Timeout += MakeMessage;
-		transmissionLabel.Text = "";
-		DisplayTransmission("Welcome to your new job");
+		
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

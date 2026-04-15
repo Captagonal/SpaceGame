@@ -26,6 +26,10 @@ glow_enabled = true
 glow_intensity = 0.1
 glow_bloom = 0.2
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3j26a"]
+depth_draw_mode = 1
+albedo_color = Color(1, 1, 1, 0.6039216)
+
 [sub_resource type="ViewportTexture" id="ViewportTexture_7bloo"]
 viewport_path = NodePath("Sprite3D/SubViewport")
 
@@ -35,8 +39,12 @@ font_size = 118
 outline_size = 46
 outline_color = Color(0.03767187, 0.17239481, 0.1574327, 1)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x7a1n"]
+
 [sub_resource type="ViewportTexture" id="ViewportTexture_rlm2d"]
 viewport_path = NodePath("Sprite3D2/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vv0ms"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_3j26a"]
 viewport_path = NodePath("Sprite3D3/SubViewport")
@@ -56,10 +64,10 @@ transform = Transform3D(0.92160356, 0, 0, 0, 0.9216035, 0, 0, 0, 0.92160356, 0, 
 
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=31614556]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 8.847552, 3.9318347, 0)
+material_overlay = SubResource("StandardMaterial3D_3j26a")
 texture = SubResource("ViewportTexture_7bloo")
 
 [node name="SubViewport" type="SubViewport" parent="Sprite3D" unique_id=2141261809]
-transparent_bg = true
 size = Vector2i(1850, 546)
 
 [node name="Control" type="Control" parent="Sprite3D/SubViewport" unique_id=339286882]
@@ -81,7 +89,8 @@ label_settings = SubResource("LabelSettings_rlm2d")
 horizontal_alignment = 1
 
 [node name="Sprite3D2" type="Sprite3D" parent="." unique_id=1061337190]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 30.632027, 3.9318347, -0.08126354)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 42.01708, 3.9318347, -0.08126354)
+material_overlay = SubResource("StandardMaterial3D_x7a1n")
 texture = SubResource("ViewportTexture_rlm2d")
 
 [node name="SubViewport" type="SubViewport" parent="Sprite3D2" unique_id=1542162580]
@@ -109,10 +118,11 @@ autowrap_mode = 3
 transform = Transform3D(0.0154630495, 0, 0.99988043, 0, 1, 0, -0.99988043, 0, 0.0154630495, 269.98865, 12.9667015, -8.93021)
 
 [node name="StrandedPerson" parent="." unique_id=1050291092 instance=ExtResource("4_7bloo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.593678, 2.951686, -10.637281)
+transform = Transform3D(0.9999752, -0.0057899463, 0.004010869, 0.005730361, 0.99987537, 0.014712131, -0.004095548, -0.014688782, 0.9998837, 39.363224, 3.561845, -28.68105)
 
 [node name="Sprite3D3" type="Sprite3D" parent="." unique_id=1569575442]
-transform = Transform3D(0.99999446, 0.0031419653, -0.0010918247, -0.003142544, 0.999995, -0.0005299154, 0.0010901574, 0.00053333695, 0.9999993, 18.499014, 3.9318328, -15.073631)
+transform = Transform3D(-0.81636006, -0.0028715048, -0.57753617, -0.0031425445, 0.999995, -0.0005299154, 0.57753474, 0.0013823374, -0.81636494, 50.332794, 3.9318328, -17.285753)
+material_overlay = SubResource("StandardMaterial3D_vv0ms")
 texture = SubResource("ViewportTexture_3j26a")
 
 [node name="SubViewport" type="SubViewport" parent="Sprite3D3" unique_id=7958101]
@@ -135,3 +145,6 @@ text = "Now that you have him lets take him to that station over there"
 label_settings = SubResource("LabelSettings_rlm2d")
 horizontal_alignment = 1
 autowrap_mode = 3
+
+[node name="StrandedPerson2" parent="." unique_id=216702958 instance=ExtResource("4_7bloo")]
+transform = Transform3D(0.9999752, -0.0057899463, 0.004010869, 0.005730361, 0.99987537, 0.014712131, -0.004095548, -0.014688782, 0.9998837, 30.22329, 3.5425746, -28.667278)
